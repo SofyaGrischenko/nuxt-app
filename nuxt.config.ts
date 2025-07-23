@@ -1,5 +1,5 @@
 import graphql from 'vite-plugin-graphql';
-
+import Aura_light from '@primeuix/themes/aura';
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
 export default defineNuxtConfig({
@@ -7,12 +7,11 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
     '@nuxt/eslint',
-    // '@nuxt/test-utils/module',
     '@primevue/nuxt-module',
     '@nuxtjs/tailwindcss',
     '@nuxtjs/apollo',
   ],
-  css: ['@/assets/style/app-theme.css'],
+  css: ['@/assets/style/main.css'],
   plugins: ['~/plugins/apollo-client'],
   vite: {
     plugins: [graphql],
@@ -20,8 +19,9 @@ export default defineNuxtConfig({
   primevue: {
     options: {
       theme: {
-        name: 'aura',
+        preset: Aura_light,
       },
+      ripple: true,
     },
   },
   apollo: {

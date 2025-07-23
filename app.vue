@@ -1,14 +1,13 @@
 <template>
-  <div>
-    <my-button />
-  </div>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
 </template>
 
 <script setup lang="ts">
-import MyButton from './components/MyButton.vue';
-import { getUsers } from './service/user';
+// import { getUsers } from './service/user';
 
-onMounted(() => {
-  getUsers();
-});
+// onMounted(() => {
+//   getUsers();
+// });
 </script>

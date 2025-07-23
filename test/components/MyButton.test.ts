@@ -1,15 +1,18 @@
-// import { mount } from '@vue/test-utils';
-// import MyButton from '@/components/MyButton.vue';
-// import { describe, it, expect } from 'vitest';
+import { mount } from '@vue/test-utils';
+import MyButton from '../../components/UI/MyButton.vue';
+import PrimeVue from 'primevue/config';
+import Button from 'primevue/button';
+import { describe, it, expect } from 'vitest';
 
-// describe('MyButton', () => {
-//   it('renders the button with correct label and class', () => {
-//     const wrapper = mount(MyButton);
-
-//     const button = wrapper.find('button');
-
-//     expect(button.exists()).toBe(true);
-//     expect(button.text()).toBe('Primary');
-//     expect(button.classes()).toContain('bg-black');
-//   });
-// });
+describe('MyButton', () => {
+  it('renders PrimeVue Button', () => {
+    const wrapper = mount(MyButton, {
+      global: {
+        plugins: [PrimeVue],
+        components: { Button },
+      },
+    });
+    expect(wrapper.findComponent(Button).exists()).toBe(true);
+    expect(wrapper.text()).toContain('Primary');
+  });
+});

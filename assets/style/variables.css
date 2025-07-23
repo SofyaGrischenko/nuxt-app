@@ -1,0 +1,18 @@
+:root {
+  --p-surface-ground: #838383;
+  
+  /* button */
+  --p-button-primary-background: #ba2525;
+  --p-button-primary-color: #ffff;
+
+  --p-button-primary-hover-border-color: #ba2525;
+  --p-button-primary-hover-background: #971d1d;
+  --p-button-primary-hover-border-color: #971d1d;
+  --p-button-primary-hover-color: #ffff;
+
+  --p-button-primary-active-background: #971d1d;
+  --p-button-primary-active-color: #fff;
+}
+
+/* .dark {
+} */
