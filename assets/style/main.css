@@ -7,4 +7,14 @@
   padding: 0;
   box-sizing: border-box;
   font-weight: normal;
+  font-family: sans-serif;
+}
+
+html {
+  background-color: #353535;
+}
+
+.p-inputtext,
+.p-password {
+  width: 100%;
 }

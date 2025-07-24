@@ -1,17 +1,31 @@
 :root {
   --p-surface-ground: #838383;
-  
-  /* button */
+
+  /*primary button */
   --p-button-primary-background: #ba2525;
+  --p-button-primary-border-color: #ba2525;
   --p-button-primary-color: #ffff;
 
+  /*primary button hover */
   --p-button-primary-hover-border-color: #ba2525;
   --p-button-primary-hover-background: #971d1d;
   --p-button-primary-hover-border-color: #971d1d;
   --p-button-primary-hover-color: #ffff;
 
+  /* primary button active */
   --p-button-primary-active-background: #971d1d;
+  --p-button-primary-active-border-color: #971d1d;
   --p-button-primary-active-color: #fff;
+
+  /* form input */
+  --p-inputtext-background: #00000000;
+
+  /* form input focus */
+  --p-floatlabel-focus-color: #ba2525;
+  --p-inputtext-focus-border-color: #ba2525;
+
+  /* form unput active */
+  --p-floatlabel-on-active-background: #353535;
 }
 
 /* .dark {
