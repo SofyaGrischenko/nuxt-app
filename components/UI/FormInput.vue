@@ -3,7 +3,7 @@
     <component
       :is="componentMap[component]"
       :id="field"
-      v-model="model"
+      v-model="modelValue"
       v-bind="$attrs"
       class="w-full"
     />
@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-const model = defineModel<string>();
+const modelValue = defineModel<string>();
 defineProps<{ label: string; field: string; component: string }>();
 
 const componentMap: Record<string, Component> = {

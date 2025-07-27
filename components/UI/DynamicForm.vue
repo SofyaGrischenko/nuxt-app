@@ -12,6 +12,7 @@
   </div>
 
   <Button
+    type="submit"
     variant="primary"
     label="submit"
     class="w-[10rem] rounded-[50px] tracking-wider"
@@ -24,18 +25,16 @@ import Button from 'primevue/button';
 import FormInput from './FormInput.vue';
 import type { Input } from '~/types/form.types';
 
-const { inputs } = defineProps<{ inputs: Input[] }>();
+const { inputs, initialData } = defineProps<{
+  inputs: Input[];
+  initialData: Record<string, string>;
+}>();
 
-const formData = reactive<Record<string, string>>(
-  inputs.reduce((acc, input) => {
-    acc[input.field] = '';
-    return acc;
-  }, {} as Record<string, string>)
-);
+const emit = defineEmits(['submit']);
+
+const formData = reactive({ ...initialData });
 
 const handleSubmit = async () => {
-  console.log('Form Submitted!', formData);
-
-  // await handleCreateUser(formData);
+  emit('submit', { ...formData });
 };
 </script>
