@@ -16,9 +16,16 @@ export const handleCreateUser = async (authInput: AuthInput) => {
     provideApolloClient(client);
 
     const { mutate } = useMutation(SIGN_UP);
-    const data = await mutate({ auth: authInput });
+    const result = await mutate({ auth: authInput });
 
-    console.log('signup', data);
+    const accessToken = result?.data.signup.access_token;
+    const refreshToken = result?.data.signup.refresh_token;
+
+    if (accessToken && refreshToken) {
+      useCookie('access_token').value = accessToken;
+      useCookie('refresh_token').value = refreshToken;  
+      return;
+    }
   } catch (e) {
     console.error('signup failed', e);
   }

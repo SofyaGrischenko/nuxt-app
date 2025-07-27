@@ -1,9 +1,9 @@
 <template>
-  <registration-form class="h-full" />
+  <login-form />
 </template>
 
 <script setup lang="ts">
-import RegistrationForm from '~/components/auth/RegistrationForm.vue';
+import LoginForm from '~/components/auth/LoginForm.vue';
 
 definePageMeta({
   middleware: 'auth',
