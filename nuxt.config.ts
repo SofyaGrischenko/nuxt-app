@@ -1,6 +1,5 @@
 import graphql from 'vite-plugin-graphql';
 import Aura_light from '@primeuix/themes/aura';
-// https://nuxt.com/docs/api/configuration/nuxt-config
 
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
@@ -12,7 +11,7 @@ export default defineNuxtConfig({
     '@nuxtjs/apollo',
   ],
   css: ['@/assets/style/main.css'],
-  plugins: ['~/plugins/apollo-client'],
+  plugins: ['~/plugins/apollo.client'],
   vite: {
     plugins: [graphql],
   },
@@ -27,7 +26,7 @@ export default defineNuxtConfig({
   apollo: {
     clients: {
       default: {
-        httpEndpoint: 'https://cv-project-js.inno.ws/api/graphql', //-graphql
+        httpEndpoint: process.env.GRAPHQL_ENDPOINT as string,
       },
     },
   },

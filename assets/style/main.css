@@ -7,4 +7,27 @@
   padding: 0;
   box-sizing: border-box;
   font-weight: normal;
+  font-family: sans-serif;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+  box-shadow: 0 0 0px 1000px transparent inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+html,
+body,
+#__nuxt {
+  background-color: #353535;
+  height: 100%;
+  width: 100%;
+}
+
+.p-inputtext,
+.p-password {
+  width: 100%;
 }

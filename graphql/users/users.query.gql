@@ -5,3 +5,13 @@ query GET_USERS {
     email
   }
 }
+
+query LOG_IN($auth: AuthInput!) {
+  login(auth: $auth) {
+    user {
+      id
+    }
+    access_token
+    refresh_token
+  }
+}
