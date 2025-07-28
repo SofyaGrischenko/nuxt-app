@@ -12,6 +12,8 @@
 </template>
 
 <script setup lang="ts">
+import { defineAsyncComponent } from 'vue';
+
 defineProps<{ label: string; field: string; component: string }>();
 const modelValue = defineModel<string>();
 

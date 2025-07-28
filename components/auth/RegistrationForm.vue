@@ -36,17 +36,12 @@ const inputs = shallowRef([
   },
 ]);
 
-//////////////////
 const formData = ref<AuthInput>({
   email: '',
   password: '',
 });
 
 const handleSubmit = async (data: AuthInput) => {
-  console.log('signup data', data);
-
   await handleCreateUser(data);
-
-  navigateTo('/users');
 };
 </script>

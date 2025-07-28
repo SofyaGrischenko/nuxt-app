@@ -6,6 +6,7 @@
     <h3>Hello again! Log in to continue</h3>
 
     <dynamic-form :inputs :initial-data="formData" @submit="handleSubmit" />
+    <p class="uppercase text-xs text-neutral-500">Forgot password</p>
   </div>
 </template>
 
@@ -31,17 +32,12 @@ const inputs = shallowRef([
   },
 ]);
 
-////////////////
 const formData = ref<AuthInput>({
   email: '',
   password: '',
 });
 
 const handleSubmit = async (data: AuthInput) => {
-  console.log('log in data', data);
-
   await handleLogin(data);
-
-  // navigateTo('/users');
 };
 </script>

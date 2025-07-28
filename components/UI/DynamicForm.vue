@@ -21,6 +21,7 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
 import Button from 'primevue/button';
 import FormInput from './FormInput.vue';
 import type { Input } from '~/types/form.types';
@@ -35,6 +36,6 @@ const emit = defineEmits(['submit']);
 const formData = ref({ ...initialData });
 
 const handleSubmit = async () => {
-  emit('submit', { ...formData });
+  emit('submit', formData.value);
 };
 </script>
