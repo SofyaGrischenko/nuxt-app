@@ -1,9 +1,9 @@
 <template>
-  <div>cvs</div>
+  <div>index</div>
 </template>
 
 <script setup lang="ts">
 definePageMeta({
-  middleware: 'auth',
+  middleware: ['auth', 'redirect'],
 });
 </script>
