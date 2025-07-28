@@ -19,8 +19,6 @@ export default defineConfig({
         'composables/**',
         'layouts/**',
         'pages/**',
-        'plugins/**',
-        'server/**',
         'store/**',
         'utils/**',
         'app.vue',

@@ -10,7 +10,7 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@nuxtjs/apollo',
   ],
-  css: ['@/assets/style/main.css'],
+  css: ['primeicons/primeicons.css', '@/assets/style/main.css'],
   plugins: ['~/plugins/apollo.client'],
   vite: {
     plugins: [graphql],
