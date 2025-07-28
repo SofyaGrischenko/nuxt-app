@@ -32,7 +32,7 @@ const { inputs, initialData } = defineProps<{
 
 const emit = defineEmits(['submit']);
 
-const formData = reactive({ ...initialData });
+const formData = ref({ ...initialData });
 
 const handleSubmit = async () => {
   emit('submit', { ...formData });

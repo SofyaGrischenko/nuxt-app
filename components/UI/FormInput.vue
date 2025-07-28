@@ -12,8 +12,8 @@
 </template>
 
 <script setup lang="ts">
-const modelValue = defineModel<string>();
 defineProps<{ label: string; field: string; component: string }>();
+const modelValue = defineModel<string>();
 
 const componentMap: Record<string, Component> = {
   InputText: defineAsyncComponent(() => import('primevue/inputtext')),

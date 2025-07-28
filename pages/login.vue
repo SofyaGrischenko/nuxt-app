@@ -1,5 +1,5 @@
 <template>
-  <login-form />
+  <login-form class="h-full"/>
 </template>
 
 <script setup lang="ts">
