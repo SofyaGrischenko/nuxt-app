@@ -6,7 +6,9 @@
         :key="item.label"
         :to="item.path"
         class="flex items-center p-4 hover:bg-neutral-600 transition rounded-tr-full rounded-br-full"
-        :class="{ 'bg-neutral-600 text-neutral-100': $route.path === item.path }"
+        :class="{
+          'bg-neutral-600 text-neutral-100': route.path === item.path,
+        }"
       >
         <span :class="['pi', item.icon, 'mr-3 text-2xl']" />
         <span>{{ item.label }}</span>
@@ -19,6 +21,10 @@
 </template>
 
 <script setup lang="ts">
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
+
 const menuItems = [
   {
     label: 'Employees',
