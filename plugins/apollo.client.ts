@@ -10,7 +10,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   const config = useRuntimeConfig();
 
   const httpLink = createHttpLink({
-    uri: config.public.graphqlEndpoint as string,
+    uri: config.public.GRAPHQL_ENDPOINT as string,
   });
 
   const authLink = setContext((_, { headers }) => {
