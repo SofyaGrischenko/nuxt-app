@@ -15,6 +15,7 @@ export default defineNuxtConfig({
   vite: {
     plugins: [graphql],
   },
+  
   primevue: {
     options: {
       theme: {
@@ -22,12 +23,19 @@ export default defineNuxtConfig({
       },
       ripple: true,
     },
+
   },
   apollo: {
     clients: {
       default: {
         httpEndpoint: process.env.GRAPHQL_ENDPOINT as string,
       },
+    },
+  },
+
+  runtimeConfig: {
+    public: {
+      GRAPHQL_ENDPOINT: process.env.GRAPHQL_ENDPOINT,
     },
   },
 });

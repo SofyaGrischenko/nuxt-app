@@ -3,7 +3,7 @@
     title="Welcome back"
     caption="Hello again! Log in to continue"
     :inputs
-    :submit-handler="handleLogin"
+    :submit-handler="login"
     link-to="/signup"
     link-text="Forgot password"
     class="h-full"
@@ -12,7 +12,8 @@
 
 <script setup lang="ts">
 import AuthForm from '~/components/AuthForm.vue';
-import { handleLogin } from '~/service/api/user';
+
+const { login } = useAuth();
 
 definePageMeta({
   middleware: 'auth',

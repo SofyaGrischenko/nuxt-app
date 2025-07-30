@@ -15,7 +15,7 @@
       </NuxtLink>
     </div>
     <div class="p-6">
-      <i class="pi pi-sign-out text-2xl cursor-pointer" />
+      <i class="pi pi-sign-out text-2xl cursor-pointer" @click="logout" />
     </div>
   </aside>
 </template>
@@ -24,6 +24,7 @@
 import { useRoute } from 'vue-router';
 
 const route = useRoute();
+const { logout } = useAuth();
 
 const menuItems = [
   {

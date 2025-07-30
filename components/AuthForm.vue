@@ -34,6 +34,10 @@ const formData = ref<AuthInput>({
 });
 
 const handleSubmit = async (data: AuthInput) => {
-  await submitHandler(data);
+  try {
+    await submitHandler(data);
+  } catch (error) {
+    console.error('authh failed', error);
+  }
 };
 </script>

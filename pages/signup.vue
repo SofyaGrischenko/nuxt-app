@@ -3,7 +3,7 @@
     title="Register now"
     caption="Welcome! Sign up to continue"
     :inputs
-    :submit-handler="handleCreateUser"
+    :submit-handler="signup"
     link-to="/login"
     link-text="i have an account"
     class="h-full"
@@ -12,7 +12,8 @@
 
 <script setup lang="ts">
 import AuthForm from '~/components/AuthForm.vue';
-import { handleCreateUser } from '~/service/api/user';
+
+const { signup } = useAuth();
 
 definePageMeta({
   middleware: 'auth',

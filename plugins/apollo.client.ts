@@ -1,33 +1,61 @@
-import { setContext } from '@apollo/client/link/context';
 import {
   ApolloClient,
   InMemoryCache,
   createHttpLink,
+  from,
+  ApolloLink,
+  Observable,
 } from '@apollo/client/core';
-import { defineNuxtPlugin } from '#app';
+import { onError } from '@apollo/client/link/error';
+import { defineNuxtPlugin, useCookie } from '#app';
 
-export default defineNuxtPlugin((nuxtApp) => {
+export default defineNuxtPlugin(() => {
   const config = useRuntimeConfig();
 
   const httpLink = createHttpLink({
     uri: config.public.GRAPHQL_ENDPOINT as string,
+    credentials: 'include',
   });
 
-  const authLink = setContext((_, { headers }) => {
-    const token = useCookie<string | null>('token').value;
+  const authLink = new ApolloLink((operation, forward) => {
+    const accessToken = useCookie<string | null>('access_token');
 
-    return {
-      headers: {
-        ...headers,
-        authorization: token ? `Bearer ${token}` : '',
-      },
-    };
+    if (accessToken.value) {
+      operation.setContext(({ headers = {} }) => ({
+        headers: {
+          ...headers,
+          Authorization: `Bearer ${accessToken.value}`,
+        },
+      }));
+    }
+    return forward(operation);
+  });
+
+  const errorLink = onError(({ graphQLErrors, operation, forward }) => {
+    if (graphQLErrors?.some((e) => e.extensions?.code === 'UNAUTHENTICATED')) {
+      return new Observable((observer) => {
+        const refreshAndRetry = async () => {
+          try {
+            await useAuth().refresh();
+            forward(operation).subscribe(observer);
+          } catch (err) {
+            observer.error(err);
+          }
+        };
+
+        refreshAndRetry();
+      });
+    }
   });
 
   const apolloClient = new ApolloClient({
-    link: authLink.concat(httpLink),
+    link: from([authLink, httpLink, errorLink]),
     cache: new InMemoryCache(),
   });
 
-  nuxtApp.provide('apolloClient', apolloClient);
+  return {
+    provide: {
+      apolloClient,
+    },
+  };
 });

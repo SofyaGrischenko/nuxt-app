@@ -7,3 +7,10 @@ mutation SIGN_UP($auth: AuthInput!) {
     refresh_token
   }
 }
+
+mutation UPDATE_TOKEN {
+  updateToken {
+    access_token
+    refresh_token
+  }
+}
