@@ -1,13 +1,10 @@
-import { useApolloClient, useMutation, provideApolloClient } from '@vue/apollo-composable'
-import { SIGN_UP } from '@/graphql/users/users.mutations.gql'
-import type { AuthInput } from '~/types/user.types'
+import { useApolloMutation } from '~/composables/useApolloClient';
+import { SIGN_UP } from '~/graphql/auth/mutations';
+import type { AuthInput } from '~/types/user.types';
 
-export const handleSignup = async (auth: AuthInput) => {
-  const { client } = useApolloClient()
-  provideApolloClient(client)
+export const handleSignup = async (authInput: AuthInput) => {
+  const { data, mutate } = useApolloMutation(SIGN_UP);
 
-  const { mutate } = useMutation(SIGN_UP)
-  const result = await mutate({ auth })
-
-  return result?.data?.signup ?? null
-}
+  await mutate({ auth: authInput });
+  return data?.value.signup ?? null;
+};

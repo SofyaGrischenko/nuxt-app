@@ -1,19 +1,13 @@
-import { UPDATE_TOKEN } from '@/graphql/users/users.mutations.gql';
+import { useApolloQuery } from '~/composables/useApolloClient';
+import { UPDATE_TOKEN } from '~/graphql/auth/mutations';
 
-export const handleRefreshToken = async (token: string) => {
-  const { $apolloClient } = useNuxtApp();
-
+export const handleRefreshToken = async () => {
   try {
-    const result = await $apolloClient.mutate({
-      mutation: UPDATE_TOKEN,
-      context: {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      },
-    });
+    const { data } = useApolloQuery(UPDATE_TOKEN);
 
-    return result?.data?.updateToken?.access_token;
+    console.log('handleRefreshToken', data.value);
+    
+    return data?.value.updateToken?.access_token;
   } catch (error) {
     console.error('Update failed:', error);
     throw error;
