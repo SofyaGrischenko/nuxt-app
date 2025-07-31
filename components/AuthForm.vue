@@ -5,7 +5,7 @@
     <h1 class="text-3xl tracking-wider">{{ title }}</h1>
     <h3>{{ caption }}</h3>
 
-    <dynamic-form :inputs :initial-data="formData" @submit="handleSubmit" />
+    <dynamic-form :inputs :initial-data="formData" :submit-button @submit="handleSubmit" />
 
     <NuxtLink :to="linkTo" class="uppercase text-xs text-neutral-500">{{
       linkText
@@ -26,6 +26,7 @@ const { submitHandler } = defineProps<{
   submitHandler: (data: AuthInput) => Promise<unknown>;
   linkTo: string;
   linkText: string;
+  submitButton: string;
 }>();
 
 const formData = ref<AuthInput>({

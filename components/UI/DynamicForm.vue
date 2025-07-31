@@ -14,7 +14,7 @@
   <Button
     type="submit"
     variant="primary"
-    label="submit"
+    :label="submitButton"
     class="w-[10rem] rounded-[50px] tracking-wider"
     @click="handleSubmit"
   />
@@ -26,9 +26,10 @@ import Button from 'primevue/button';
 import FormInput from './FormInput.vue';
 import type { Input } from '~/types/form.types';
 
-const { inputs, initialData } = defineProps<{
+const { inputs, initialData, submitButton } = defineProps<{
   inputs: Input[];
   initialData: Record<string, string>;
+  submitButton: string;
 }>();
 
 const emit = defineEmits(['submit']);

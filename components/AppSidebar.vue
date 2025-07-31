@@ -28,22 +28,22 @@ const { logout } = useAuth();
 
 const menuItems = [
   {
-    label: 'Employees',
+    label: $t('sidebar.employees'),
     path: '/users',
     icon: 'pi-users',
   },
   {
-    label: 'Skills',
+    label: $t('sidebar.skills'),
     path: '/',
     icon: 'pi-chart-line',
   },
   {
-    label: 'Languages',
+    label: $t('sidebar.languages'),
     path: '/',
     icon: 'pi-language',
   },
   {
-    label: 'CVs',
+    label: $t('sidebar.cvs'),
     path: '/cvs',
     icon: 'pi-file',
   },
