@@ -1,18 +1,20 @@
 <template>
-  <AuthForm
-    title="Welcome back"
-    caption="Hello again! Log in to continue"
-    :inputs
-    :submit-handler="handleLogin"
-    link-to="/signup"
-    link-text="Forgot password"
-    class="h-full"
-  />
+    <AuthForm
+      :title="$t('auth.login_page.title')"
+      :caption="$t('auth.login_page.caption')"
+      :inputs
+      :submit-handler="login"
+      link-to="/signup"
+      :link-text="$t('auth.login_page.forgot_password_link')"
+      :submit-button="$t('auth.login_page.submit_button')"
+      class="h-full"
+    />
 </template>
 
 <script setup lang="ts">
 import AuthForm from '~/components/AuthForm.vue';
-import { handleLogin } from '~/service/api/user';
+
+const { login } = useAuth();
 
 definePageMeta({
   middleware: 'auth',
@@ -21,12 +23,12 @@ definePageMeta({
 
 const inputs = ref([
   {
-    label: 'Email',
+    label: $t('auth.input_label.email'),
     field: 'email',
     component: 'InputText',
   },
   {
-    label: 'Password',
+    label: $t('auth.input_label.password'),
     field: 'password',
     component: 'Password',
     props: {

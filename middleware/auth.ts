@@ -1,12 +1,13 @@
-export default defineNuxtRouteMiddleware((to) => {
-  const token = useCookie('access_token');
+export default defineNuxtRouteMiddleware(async (to) => {
+  const { isLoggedIn, refreshToken } = useAuth();
   const publicPages = ['/login', '/signup'];
+  const isPublicPage = publicPages.includes(to.path);
 
-  if (!token.value && !publicPages.includes(to.path)) {
-    return navigateTo('/login');
+  if (isLoggedIn.value && isPublicPage) {
+    return navigateTo('/users');
   }
 
-  if (token.value && publicPages.includes(to.path)) {
-    return navigateTo('/users');
+  if (!isLoggedIn.value && !refreshToken.value && !isPublicPage) {
+    return navigateTo('/login');
   }
 });

@@ -1,0 +1,30 @@
+{
+  "auth": {
+    "navigation": {
+      "log_in": "Войти",
+      "sign_up": "Создать"
+    },
+    "login_page": {
+      "title": "С возвращением",
+      "caption": "Рады вас видеть! Войдите, чтобы продолжить",
+      "submit_button": "Войти",
+      "forgot_password_link": "Забыли пароль"
+    },
+    "signup_page": {
+      "title": "Зарегистрируйтесь",
+      "caption": "Добро пожаловать! Создайте аккаунт, чтобы продолжить",
+      "submit_button": "Создать аккаунт",
+      "login_link": "У меня есть аккаунт"
+    },
+    "input_label": {
+      "email": "Почта",
+      "password": "Пароль"
+    }
+  },
+  "sidebar": {
+    "employees": "Сотрудники",
+    "skills": "Навыки",
+    "languages": "Языки",
+    "cvs": "Резюме"
+  }
+}
