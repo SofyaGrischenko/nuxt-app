@@ -16,6 +16,7 @@ export const useAuth = () => {
     sameSite: 'lax',
     secure: false,
   });
+  const localePath = useLocalePath();
 
   const isLoggedIn = computed(() => !!accessToken.value);
 
@@ -26,7 +27,7 @@ export const useAuth = () => {
       if (tokens?.access_token && tokens?.refresh_token) {
         accessToken.value = tokens.access_token;
         refreshToken.value = tokens.refresh_token;
-        return navigateTo('/users');
+        return navigateTo(localePath('/users'));
       } else {
         throw new Error('Wrong login or password');
       }
@@ -74,7 +75,7 @@ export const useAuth = () => {
       if (tokens?.access_token && tokens?.refresh_token) {
         accessToken.value = tokens.access_token;
         refreshToken.value = tokens.refresh_token;
-        return navigateTo('/users');
+        return navigateTo(localePath('/users'));
       } else {
         throw new Error('failed to signup');
       }
