@@ -1,13 +1,13 @@
-import { useApolloQuery } from '~/composables/useApolloClient';
 import { UPDATE_TOKEN } from '~/graphql/auth/mutations';
 
 export const handleRefreshToken = async () => {
   try {
-    const { data } = useApolloQuery(UPDATE_TOKEN);
+    const apolloClient = useApolloClient();
+    const { data } = await apolloClient.mutate({
+      mutation: UPDATE_TOKEN,
+    });
 
-    console.log('handleRefreshToken', data.value);
-    
-    return data?.value.updateToken?.access_token;
+    return data?.updateToken;
   } catch (error) {
     console.error('Update failed:', error);
     throw error;

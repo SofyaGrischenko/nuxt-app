@@ -17,14 +17,32 @@ import { onError } from '@apollo/client/link/error';
 
 let apolloClient: ApolloClient<NormalizedCacheObject> | null = null;
 
+enum operationName {
+  LOG_IN = 'LOG_IN',
+  SIGN_UP = 'SIGN_UP',
+  UPDATE_TOKEN = 'RefreshToken',
+}
+
 export const useApolloClient = () => {
   if (!apolloClient) {
     const httpLink = createHttpLink({
       uri: import.meta.env.VITE_GRAPHQL_ENDPOINT,
     });
 
-    const authLink = setContext((_, { headers }) => {
-      const { accessToken } = useAuth();
+    const authLink = setContext((graphqlRequest, { headers }) => {
+      const { refreshToken } = useAuth();
+      const accessToken = useCookie('access_token');
+
+      if (graphqlRequest.operationName === operationName.UPDATE_TOKEN) {
+        return {
+          headers: {
+            ...headers,
+            ...(refreshToken.value && {
+              authorization: `Bearer ${refreshToken.value}`,
+            }),
+          },
+        };
+      }
 
       return {
         headers: {
@@ -37,21 +55,32 @@ export const useApolloClient = () => {
     });
 
     const errorLink = onError(({ graphQLErrors, operation, forward }) => {
+      const { refresh, logout } = useAuth();
+
       if (
         graphQLErrors?.some((e) => e.extensions?.code === 'UNAUTHENTICATED')
       ) {
-        return new Observable((observer) => {
-          const refreshAndRetry = async () => {
-            try {
-              await useAuth().refresh();
-              forward(operation).subscribe(observer);
-            } catch (err) {
-              observer.error(err);
-            }
-          };
+        refresh();
 
-          refreshAndRetry();
-        });
+
+        if (operation.operationName === operationName.UPDATE_TOKEN) {
+          console.error('Refresh token is invalid or expired');
+          logout();
+          return;
+        }
+
+          return new Observable((observer) => {
+            const refreshAndRetry = async () => {
+              try {
+                await refresh();
+                forward(operation).subscribe(observer);
+              } catch (err) {
+                observer.error(err);
+              }
+            };
+
+            refreshAndRetry();
+          });
       }
     });
 

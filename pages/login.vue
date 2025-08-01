@@ -1,14 +1,14 @@
 <template>
-  <AuthForm
-    :title="$t('auth.login_page.title')"
-    :caption="$t('auth.login_page.caption')"
-    :inputs
-    :submit-handler="login"
-    link-to="/signup"
-    :link-text="$t('auth.login_page.forgot_password_link')"
-    :submit-button="$t('auth.login_page.submit_button')"
-    class="h-full"
-  />
+    <AuthForm
+      :title="$t('auth.login_page.title')"
+      :caption="$t('auth.login_page.caption')"
+      :inputs
+      :submit-handler="login"
+      link-to="/signup"
+      :link-text="$t('auth.login_page.forgot_password_link')"
+      :submit-button="$t('auth.login_page.submit_button')"
+      class="h-full"
+    />
 </template>
 
 <script setup lang="ts">

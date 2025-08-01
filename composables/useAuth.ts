@@ -41,15 +41,14 @@ export const useAuth = () => {
       return;
     }
 
-    console.log('REFRESH', refreshToken.value);
-
     try {
-      const newAccessToken = await handleRefreshToken();
+      const newTokens = await handleRefreshToken();
 
-      if (!newAccessToken) {
+      if (!newTokens) {
         throw new Error('returned no new token.');
       }
-      accessToken.value = newAccessToken;
+      accessToken.value = newTokens.access_token;
+      refreshToken.value = newTokens.refresh_token;
     } catch (error) {
       console.error('Failed to refresh token:', error);
       logout();
@@ -60,6 +59,11 @@ export const useAuth = () => {
   const logout = () => {
     accessToken.value = null;
     refreshToken.value = null;
+
+    const apolloClient = useApolloClient();
+    apolloClient.clearStore().catch((error) => {
+      console.error('Failed to clear Apollo cache on logout:', error);
+    });
     return navigateTo('/login');
   };
 
