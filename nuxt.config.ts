@@ -21,10 +21,21 @@ export default defineNuxtConfig({
   },
 
   i18n: {
-    defaultLocale: 'en',
     locales: [
-      { code: 'en',  file: 'en.json' },
-      { code: 'ru',  file: 'ru.json' },
+      { code: 'en', file: 'en.json', name: 'English' },
+      { code: 'ru', file: 'ru.json', name: 'Русский' },
     ],
+
+    defaultLocale: 'en',
+    langDir: 'locales/',
+    strategy: 'prefix_except_default',
+
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'i18n_redirected',
+      alwaysRedirect: true,
+      fallbackLocale: 'en',
+      // cookieCrossOrigin: true,
+    },
   },
 });

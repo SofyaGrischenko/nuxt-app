@@ -1,12 +1,12 @@
 <template>
   <AuthForm
-    :title="$t('auth.signup_page.title')"
-    :caption="$t('auth.signup_page.caption')"
+    :title="t('auth.signup_page.title')"
+    :caption="t('auth.signup_page.caption')"
     :inputs
     :submit-handler="signup"
-    link-to="/login"
-    :link-text="$t('auth.signup_page.login_link')"
-    :submit-button="$t('auth.signup_page.submit_button')"
+    :link-to="localePath('/login')"
+    :link-text="t('auth.signup_page.login_link')"
+    :submit-button="t('auth.signup_page.submit_button')"
     class="h-full"
   />
 </template>
@@ -15,20 +15,23 @@
 import AuthForm from '~/components/AuthForm.vue';
 
 const { signup } = useAuth();
+const localePath = useLocalePath();
+const { t } = useI18n();
 
 definePageMeta({
   middleware: 'auth',
   layout: 'auth',
+  auth: 'public',
 });
 
 const inputs = ref([
   {
-    label: $t('auth.input_label.email'),
+    label: t('auth.input_label.email'),
     field: 'email',
     component: 'InputText',
   },
   {
-    label: $t('auth.input_label.password'),
+    label: t('auth.input_label.password'),
     field: 'password',
     component: 'Password',
     props: {

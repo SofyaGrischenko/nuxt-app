@@ -15,6 +15,7 @@
       </NuxtLink>
     </div>
     <div class="p-6">
+      <language-switch />
       <i class="pi pi-sign-out text-2xl cursor-pointer" @click="logout" />
     </div>
   </aside>
@@ -25,27 +26,29 @@ import { useRoute } from 'vue-router';
 
 const route = useRoute();
 const { logout } = useAuth();
+const localePath = useLocalePath();
+const { t } = useI18n();
 
-const menuItems = [
+const menuItems = computed(() => [
   {
-    label: $t('sidebar.employees'),
-    path: '/users',
+    label: t('sidebar.employees'),
+    path: localePath('/users'),
     icon: 'pi-users',
   },
   {
-    label: $t('sidebar.skills'),
-    path: '/',
+    label: t('sidebar.skills'),
+    path: localePath('/'),
     icon: 'pi-chart-line',
   },
   {
-    label: $t('sidebar.languages'),
-    path: '/',
+    label: t('sidebar.languages'),
+    path: localePath('/'),
     icon: 'pi-language',
   },
   {
-    label: $t('sidebar.cvs'),
-    path: '/cvs',
+    label: t('sidebar.cvs'),
+    path: localePath('/cvs'),
     icon: 'pi-file',
   },
-];
+]);
 </script>

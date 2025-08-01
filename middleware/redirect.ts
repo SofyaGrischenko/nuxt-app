@@ -1,5 +1,7 @@
 export default defineNuxtRouteMiddleware((to) => {
-  if (to.path === '/') {
-    return navigateTo('/users');
+  const localePath = useLocalePath();
+
+  if (to.path === localePath('/')) {
+    return navigateTo(localePath('/users'));
   }
 });
