@@ -9,7 +9,6 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@nuxtjs/i18n',
   ],
-  css: ['primeicons/primeicons.css', '@/assets/style/main.css'],
 
   primevue: {
     options: {
@@ -19,6 +18,8 @@ export default defineNuxtConfig({
       ripple: true,
     },
   },
+
+  css: ['primeicons/primeicons.css', '@/assets/style/main.css'],
 
   i18n: {
     locales: [
@@ -35,7 +36,6 @@ export default defineNuxtConfig({
       cookieKey: 'i18n_redirected',
       alwaysRedirect: true,
       fallbackLocale: 'en',
-      // cookieCrossOrigin: true,
     },
   },
 });

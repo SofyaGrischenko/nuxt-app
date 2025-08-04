@@ -29,5 +29,13 @@
     "skills": "Skills",
     "languages": "Languages",
     "cvs": "CVs"
+  },
+
+  "tableHeaders": {
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "department": "Department",
+    "position": "Position"
   }
 }

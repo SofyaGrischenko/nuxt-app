@@ -1,11 +1,19 @@
 @import './variables.css';
 
 *,
-*:before,
-*:after {
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+html,
+body,
+#__nuxt {
+  background-color: #353535;
+  height: 100%;
+  width: 100%;
 }
 
 body {
@@ -22,15 +30,16 @@ input:-webkit-autofill:active {
   -webkit-text-fill-color: #ffffff !important;
 }
 
-html,
-body,
-#__nuxt {
-  background-color: #353535;
-  height: 100%;
-  width: 100%;
-}
-
 .p-inputtext,
 .p-password {
   width: 100%;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

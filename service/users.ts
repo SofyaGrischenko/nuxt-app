@@ -1,7 +1,12 @@
-import { GET_USERS } from "~/graphql/users/query";
+import { GET_USERS } from '~/graphql/users/query';
 
 export const handleGetUsers = async () => {
-  const { data, fetch } = useApolloQuery(GET_USERS);
-  await fetch()
-  console.log('USERS', data.value);
+  try {
+    const { data, fetch } = useApolloQuery(GET_USERS);
+    await fetch();
+
+    return data?.value;
+  } catch (error) {
+    console.error('failed to get users', error);
+  }
 };
