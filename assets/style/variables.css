@@ -27,12 +27,14 @@
 
   /* datatable */
   --p-datatable-table-background: #00000000;
-  --p-datatable-row-background: #00000000;
   --p-datatable-header-cell-background: #00000000;
-  --p-datatable-body-cell-border-color: #5b5b5b;
   --p-datatable-header-cell-border-color: #5b5b5b;
   --p-datatable-header-cell-color: #d0d0d0;
+  --p-datatable-header-cell-selected-background: #00000000;
+  --p-datatable-header-cell-focus-ring-color: #00000000;
   --p-datatable-row-color: #d0d0d0;
+  --p-datatable-row-background: #00000000;
+  --p-datatable-body-cell-border-color: #5b5b5b;
   --p-datatable-body-cell-padding: 1.5rem;
 }
 
