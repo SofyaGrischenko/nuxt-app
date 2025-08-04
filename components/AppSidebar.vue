@@ -15,7 +15,6 @@
       </NuxtLink>
     </div>
     <div class="p-6">
-      <language-switch />
       <i class="pi pi-sign-out text-2xl cursor-pointer" @click="logout" />
     </div>
   </aside>
