@@ -15,7 +15,7 @@
     type="submit"
     variant="primary"
     :label="submitButton"
-    class="w-[10rem] rounded-[50px] tracking-wider"
+    class="w-[10rem] tracking-wider"
     @click="handleSubmit"
   />
 </template>

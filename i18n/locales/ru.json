@@ -27,6 +27,11 @@
     "languages": "Языки",
     "cvs": "Резюме"
   },
+
+  "table": {
+    "button": "Показать еще"
+  },
+
   "tableHeaders": {
     "firstName": "Имя",
     "lastName": "Фамилия",

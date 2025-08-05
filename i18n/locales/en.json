@@ -31,6 +31,10 @@
     "cvs": "CVs"
   },
 
+  "table":{
+    "button": "See more"
+  },
+
   "tableHeaders": {
     "firstName": "First Name",
     "lastName": "Last Name",
@@ -38,4 +42,6 @@
     "department": "Department",
     "position": "Position"
   }
+
+
 }

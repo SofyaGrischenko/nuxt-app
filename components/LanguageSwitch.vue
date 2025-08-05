@@ -1,21 +1,33 @@
 <template>
-  <nav>
-    <NuxtLink
-      v-for="lang in availableLocales"
-      :key="lang.code"
-      :to="switchLocalePath(lang.code)"
-      class="lang-link"
+  <div>
+    <select
+      v-model="locale"
+      class="bg-transparent outline-none"
+      @change="onLocaleChange"
     >
-      {{ lang.name }}
-    </NuxtLink>
-  </nav>
+      <option
+        v-for="lang in locales"
+        :key="lang.code"
+        :value="lang.code"
+        class="bg-neutral-800 border-none"
+      >
+        {{ lang.name }}
+      </option>
+    </select>
+  </div>
 </template>
 
 <script setup lang="ts">
-const { locale, locales } = useI18n();
+const { locale, locales, loadLocaleMessages } = useI18n();
 const switchLocalePath = useSwitchLocalePath();
 
-const availableLocales = computed(() => {
-  return locales.value.filter((i) => i.code !== locale.value);
-});
+const onLocaleChange = async () => {
+  const newLocale = locale.value;
+
+  await loadLocaleMessages(newLocale);
+
+  const path = switchLocalePath(newLocale);
+
+  navigateTo(path);
+};
 </script>
