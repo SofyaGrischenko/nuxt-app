@@ -27,11 +27,12 @@ export interface User {
 }
 
 export interface FlatUser {
-  id: string;
+  id?: string;
   email: string;
   department?: string;
   position?: string;
   firstName?: string;
   lastName?: string;
-  icon?: string
+  icon?: string;
+  role?: string;
 }

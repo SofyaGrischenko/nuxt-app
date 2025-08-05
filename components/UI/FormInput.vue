@@ -20,5 +20,6 @@ const modelValue = defineModel<string>();
 const componentMap: Record<string, Component> = {
   InputText: defineAsyncComponent(() => import('primevue/inputtext')),
   Password: defineAsyncComponent(() => import('primevue/password')),
+  Select: defineAsyncComponent(() => import('primevue/select')),
 };
 </script>

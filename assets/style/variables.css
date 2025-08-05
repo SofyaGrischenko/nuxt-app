@@ -41,6 +41,10 @@
   --p-button-text-primary-color: #5b5b5b;
   --p-button-text-primary-hover-background: #5151519f;
   --p-button-text-primary-active-background: #707070a7;
+
+  /* Dialog */
+
+  --p-dialog-background: #353535;
 }
 
 /* .dark {
