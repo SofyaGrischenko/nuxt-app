@@ -3,6 +3,7 @@
   --p-button-primary-background: #ba2525;
   --p-button-primary-border-color: #ba2525;
   --p-button-primary-color: #ffff;
+  --p-button-border-radius: 50px;
 
   /*primary button hover */
   --p-button-primary-hover-border-color: #ba2525;
@@ -36,6 +37,10 @@
   --p-datatable-row-background: #00000000;
   --p-datatable-body-cell-border-color: #5b5b5b;
   --p-datatable-body-cell-padding: 1.5rem;
+
+  --p-button-text-primary-color: #5b5b5b;
+  --p-button-text-primary-hover-background: #5151519f;
+  --p-button-text-primary-active-background: #707070a7;
 }
 
 /* .dark {
