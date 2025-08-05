@@ -29,5 +29,19 @@
     "skills": "Skills",
     "languages": "Languages",
     "cvs": "CVs"
+  },
+
+  "table":{
+    "button": "See more"
+  },
+
+  "tableHeaders": {
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "department": "Department",
+    "position": "Position"
   }
+
+
 }

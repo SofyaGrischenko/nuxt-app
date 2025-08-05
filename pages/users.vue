@@ -1,12 +1,14 @@
 <template>
-  <div>users page</div>
+  <div class="ml-6">
+    <users-table />
+  </div>
 </template>
 
 <script setup lang="ts">
-import { handleGetUsers } from '~/service/users';
+import UsersTable from '~/components/UsersTable.vue';
+
 definePageMeta({
   middleware: 'auth',
 });
 
-onMounted(() => handleGetUsers());
 </script>

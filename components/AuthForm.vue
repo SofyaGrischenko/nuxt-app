@@ -23,10 +23,10 @@ const { submitHandler } = defineProps<{
   title: string;
   caption: string;
   inputs: Input[];
-  submitHandler: (data: AuthInput) => Promise<unknown>;
   linkTo: string;
   linkText: string;
   submitButton: string;
+  submitHandler: (data: AuthInput) => Promise<unknown>;
 }>();
 
 const formData = ref<AuthInput>({
