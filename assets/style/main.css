@@ -36,10 +36,6 @@ input:-webkit-autofill:active {
 }
 
 .no-scrollbar::-webkit-scrollbar {
-  display: none;
+  visibility: hidden;
 }
 
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}

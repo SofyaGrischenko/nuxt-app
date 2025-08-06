@@ -23,8 +23,11 @@
   --p-floatlabel-focus-color: #ba2525;
   --p-inputtext-focus-border-color: #ba2525;
 
-  /* form unput active */
+  /* form input active */
   --p-floatlabel-on-active-background: #353535;
+
+  /* form input disabled */
+  --p-inputtext-disabled-background: #00000000;
 
   /* datatable */
   --p-datatable-table-background: #00000000;
@@ -43,8 +46,15 @@
   --p-button-text-primary-active-background: #707070a7;
 
   /* Dialog */
-
   --p-dialog-background: #353535;
+  --p-dialog-content-padding: 1.5rem;
+
+  /* Select */
+  --p-select-overlay-background: #353535;
+  --p-select-focus-border-color: #353535;
+  --p-select-background: #353535;
+  --p-select-option-selected-background: #ba2525;
+  --p-select-option-selected-focus-background: #ba2525;
 }
 
 /* .dark {

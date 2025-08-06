@@ -29,8 +29,8 @@ export interface User {
 export interface FlatUser {
   id?: string;
   email: string;
-  department?: string;
-  position?: string;
+  dep?: string;
+  pos?: string;
   firstName?: string;
   lastName?: string;
   icon?: string;

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="ml-6">
     <div
       class="flex items-center border border-zinc-600 rounded-full px-4 py-2 w-full max-w-sm gap-3 mb-5"
     >
@@ -47,19 +47,23 @@
         @click="loadMore"
       />
     </div>
+    <user-dialog v-model:visible="isDialogVisible" :user="selectedUser" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
+import UserDialog from './UserDialog.vue';
 import DynamicTable from '~/components/UI/DynamicTable.vue';
 import { useUsers } from '~/composables/useUsers';
 import type { FlatUser } from '~/types/user.types';
 
 const { t } = useI18n();
-
 const { employees, searchQuery, filteredUsers, loadMore, fetchUsers } =
   useUsers();
+
+const selectedUser = ref<FlatUser | null>(null);
+const isDialogVisible = ref(false);
 
 const columns = [
   { field: 'icon', header: '', sortable: false },
@@ -72,7 +76,8 @@ const columns = [
 ];
 
 const showDetails = (data: FlatUser) => {
-  console.log('click', data);
+  selectedUser.value = data;
+  isDialogVisible.value = true;
 };
 
 onMounted(fetchUsers);

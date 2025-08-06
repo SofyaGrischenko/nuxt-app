@@ -1,5 +1,6 @@
 <template>
-  <div class="w-full gap-[20px] flex flex-col">
+  <div :class="wrapperClass ?? 'w-full flex flex-col gap-6'">
+    <!-- <div class="w-full gap-[20px] flex flex-col"> -->
     <form-input
       v-for="input in inputs"
       :key="input.field"
@@ -9,15 +10,17 @@
       :component="input.component"
       v-bind="input.props"
     />
+    <!-- </div> -->
+    <div class="flex justify-center mt-4">
+      <Button
+        type="submit"
+        variant="primary"
+        :label="submitButton"
+        class="w-[10rem] tracking-wider"
+        @click="handleSubmit"
+      />
+    </div>
   </div>
-
-  <Button
-    type="submit"
-    variant="primary"
-    :label="submitButton"
-    class="w-[10rem] tracking-wider"
-    @click="handleSubmit"
-  />
 </template>
 
 <script setup lang="ts">
@@ -26,10 +29,11 @@ import Button from 'primevue/button';
 import FormInput from './FormInput.vue';
 import type { Input } from '~/types/form.types';
 
-const { inputs, initialData, submitButton } = defineProps<{
+const { inputs, initialData, submitButton, wrapperClass } = defineProps<{
   inputs: Input[];
   initialData: Record<string, string>;
   submitButton: string;
+  wrapperClass?: string;
 }>();
 
 const emit = defineEmits(['submit']);

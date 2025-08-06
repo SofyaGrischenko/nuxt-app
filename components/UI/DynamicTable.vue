@@ -2,7 +2,7 @@
   <div>
     <DataTable
       :value="employees"
-      table-style="min-width: 50rem overflow-scroll"
+      table-style="min-width: 50rem"
     >
       <Column
         v-for="col of columns"
