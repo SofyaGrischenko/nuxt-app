@@ -1,6 +1,5 @@
 <template>
   <div class="flex items-center space-x-4 p-6 rounded-lg w-max">
-    <button v-if="previewUrl" class="self-end" @click="removeImage">✕</button>
     <label for="avatarUpload" class="cursor-pointer">
       <Avatar
         :image="previewUrl ?? ''"
@@ -9,12 +8,14 @@
         class="w-28 h-28 text-5xl bg-neutral-500 text-neutral-700"
       />
     </label>
+    <button v-if="previewUrl" class="self-start" @click="removeImage">✕</button>
     <div
       class="flex flex-col items-center justify-center p-6 transition-colors duration-200"
       :class="{
-        'border-2 rounded-lg': isDragging,
+        'border-2 rounded-lg border-dashed': isDragging,
       }"
       @dragenter.prevent="isDragging = true"
+      @dragover.prevent
       @dragleave.prevent="isDragging = false"
       @drop.prevent="onDrop"
     >
@@ -35,7 +36,7 @@
           accept="image/png, image/jpeg, image/gif"
           class="hidden"
           @change="handleFileChange"
-        >
+        />
       </div>
     </div>
   </div>
@@ -52,29 +53,26 @@ const initial = 'R';
 
 const isDragging = ref(false);
 
-function processFile(selectedFile: File | undefined | null) {
-  file.value = null; // Сначала сбрасываем
+const processFile = (selectedFile: File | undefined | null) => {
+  file.value = null;
 
   if (!selectedFile) {
     return;
   }
 
-  // Проверка типа файла (дополнительная безопасность)
   const allowedTypes = ['image/png', 'image/jpeg', 'image/gif'];
   if (!allowedTypes.includes(selectedFile.type)) {
-    alert('Неверный формат файла. Пожалуйста, выберите PNG, JPG или GIF.');
+    alert('wrong file format');
     return;
   }
 
-  // Проверка размера файла
   if (selectedFile.size > 512 * 1024) {
-    alert('Файл слишком большой! Максимальный размер 0.5MB.');
+    alert('file is too big, max size 0.5Mb');
     return;
   }
 
-  // Если все проверки пройдены
   file.value = selectedFile;
-}
+};
 
 const handleFileChange = (event: Event) => {
   const target = event.target as HTMLInputElement;
