@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col h-screen">
-    <div class="h-10 w-full flex justify-end py-3 px-5">
+    <div class="h-15 w-full flex justify-end py-3 px-5">
       <language-switch />
     </div>
     <div div class="flex flex-1  overflow-y-scroll no-scrollbar">

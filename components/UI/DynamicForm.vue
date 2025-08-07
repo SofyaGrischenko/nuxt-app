@@ -1,5 +1,5 @@
 <template>
-  <div :class="wrapperClass ?? 'w-full flex flex-col gap-6'">
+  <div :class="wrapperClass || 'w-full flex flex-col gap-6'">
     <!-- <div class="w-full gap-[20px] flex flex-col"> -->
     <form-input
       v-for="input in inputs"
@@ -29,12 +29,16 @@ import Button from 'primevue/button';
 import FormInput from './FormInput.vue';
 import type { Input } from '~/types/form.types';
 
-const { inputs, initialData, submitButton, wrapperClass } = defineProps<{
-  inputs: Input[];
-  initialData: Record<string, string>;
-  submitButton: string;
-  wrapperClass?: string;
-}>();
+const { inputs, initialData, wrapperClass } = withDefaults(
+  defineProps<{
+    inputs: Input[];
+    initialData: Record<string, string>;
+    wrapperClass?: string;
+  }>(),
+  {
+    wrapperClass: '',
+  }
+);
 
 const emit = defineEmits(['submit']);
 

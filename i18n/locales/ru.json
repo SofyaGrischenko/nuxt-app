@@ -38,5 +38,15 @@
     "email": "Электронная почта",
     "department": "Отдел",
     "position": "Должность"
+  },
+
+  "profile": {
+    "upload": {
+      "title": "Загрузить изображение профиля",
+      "caption": "PNG, JPG или GIF, не более 0.5МБ."
+    },
+    "user": {
+      "member_since": "участник с"
+    }
   }
 }
