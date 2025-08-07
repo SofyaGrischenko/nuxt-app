@@ -11,7 +11,7 @@
       v-bind="input.props"
     />
     <!-- </div> -->
-    <div class="flex justify-center mt-4">
+    <!-- <div class="flex justify-center mt-4">
       <Button
         type="submit"
         variant="primary"
@@ -19,7 +19,7 @@
         class="w-[10rem] tracking-wider"
         @click="handleSubmit"
       />
-    </div>
+    </div> -->
   </div>
 </template>
 

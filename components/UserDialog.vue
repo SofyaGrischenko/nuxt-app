@@ -1,11 +1,12 @@
 <template>
   <Dialog
     v-model:visible="dialogVisible"
-    :header="'Update user'"
     modal
+    :header="'Update user'"
     class="md:w-[600px]"
+    :style="{ width: '70vw' }"
   >
-    <DynamicForm
+    <dynamic-form
       v-if="user"
       :inputs="formInputs"
       :initial-data="formInitialData"
@@ -13,11 +14,23 @@
       :wrapper-class="'grid grid-cols-1 md:grid-cols-2 gap-6'"
       @submit="handleFormSubmit"
     />
+    <template #footer>
+      <div class="flex w-[50%]">
+        <Button
+          label="Cancel"
+          severity="secondary"
+          variant="outlined"
+          class="w-full"
+        />
+        <Button label="Save" severity="secondary" class="w-full" />
+      </div>
+    </template>
   </Dialog>
 </template>
 
 <script setup lang="ts">
 // import { useI18n } from 'vue-i18n';
+import Button from 'primevue/button';
 import DynamicForm from './UI/DynamicForm.vue';
 import type { Input } from '~/types/form.types';
 import type { FlatUser } from '~/types/user.types';
@@ -41,6 +54,21 @@ const dialogVisible = computed({
 
 const formInputs = computed<Input[]>(() => [
   {
+    field: 'email',
+    label: 'email',
+    component: 'InputText',
+    props: { disabled: true },
+  },
+  {
+    label: 'password',
+    field: 'password',
+    component: 'Password',
+    props: {
+      toggleMask: true,
+      feedback: false,
+    },
+  },
+  {
     field: 'firstName',
     label: 'first name',
     component: 'InputText',
@@ -55,19 +83,19 @@ const formInputs = computed<Input[]>(() => [
     props: { disabled: true },
   },
   {
-    field: 'email',
-    label: 'email',
-    component: 'InputText',
-    props: { disabled: true },
-  },
-  {
-    field: 'dep',
+    field: 'department',
     label: 'department',
-    component: 'InputText',
+    component: 'Select',
     props: { disabled: true },
   },
   {
-    field: 'pos',
+    field: 'position',
+    label: 'position',
+    component: 'Select',
+    props: { disabled: false },
+  },
+  {
+    field: 'role',
     label: 'position',
     component: 'InputText',
     props: { disabled: true },
@@ -78,8 +106,8 @@ const formInitialData = computed(() => ({
   firstName: user?.firstName || '',
   lastName: user?.lastName || '',
   email: user?.email || '',
-  dep: user?.dep || '',
-  pos: user?.pos || '',
+  department: user?.department || '',
+  position: user?.position || '',
 }));
 
 const handleFormSubmit = (formData: Record<string, string>) => {

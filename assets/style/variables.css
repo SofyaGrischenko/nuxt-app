@@ -17,9 +17,9 @@
   --p-button-primary-active-color: #fff;
 
   /* secondary button */
-  --p-button-secondary-background: #00000000;
-  --p-button-secondary-border-color: #636363;
-  
+  /* --p-button-secondary-background: #00000000;*/
+  --p-button-secondary-background: #636363;
+
   /* form input */
   --p-inputtext-background: #00000000;
 

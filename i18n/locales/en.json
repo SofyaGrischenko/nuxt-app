@@ -7,8 +7,6 @@
     "login_page": {
       "title": "Welcome back",
       "caption": "Hello again! Log in to continue",
-      "email_label": "Email",
-      "password_label": "Password",
       "submit_button": "Log In",
       "forgot_password_link": "Forgot Password"
     },
@@ -17,12 +15,12 @@
       "caption": "Welcome! Sign up to continue",
       "submit_button": "Create Account",
       "login_link": "I have an account"
-    },
-
-    "input_label": {
-      "email": "Email",
-      "password": "Password"
     }
+  },
+
+  "form_label": {
+    "email": "Email",
+    "password": "Password"
   },
 
   "sidebar": {

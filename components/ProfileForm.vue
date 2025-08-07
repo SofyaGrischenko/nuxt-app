@@ -36,12 +36,12 @@ const formInputs = computed<Input[]>(() => [
     component: 'InputText',
   },
   {
-    field: 'dep',
+    field: 'department',
     label: 'department',
     component: 'InputText',
   },
   {
-    field: 'pos',
+    field: 'position',
     label: 'position',
     component: 'InputText',
   },

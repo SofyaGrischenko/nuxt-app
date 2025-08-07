@@ -13,12 +13,8 @@ export interface LoginResponse {
 export interface User {
   id: string;
   email: string;
-  department?: {
-    name: string;
-  };
-  position?: {
-    name: string;
-  };
+  department_name?: string;
+  position_name?: string;
   profile?: {
     first_name: string;
     last_name: string;
@@ -29,8 +25,8 @@ export interface User {
 export interface FlatUser {
   id?: string;
   email: string;
-  dep?: string;
-  pos?: string;
+  department?: string;
+  position?: string;
   firstName?: string;
   lastName?: string;
   icon?: string;

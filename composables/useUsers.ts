@@ -1,47 +1,59 @@
+import { ref, computed } from 'vue';
 import { handleGetUsers } from '~/service/users';
-import type { User } from '~/types/user.types';
+import type { FlatUser, User } from '~/types/user.types';
 
 export function useUsers() {
-  const users = ref<User[]>([]);
+  const rawUsers = ref<User[]>([]);
   const searchQuery = ref('');
   const pagesToShow = ref(1);
   const pageSize = 20;
 
+  const flatUsers = computed<FlatUser[]>(() => {
+    return rawUsers.value.map((user) => {
+      const firstName = user.profile?.first_name ?? '';
+      const lastName = user.profile?.last_name ?? '';
+
+      return {
+        id: user.id,
+        firstName,
+        lastName,
+        icon: user.profile?.avatar,
+        email: user.email,
+        department: user.department_name,
+        position: user.position_name,
+      };
+    });
+  });
+
   const filteredUsers = computed(() => {
     const search = searchQuery.value.trim().toLowerCase();
-    return !search
-      ? users.value
-      : users.value.filter(
-          (u) =>
-            u.profile?.first_name?.toLowerCase().includes(search) ||
-            u.profile?.last_name?.toLowerCase().includes(search)
-        );
+    if (!search) {
+      return flatUsers.value;
+    }
+    return flatUsers.value.filter(
+      (user) =>
+        user.firstName?.includes(search) || user.lastName?.includes(search)
+    );
   });
 
   const employees = computed(() =>
-    filteredUsers.value.slice(0, pagesToShow.value * pageSize).map((user) => ({
-      id: user.id,
-      firstName: user.profile?.first_name,
-      lastName: user.profile?.last_name,
-      icon: user.profile?.avatar,
-      email: user.email,
-      dep: user.department?.name,
-      pos: user.position?.name,
-    }))
+    filteredUsers.value.slice(0, pagesToShow.value * pageSize)
   );
 
   const loadMore = () => pagesToShow.value++;
 
   const fetchUsers = async () => {
     const { users: fetchedUsers } = await handleGetUsers();
-    if (fetchedUsers) users.value = fetchedUsers;
+    if (fetchedUsers) {
+      rawUsers.value = fetchedUsers;
+    }
   };
 
   return {
-    users,
+    rawUsers,
     searchQuery,
-    filteredUsers,
     employees,
+    filteredUsers,
     loadMore,
     fetchUsers,
   };

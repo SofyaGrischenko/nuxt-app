@@ -10,12 +10,8 @@ export const GET_USERS = gql`
         last_name
         avatar
       }
-      department {
-        name
-      }
-      position {
-        name
-      }
+      department_name
+      position_name
     }
   }
 `;
