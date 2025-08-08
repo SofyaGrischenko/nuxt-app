@@ -9,7 +9,7 @@
         type="text"
         placeholder="Search"
         class="bg-transparent outline-none text-white placeholder-zinc-400 w-full"
-      />
+      >
     </div>
 
     <dynamic-table :employees :columns>
@@ -19,7 +19,7 @@
           :src="data.icon"
           :alt="data.firstName"
           class="w-10 h-10 rounded-full object-cover"
-        />
+        >
         <div
           v-else
           class="w-10 h-10 rounded-full bg-neutral-500 flex items-center justify-center text-lg text-neutral-700"
@@ -67,11 +67,11 @@ const isDialogVisible = ref(false);
 
 const columns = [
   { field: 'icon', header: '', sortable: false },
-  { field: 'firstName', header: t('tableHeaders.firstName'), sortable: true },
-  { field: 'lastName', header: t('tableHeaders.lastName'), sortable: true },
-  { field: 'email', header: t('tableHeaders.email'), sortable: true },
-  { field: 'department', header: t('tableHeaders.department'), sortable: true },
-  { field: 'position', header: t('tableHeaders.position'), sortable: true },
+  { field: 'firstName', header: t('table.firstName'), sortable: true },
+  { field: 'lastName', header: t('table.lastName'), sortable: true },
+  { field: 'email', header: t('table.email'), sortable: true },
+  { field: 'department', header: t('table.department'), sortable: true },
+  { field: 'position', header: t('table.position'), sortable: true },
   { field: 'details', header: '', sortable: false },
 ];
 

@@ -1,12 +1,10 @@
 import { navigateTo, useCookie } from '#app';
-import { handleLogin } from '@/service/auth/login';
-import { handleRefreshToken } from '@/service/auth/refresh';
-import { handleSignup } from '~/service/auth/signup';
+import { handleLogin, handleRefreshToken, handleSignup } from '@/service/auth';
 import type { AuthInput } from '~/types/user.types';
 
 export const useAuth = () => {
   const accessToken = useCookie<string | null>('access_token', {
-    maxAge: 60 * 15,
+    maxAge: 60 * 60 * 12,
     sameSite: 'lax',
     secure: false,
   });
@@ -16,17 +14,18 @@ export const useAuth = () => {
     sameSite: 'lax',
     secure: false,
   });
+
   const localePath = useLocalePath();
 
   const isLoggedIn = computed(() => !!accessToken.value);
 
   const login = async (auth: AuthInput) => {
     try {
-      const tokens = await handleLogin(auth);
+      const response = await handleLogin(auth);
 
-      if (tokens?.access_token && tokens?.refresh_token) {
-        accessToken.value = tokens.access_token;
-        refreshToken.value = tokens.refresh_token;
+      if (response?.access_token && response?.refresh_token) {
+        accessToken.value = response.access_token;
+        refreshToken.value = response.refresh_token;
         return navigateTo(localePath('/users'));
       } else {
         throw new Error('Wrong login or password');
@@ -70,11 +69,12 @@ export const useAuth = () => {
 
   const signup = async (auth: AuthInput) => {
     try {
-      const tokens = await handleSignup(auth);
+      const response = await handleSignup(auth);
 
-      if (tokens?.access_token && tokens?.refresh_token) {
-        accessToken.value = tokens.access_token;
-        refreshToken.value = tokens.refresh_token;
+      if (response?.access_token && response?.refresh_token) {
+        accessToken.value = response.access_token;
+        refreshToken.value = response.refresh_token;
+
         return navigateTo(localePath('/users'));
       } else {
         throw new Error('failed to signup');
