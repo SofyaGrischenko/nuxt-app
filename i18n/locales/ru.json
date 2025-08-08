@@ -29,10 +29,7 @@
   },
 
   "table": {
-    "button": "Показать еще"
-  },
-
-  "tableHeaders": {
+    "button": "Показать еще",
     "firstName": "Имя",
     "lastName": "Фамилия",
     "email": "Электронная почта",
@@ -48,5 +45,17 @@
     "user": {
       "member_since": "участник с"
     }
-  }
+  },
+
+  "labels": {
+    "email": "Электронная почта",
+    "password": "Пароль",
+    "department": "Отдел",
+    "position": "Должность",
+    "first_name": "Имя",
+    "last_name": "Фамилия",
+    "role": "Роль"
+  },
+  "updateButton": "Сохранить",
+  "loading": "Загрузка..."
 }

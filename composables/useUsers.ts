@@ -10,17 +10,18 @@ export function useUsers() {
 
   const flatUsers = computed<FlatUser[]>(() => {
     return rawUsers.value.map((user) => {
-      const firstName = user.profile?.first_name ?? '';
-      const lastName = user.profile?.last_name ?? '';
+      const firstName = user.profile?.firstName ?? '';
+      const lastName = user.profile?.lastName ?? '';
 
       return {
         id: user.id,
+        created_at: user.created_at,
         firstName,
         lastName,
-        icon: user.profile?.avatar,
+        icon: user.profile?.avatarUrl,
         email: user.email,
-        department: user.department_name,
-        position: user.position_name,
+        department: user.department,
+        position: user.position,
       };
     });
   });

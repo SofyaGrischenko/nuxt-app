@@ -18,9 +18,14 @@
     }
   },
 
-  "form_label": {
+  "labels": {
     "email": "Email",
-    "password": "Password"
+    "password": "Password",
+    "department": "Department",
+    "position": "Position",
+    "first_name": "First name",
+    "last_name": "Last name",
+    "role": "Role"
   },
 
   "sidebar": {
@@ -31,10 +36,7 @@
   },
 
   "table": {
-    "button": "See more"
-  },
-
-  "tableHeaders": {
+    "button": "See more",
     "firstName": "First Name",
     "lastName": "Last Name",
     "email": "Email",
@@ -48,7 +50,10 @@
       "caption": "png, jpg or gif no more than 0.5Mb."
     },
     "user": {
-      "member_since": "a member since"
+      "member_since": "A member since"
     }
-  }
+  },
+
+  "updateButton": "Update",
+  "loading": "Loading..."
 }

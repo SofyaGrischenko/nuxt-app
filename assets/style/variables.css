@@ -59,6 +59,8 @@
   --p-select-background: #353535;
   --p-select-option-selected-background: #ba2525;
   --p-select-option-selected-focus-background: #ba2525;
+  --p-select-focus-border-color: #ba2525;
+  --p-select-disabled-background: #00000000;
 }
 
 /* .dark {

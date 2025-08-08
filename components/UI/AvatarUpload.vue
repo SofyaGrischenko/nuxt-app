@@ -36,7 +36,7 @@
           accept="image/png, image/jpeg, image/gif"
           class="hidden"
           @change="handleFileChange"
-        />
+        >
       </div>
     </div>
   </div>

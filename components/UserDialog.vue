@@ -8,28 +8,29 @@
   >
     <dynamic-form
       v-if="user"
+      v-model="formInitialData"
       :inputs="formInputs"
-      :initial-data="formInitialData"
       :submit-button="'save'"
       :wrapper-class="'grid grid-cols-1 md:grid-cols-2 gap-6'"
       @submit="handleFormSubmit"
     />
     <template #footer>
-      <div class="flex w-[50%]">
+      <div class="flex w-[50%] gap-5">
         <Button
           label="Cancel"
           severity="secondary"
           variant="outlined"
           class="w-full"
+          @click="closeForm()"
         />
-        <Button label="Save" severity="secondary" class="w-full" />
+        <Button label="Update" severity="secondary" class="w-full" disabled />
       </div>
     </template>
   </Dialog>
 </template>
 
 <script setup lang="ts">
-// import { useI18n } from 'vue-i18n';
+import { useI18n } from 'vue-i18n';
 import Button from 'primevue/button';
 import DynamicForm from './UI/DynamicForm.vue';
 import type { Input } from '~/types/form.types';
@@ -45,7 +46,8 @@ const emit = defineEmits<{
   (e: 'submit', data: Record<string, string>): void;
 }>();
 
-// const { t } = useI18n();
+const { t } = useI18n();
+const { positions, departments } = useDetails();
 
 const dialogVisible = computed({
   get: () => visible,
@@ -55,13 +57,13 @@ const dialogVisible = computed({
 const formInputs = computed<Input[]>(() => [
   {
     field: 'email',
-    label: 'email',
+    label: t('labels.email'),
     component: 'InputText',
     props: { disabled: true },
   },
   {
-    label: 'password',
     field: 'password',
+    label: t('labels.password'),
     component: 'Password',
     props: {
       toggleMask: true,
@@ -70,7 +72,7 @@ const formInputs = computed<Input[]>(() => [
   },
   {
     field: 'firstName',
-    label: 'first name',
+    label: t('labels.first_name'),
     component: 'InputText',
     props: {
       disabled: true,
@@ -78,26 +80,32 @@ const formInputs = computed<Input[]>(() => [
   },
   {
     field: 'lastName',
-    label: 'last name',
+    label: t('labels.last_name'),
     component: 'InputText',
     props: { disabled: true },
   },
   {
     field: 'department',
-    label: 'department',
+    label: t('labels.department'),
     component: 'Select',
-    props: { disabled: true },
+    props: {
+      disabled: true,
+      options: departments.value,
+    },
   },
   {
     field: 'position',
-    label: 'position',
+    label: t('labels.position'),
     component: 'Select',
-    props: { disabled: false },
+    props: {
+      disabled: false,
+      options: positions.value,
+    },
   },
   {
     field: 'role',
-    label: 'position',
-    component: 'InputText',
+    label: t('labels.role'),
+    component: 'Select',
     props: { disabled: true },
   },
 ]);
@@ -112,6 +120,10 @@ const formInitialData = computed(() => ({
 
 const handleFormSubmit = (formData: Record<string, string>) => {
   emit('submit', formData);
+  closeForm();
+};
+
+const closeForm = () => {
   emit('update:visible', false);
 };
 </script>
