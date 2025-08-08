@@ -3,32 +3,46 @@ export interface AuthInput {
   password: string;
 }
 
-export interface LoginResponse {
-  login: {
-    access_token: string;
-    refresh_token: string;
-  } | null;
+export enum UserRole {
+  EMPLOYEE = 'employee',
+  ADMIN = 'admin',
+}
+
+export interface UserProfile {
+  firstName: string;
+  lastName: string;
+  avatarUrl: string;
 }
 
 export interface User {
   id: string;
+  created_at: string;
   email: string;
-  department_name?: string;
-  position_name?: string;
-  profile?: {
-    first_name: string;
-    last_name: string;
-    avatar: string;
-  };
+  department?: string;
+  position?: string;
+  role: string;
+  profile?: UserProfile;
 }
+// export type FlatUser = Omit<User, 'profile'> & UserProfile;
 
-export interface FlatUser {
+export type FlatUser = {
   id?: string;
   email: string;
+  created_at: string;
   department?: string;
   position?: string;
   firstName?: string;
   lastName?: string;
-  icon?: string;
+  avatarUrl?: string;
   role?: string;
+  // Add an index signature
+  // [key: string]: string |  undefined;
+};
+
+export interface LoginResponse {
+  login: {
+    user: User;
+    access_token: string;
+    refresh_token: string;
+  } | null;
 }
