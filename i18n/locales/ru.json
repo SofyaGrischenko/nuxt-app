@@ -35,8 +35,10 @@
     "email": "Электронная почта",
     "department": "Отдел",
     "position": "Должность",
-    "skills_name": "Название",
-    "skills_category": "Категория"
+    "name": "Название",
+    "skills_category": "Категория",
+    "iso2": "ISO2",
+    "native_name": "Оригинальное название"
   },
 
   "profile": {

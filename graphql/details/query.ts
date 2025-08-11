@@ -28,3 +28,15 @@ export const GET_SKILLS = gql`
     }
   }
 `;
+
+export const GET_LANGUAGES = gql`
+  query GET_LANGUAGES {
+    languages {
+      id
+      created_at
+      name
+      iso2
+      native_name
+    }
+  }
+`;

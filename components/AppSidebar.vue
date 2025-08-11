@@ -41,7 +41,7 @@ const menuItems = computed(() => [
   },
   {
     label: t('sidebar.languages'),
-    path: localePath('/'),
+    path: localePath('/languages'),
     icon: 'pi-language',
   },
   {
