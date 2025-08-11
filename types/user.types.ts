@@ -9,17 +9,17 @@ export enum UserRole {
 }
 
 export interface UserProfile {
-  firstName: string;
-  lastName: string;
-  avatarUrl: string;
+  first_name: string;
+  last_name: string;
+  avatar: string;
 }
 
 export interface User {
   id: string;
   created_at: string;
   email: string;
-  department?: string;
-  position?: string;
+  department_name?: string;
+  position_name?: string;
   role: string;
   profile?: UserProfile;
 }
@@ -29,10 +29,10 @@ export type FlatUser = {
   id?: string;
   email: string;
   created_at: string;
-  department?: string;
-  position?: string;
-  firstName?: string;
-  lastName?: string;
+  department_name?: string;
+  position_name?: string;
+  first_name?: string;
+  last_name?: string;
   avatarUrl?: string;
   role?: string;
   // Add an index signature
@@ -45,4 +45,25 @@ export interface LoginResponse {
     access_token: string;
     refresh_token: string;
   } | null;
+}
+
+export interface UpdateProfileInput {
+  userId: string;
+  first_name: string;
+  last_name: string;
+}
+
+export interface UpdateUserInput {
+  userId: string;
+  cvsIds?: string[];
+  departmentId: string;
+  positionId: string;
+  role: string;
+}
+
+export interface UploadAvatarInput {
+  userId: string;
+  base64: string;
+  size: number;
+  type: string;
 }

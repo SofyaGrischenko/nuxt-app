@@ -47,14 +47,15 @@ import Avatar from 'primevue/avatar';
 
 const { t } = useI18n();
 
-const file = ref<File | null>(null);
+const modelValue = defineModel<File | null>();
+
 const previewUrl = ref<string | null>(null);
 const initial = 'R';
 
 const isDragging = ref(false);
 
 const processFile = (selectedFile: File | undefined | null) => {
-  file.value = null;
+  modelValue.value = null;
 
   if (!selectedFile) {
     return;
@@ -71,7 +72,7 @@ const processFile = (selectedFile: File | undefined | null) => {
     return;
   }
 
-  file.value = selectedFile;
+  modelValue.value = selectedFile;
 };
 
 const handleFileChange = (event: Event) => {
@@ -91,10 +92,10 @@ const removeImage = () => {
     URL.revokeObjectURL(previewUrl.value);
   }
   previewUrl.value = null;
-  file.value = null;
+  modelValue.value = null;
 };
 
-watch(file, (newFile) => {
+watch(modelValue, (newFile) => {
   if (previewUrl.value) {
     URL.revokeObjectURL(previewUrl.value);
   }

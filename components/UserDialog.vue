@@ -89,8 +89,9 @@ const formInputs = computed<Input[]>(() => [
     label: t('labels.department'),
     component: 'Select',
     props: {
-      disabled: true,
       options: departments.value,
+      optionLabel: 'name',
+      optionValue: 'name',
     },
   },
   {
@@ -100,6 +101,8 @@ const formInputs = computed<Input[]>(() => [
     props: {
       disabled: false,
       options: positions.value,
+      optionLabel: 'name',
+      optionValue: 'name',
     },
   },
   {
@@ -114,8 +117,8 @@ const formInitialData = computed(() => ({
   firstName: user?.firstName || '',
   lastName: user?.lastName || '',
   email: user?.email || '',
-  department: user?.department || '',
-  position: user?.position || '',
+  department: user?.department_name || '',
+  position: user?.position_name || '',
 }));
 
 const handleFormSubmit = (formData: Record<string, string>) => {

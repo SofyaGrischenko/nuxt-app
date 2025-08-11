@@ -3,11 +3,12 @@
     <form-input
       v-for="input in inputs"
       :key="input.field"
-      v-model="formData[input.field]"
+      :model-value="modelValue[input.field]"
       :label="input.label"
       :field="input.field"
       :component="input.component"
       v-bind="input.props"
+      @update:model-value="onUpdate(input.field, $event)"
     />
   </div>
 </template>
@@ -26,15 +27,13 @@ const props = withDefaults(
     wrapperClass: '',
   }
 );
-const { inputs, wrapperClass, modelValue } = props;
+
 const emit = defineEmits(['update:modelValue']);
 
-const formData = computed({
-  get() {
-    return modelValue;
-  },
-  set(newValue) {
-    emit('update:modelValue', newValue);
-  },
-});
+const onUpdate = (field: string, value: unknown) => {
+  emit('update:modelValue', {
+    ...props.modelValue,
+    [field]: value,
+  });
+};
 </script>

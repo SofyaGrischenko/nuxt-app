@@ -9,19 +9,20 @@ export function useUsers() {
   const pageSize = 20;
 
   const flatUsers = computed<FlatUser[]>(() => {
-    return rawUsers.value.map((user) => {
-      const firstName = user.profile?.firstName ?? '';
-      const lastName = user.profile?.lastName ?? '';
+    return rawUsers.value.map((user: User) => {
+      const firstName = user.profile?.first_name ?? '';
+      const lastName = user.profile?.last_name ?? '';
+      const icon = user.profile?.avatar ?? '';
 
       return {
         id: user.id,
         created_at: user.created_at,
         firstName,
         lastName,
-        icon: user.profile?.avatarUrl,
+        icon,
         email: user.email,
-        department: user.department,
-        position: user.position,
+        department_name: user.department_name,
+        position_name: user.position_name,
       };
     });
   });
@@ -33,7 +34,8 @@ export function useUsers() {
     }
     return flatUsers.value.filter(
       (user) =>
-        user.firstName?.includes(search) || user.lastName?.includes(search)
+        user.firstName?.toLowerCase().includes(search) || //need to check type  first_name || firstName
+        user.lastName?.toLowerCase().includes(search)
     );
   });
 
