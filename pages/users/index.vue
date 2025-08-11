@@ -1,15 +1,9 @@
 <template>
-  <!-- <Suspense>
-    <template #default> -->
   <users-table />
-  <!-- </template> -->
-  <!-- 
-    <template #fallback> Loading... </template>
-  </Suspense> -->
 </template>
 
 <script setup lang="ts">
-import UsersTable from '~/components/UsersTable.vue';
+import UsersTable from '~/components/tables/UsersTable.vue';
 definePageMeta({
   middleware: 'auth',
 });

@@ -53,7 +53,7 @@
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
-import UserDialog from './UserDialog.vue';
+import UserDialog from '@/components/UserDialog.vue';
 import DynamicTable from '~/components/UI/DynamicTable.vue';
 import { useUsers } from '~/composables/useUsers';
 import type { FlatUser } from '~/types/user.types';
