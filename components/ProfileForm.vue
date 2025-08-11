@@ -1,6 +1,6 @@
 <template>
   <div v-if="init" class="flex flex-col items-center justify-center">
-    <avatar-upload v-model="newAvatar" :avatar="init.avatarUrl" />
+    <avatar-upload v-model="newAvatar" :name="init.first_name ?? ''" />
 
     <h3 class="text-3xl mb-4">{{ init?.first_name }} {{ init?.last_name }}</h3>
     <h2 class="text-neutral-400 mb-2">{{ init?.email }}</h2>

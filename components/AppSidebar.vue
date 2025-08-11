@@ -14,8 +14,24 @@
         <span>{{ item.label }}</span>
       </NuxtLink>
     </div>
-    <div class="p-6">
-      <i class="pi pi-sign-out text-2xl cursor-pointer" @click="logout" />
+    <div class="p-3 mb-4">
+      <NuxtLink :to="localePath('/users/profile')" class="flex items-center justify-start gap-3">
+        <img
+          v-if="currentUser?.profile?.avatar"
+          :src="currentUser.profile.avatar"
+          :alt="currentUser.id"
+          class="w-10 h-10 rounded-full object-cover"
+        >
+        <div
+          v-else
+          class="w-10 h-10 rounded-full bg-neutral-500 flex items-center justify-center text-lg text-neutral-700"
+        >
+          {{ currentUser?.profile?.first_name?.[0] }}
+        </div>
+        {{ currentUser?.profile?.first_name }}
+        {{ currentUser?.profile?.last_name }}
+      </NuxtLink>
+      <i class="pi pi-sign-out text-2xl cursor-pointer mt-6" @click="logout" />
     </div>
   </aside>
 </template>
@@ -27,6 +43,7 @@ const route = useRoute();
 const { logout } = useAuth();
 const localePath = useLocalePath();
 const { t } = useI18n();
+const { currentUser, fetchCurrentUser } = useCurrentUser();
 
 const menuItems = computed(() => [
   {
@@ -50,4 +67,8 @@ const menuItems = computed(() => [
     icon: 'pi-file',
   },
 ]);
+
+onMounted(async () => {
+  await fetchCurrentUser();
+});
 </script>

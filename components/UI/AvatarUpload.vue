@@ -3,7 +3,7 @@
     <label for="avatarUpload" class="cursor-pointer">
       <Avatar
         :image="previewUrl ?? ''"
-        :label="previewUrl ? '' : initial"
+        :label="previewUrl ? '': name?.[0]"
         shape="circle"
         class="w-28 h-28 text-5xl bg-neutral-500 text-neutral-700"
       />
@@ -48,10 +48,9 @@ import Avatar from 'primevue/avatar';
 const { t } = useI18n();
 
 const modelValue = defineModel<File | null>();
+const { name } = defineProps<{ name: string }>();
 
 const previewUrl = ref<string | null>(null);
-const initial = 'R';
-
 const isDragging = ref(false);
 
 const processFile = (selectedFile: File | undefined | null) => {
