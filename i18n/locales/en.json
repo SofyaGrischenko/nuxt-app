@@ -57,5 +57,6 @@
   },
 
   "updateButton": "Update",
-  "loading": "Loading..."
+  "loading": "Loading...",
+  "search": "Search"
 }

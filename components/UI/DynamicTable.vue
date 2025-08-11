@@ -1,9 +1,6 @@
 <template>
   <div>
-    <DataTable
-      :value="data"
-      table-style="min-width: 50rem"
-    >
+    <DataTable :value="data" table-style="min-width: 50rem">
       <Column
         v-for="col of columns"
         :key="col.field"
@@ -23,11 +20,11 @@
 
 <script setup lang="ts">
 import DataTable from 'primevue/datatable';
-import type { FlatUser } from '~/types/user.types';
+// import type { FlatUser } from '~/types/user.types';
 import type { ColumnType } from '~/types/table.types';
 
 const { data, columns } = defineProps<{
-  data: FlatUser[] | null;
+  data: any;
   columns: ColumnType[];
 }>();
 </script>

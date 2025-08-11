@@ -8,7 +8,10 @@ import type { Details } from '~/types/form.types';
 export const useDetails = () => {
   const positions = useState<Details[]>('positions', () => []);
   const departments = useState<Details[]>('departments', () => []);
-  const skills = useState('skills', () => []);
+  const searchQuery = ref('');
+  const skills = useState<Details[]>('skills', () => []);
+  const pagesToShow = ref(1);
+  const pageSize = 20;
 
   const getPositions = async () => {
     if (positions.value.length > 0) return;
@@ -50,10 +53,30 @@ export const useDetails = () => {
     }
   };
 
+  const filteredSkills = computed(() => {
+    const search = searchQuery.value.trim().toLowerCase();
+    if (!search) {
+      return skills.value;
+    }
+    return skills.value.filter((skill) =>
+      skill.name?.toLowerCase().includes(search)
+    );
+  });
+
+  const loadMore = () => pagesToShow.value++;
+
+  const skillsToShow = computed(() =>
+    filteredSkills.value.slice(0, pagesToShow.value * pageSize)
+  );
+
   return {
     positions,
     departments,
-    skills,
+    // skills,
+    filteredSkills,
+    skillsToShow,
+    searchQuery,
+    loadMore,
     getPositions,
     getDepartments,
     getSkills,
