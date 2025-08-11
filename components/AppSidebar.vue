@@ -36,7 +36,7 @@ const menuItems = computed(() => [
   },
   {
     label: t('sidebar.skills'),
-    path: localePath('/'),
+    path: localePath('/skills'),
     icon: 'pi-chart-line',
   },
   {

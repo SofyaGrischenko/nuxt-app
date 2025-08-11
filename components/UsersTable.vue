@@ -7,19 +7,19 @@
       <input
         v-model="searchQuery"
         type="text"
-        placeholder="Search"
+        :placeholder="t('search')"
         class="bg-transparent outline-none text-white placeholder-zinc-400 w-full"
-      />
+      >
     </div>
 
-    <dynamic-table :employees :columns>
+    <dynamic-table :data="employees" :columns>
       <template #icon="{ data }">
         <img
           v-if="data.icon"
           :src="data.icon"
           :alt="data.firstName"
           class="w-10 h-10 rounded-full object-cover"
-        />
+        >
         <div
           v-else
           class="w-10 h-10 rounded-full bg-neutral-500 flex items-center justify-center text-lg text-neutral-700"
