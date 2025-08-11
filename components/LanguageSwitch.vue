@@ -1,23 +1,18 @@
 <template>
   <div>
-    <select
+    <Select
       v-model="locale"
       class="bg-transparent outline-none"
+      :options="locales"
+      option-label="name"
+      option-value="code"
       @change="onLocaleChange"
-    >
-      <option
-        v-for="lang in locales"
-        :key="lang.code"
-        :value="lang.code"
-        class="bg-neutral-800 border-none"
-      >
-        {{ lang.name }}
-      </option>
-    </select>
+    />
   </div>
 </template>
 
 <script setup lang="ts">
+import Select from 'primevue/select';
 const { locale, locales, loadLocaleMessages } = useI18n();
 const switchLocalePath = useSwitchLocalePath();
 

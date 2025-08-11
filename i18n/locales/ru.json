@@ -29,14 +29,33 @@
   },
 
   "table": {
-    "button": "Показать еще"
-  },
-
-  "tableHeaders": {
+    "button": "Показать еще",
     "firstName": "Имя",
     "lastName": "Фамилия",
     "email": "Электронная почта",
     "department": "Отдел",
     "position": "Должность"
-  }
+  },
+
+  "profile": {
+    "upload": {
+      "title": "Загрузить изображение профиля",
+      "caption": "PNG, JPG или GIF, не более 0.5МБ."
+    },
+    "user": {
+      "member_since": "участник с"
+    }
+  },
+
+  "labels": {
+    "email": "Электронная почта",
+    "password": "Пароль",
+    "department": "Отдел",
+    "position": "Должность",
+    "first_name": "Имя",
+    "last_name": "Фамилия",
+    "role": "Роль"
+  },
+  "updateButton": "Сохранить",
+  "loading": "Загрузка..."
 }

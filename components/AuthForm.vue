@@ -5,7 +5,20 @@
     <h1 class="text-3xl tracking-wider">{{ title }}</h1>
     <h3>{{ caption }}</h3>
 
-    <dynamic-form :inputs :initial-data="formData" :submit-button @submit="handleSubmit" />
+    <dynamic-form
+      v-model="formData"
+      :inputs
+      :submit-button
+      @submit="handleSubmit"
+    />
+
+    <Button
+      type="submit"
+      variant="primary"
+      :label="submitButton"
+      class="w-[10rem] tracking-wider"
+      @click="handleSubmit"
+    />
 
     <NuxtLink :to="linkTo" class="uppercase text-xs text-neutral-500">{{
       linkText
@@ -14,8 +27,9 @@
 </template>
 
 <script setup lang="ts">
-import { NuxtLink } from '#components';
+import Button from 'primevue/button';
 import DynamicForm from '@/components/UI/DynamicForm.vue';
+import { NuxtLink } from '#components';
 import type { Input } from '~/types/form.types';
 import type { AuthInput } from '~/types/user.types';
 
@@ -34,9 +48,9 @@ const formData = ref<AuthInput>({
   password: '',
 });
 
-const handleSubmit = async (data: AuthInput) => {
+const handleSubmit = async () => {
   try {
-    await submitHandler(data);
+    await submitHandler(formData.value);
   } catch (error) {
     console.error('authh failed', error);
   }

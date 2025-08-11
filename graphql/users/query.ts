@@ -10,12 +10,27 @@ export const GET_USERS = gql`
         last_name
         avatar
       }
-      department {
-        name
+      department_name
+      position_name
+      role
+    }
+  }
+`;
+
+export const GET_USER_BY_ID = gql`
+  query GET_USER_BY_ID($userId: ID!) {
+    user(userId: $userId) {
+      id
+      created_at
+      email
+      profile {
+        first_name
+        last_name
+        avatar
       }
-      position {
-        name
-      }
+      department_name
+      position_name
+      role
     }
   }
 `;

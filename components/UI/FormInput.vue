@@ -15,10 +15,11 @@
 import { defineAsyncComponent } from 'vue';
 
 defineProps<{ label: string; field: string; component: string }>();
-const modelValue = defineModel<string>();
+const modelValue = defineModel<string | null>();
 
 const componentMap: Record<string, Component> = {
   InputText: defineAsyncComponent(() => import('primevue/inputtext')),
   Password: defineAsyncComponent(() => import('primevue/password')),
+  Select: defineAsyncComponent(() => import('primevue/select')),
 };
 </script>

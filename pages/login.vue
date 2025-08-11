@@ -26,12 +26,12 @@ definePageMeta({
 
 const inputs = ref([
   {
-    label: t('auth.input_label.email'),
+    label: t('labels.email'),
     field: 'email',
     component: 'InputText',
   },
   {
-    label: t('auth.input_label.password'),
+    label: t('labels.password'),
     field: 'password',
     component: 'Password',
     props: {

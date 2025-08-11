@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="ml-6">
     <div
       class="flex items-center border border-zinc-600 rounded-full px-4 py-2 w-full max-w-sm gap-3 mb-5"
     >
@@ -11,6 +11,7 @@
         class="bg-transparent outline-none text-white placeholder-zinc-400 w-full"
       />
     </div>
+
     <dynamic-table :employees :columns>
       <template #icon="{ data }">
         <img
@@ -46,84 +47,41 @@
         @click="loadMore"
       />
     </div>
+    <user-dialog v-model:visible="isDialogVisible" :user="selectedUser" />
   </div>
 </template>
 
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n';
+import UserDialog from './UserDialog.vue';
 import DynamicTable from '~/components/UI/DynamicTable.vue';
-import { handleGetUsers } from '~/service/users';
-import type { FlatUser, User } from '~/types/user.types';
+import { useUsers } from '~/composables/useUsers';
+import type { FlatUser } from '~/types/user.types';
 
 const { t } = useI18n();
+const { getDepartments, getPositions } = useDetails();
+const { employees, searchQuery, filteredUsers, loadMore, fetchUsers } =
+  useUsers();
 
-const users = ref<User[]>([]);
-const loading = ref(false);
-const searchQuery = ref('');
-
-const pagesToShow = ref(1);
-const pageSize = 20;
+const selectedUser = ref<FlatUser | null>(null);
+const isDialogVisible = ref(false);
 
 const columns = [
   { field: 'icon', header: '', sortable: false },
-  { field: 'firstName', header: t('tableHeaders.firstName'), sortable: true },
-  { field: 'lastName', header: t('tableHeaders.lastName'), sortable: true },
-  { field: 'email', header: t('tableHeaders.email'), sortable: true },
-  { field: 'dep', header: t('tableHeaders.department'), sortable: true },
-  { field: 'pos', header: t('tableHeaders.position'), sortable: true },
+  { field: 'firstName', header: t('table.firstName'), sortable: true },
+  { field: 'lastName', header: t('table.lastName'), sortable: true },
+  { field: 'email', header: t('table.email'), sortable: true },
+  { field: 'department_name', header: t('table.department'), sortable: true },
+  { field: 'position_name', header: t('table.position'), sortable: true },
   { field: 'details', header: '', sortable: false },
 ];
 
-const filteredUsers = computed(() => {
-  if (!searchQuery.value.trim()) {
-    return users.value;
-  }
-
-  const search = searchQuery.value.toLowerCase();
-
-  return users.value.filter((user) => {
-    const firstName = user.profile?.first_name?.toLowerCase() || '';
-    const lastName = user.profile?.last_name?.toLowerCase() || '';
-    return firstName.includes(search) || lastName.includes(search);
-  });
-});
-
 const showDetails = (data: FlatUser) => {
-  console.log('click', data);
+  selectedUser.value = data;
+  isDialogVisible.value = true;
 };
-
-const employees = computed(() => {
-  const end = pagesToShow.value * pageSize;
-
-  return filteredUsers.value.slice(0, end).map((emp: User) => ({
-    id: emp.id,
-    firstName: emp.profile?.first_name,
-    lastName: emp.profile?.last_name,
-    icon: emp.profile?.avatar,
-    email: emp.email,
-    dep: emp.department?.name,
-    pos: emp.position?.name,
-  }));
-});
-
-const loadMore = () => {
-  pagesToShow.value++;
-};
-
-watch(searchQuery, () => {
-  pagesToShow.value = 1;
-});
 
 onMounted(async () => {
-  loading.value = true;
-  try {
-    const data = await handleGetUsers();
-    if (data.users) {
-      users.value = data.users;
-    }
-  } catch (error) {
-    console.error('failed to fetch users', error);
-  } finally {
-    loading.value = false;
-  }
+  await Promise.all([fetchUsers(), getPositions(), getDepartments()]);
 });
 </script>

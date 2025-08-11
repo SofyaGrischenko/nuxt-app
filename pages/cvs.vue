@@ -1,5 +1,5 @@
 <template>
-  <div>cvs</div>
+  <div>page not implemented yet</div>
 </template>
 
 <script setup lang="ts">

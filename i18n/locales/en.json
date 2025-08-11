@@ -7,8 +7,6 @@
     "login_page": {
       "title": "Welcome back",
       "caption": "Hello again! Log in to continue",
-      "email_label": "Email",
-      "password_label": "Password",
       "submit_button": "Log In",
       "forgot_password_link": "Forgot Password"
     },
@@ -17,11 +15,17 @@
       "caption": "Welcome! Sign up to continue",
       "submit_button": "Create Account",
       "login_link": "I have an account"
-    },
-    "input_label": {
-      "email": "Email",
-      "password": "Password"
     }
+  },
+
+  "labels": {
+    "email": "Email",
+    "password": "Password",
+    "department": "Department",
+    "position": "Position",
+    "first_name": "First name",
+    "last_name": "Last name",
+    "role": "Role"
   },
 
   "sidebar": {
@@ -31,17 +35,25 @@
     "cvs": "CVs"
   },
 
-  "table":{
-    "button": "See more"
-  },
-
-  "tableHeaders": {
+  "table": {
+    "button": "See more",
     "firstName": "First Name",
     "lastName": "Last Name",
     "email": "Email",
     "department": "Department",
     "position": "Position"
-  }
+  },
 
+  "profile": {
+    "upload": {
+      "title": "Upload avatar image",
+      "caption": "png, jpg or gif no more than 0.5Mb."
+    },
+    "user": {
+      "member_since": "A member since"
+    }
+  },
 
+  "updateButton": "Update",
+  "loading": "Loading..."
 }

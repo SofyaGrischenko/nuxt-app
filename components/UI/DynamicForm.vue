@@ -1,42 +1,39 @@
 <template>
-  <div class="w-full gap-[20px] flex flex-col">
+  <div :class="wrapperClass || 'w-full flex flex-col gap-6'">
     <form-input
       v-for="input in inputs"
       :key="input.field"
-      v-model="formData[input.field]"
+      :model-value="modelValue[input.field]"
       :label="input.label"
       :field="input.field"
       :component="input.component"
       v-bind="input.props"
+      @update:model-value="onUpdate(input.field, $event)"
     />
   </div>
-
-  <Button
-    type="submit"
-    variant="primary"
-    :label="submitButton"
-    class="w-[10rem] tracking-wider"
-    @click="handleSubmit"
-  />
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import Button from 'primevue/button';
 import FormInput from './FormInput.vue';
 import type { Input } from '~/types/form.types';
 
-const { inputs, initialData, submitButton } = defineProps<{
-  inputs: Input[];
-  initialData: Record<string, string>;
-  submitButton: string;
-}>();
+const props = withDefaults(
+  defineProps<{
+    inputs: Input[];
+    modelValue: Record<string, any>;
+    wrapperClass?: string;
+  }>(),
+  {
+    wrapperClass: '',
+  }
+);
 
-const emit = defineEmits(['submit']);
+const emit = defineEmits(['update:modelValue']);
 
-const formData = ref({ ...initialData });
-
-const handleSubmit = async () => {
-  emit('submit', formData.value);
+const onUpdate = (field: string, value: unknown) => {
+  emit('update:modelValue', {
+    ...props.modelValue,
+    [field]: value,
+  });
 };
 </script>

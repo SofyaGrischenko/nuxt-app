@@ -1,14 +1,12 @@
 <template>
-  <div class="ml-6">
-    <users-table />
+  <div>
+    <profile-form />
   </div>
 </template>
 
 <script setup lang="ts">
-import UsersTable from '~/components/UsersTable.vue';
-
+import ProfileForm from '~/components/ProfileForm.vue';
 definePageMeta({
   middleware: 'auth',
 });
-
 </script>
