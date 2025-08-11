@@ -1,5 +1,6 @@
 import {
   handleGetDepartments,
+  handleGetLanguages,
   handleGetPositions,
   handleGetSkills,
 } from '~/service/details';
@@ -8,8 +9,9 @@ import type { Details } from '~/types/form.types';
 export const useDetails = () => {
   const positions = useState<Details[]>('positions', () => []);
   const departments = useState<Details[]>('departments', () => []);
-  const searchQuery = ref('');
   const skills = useState<Details[]>('skills', () => []);
+  const languages = useState<Details[]>('languages', () => []);
+  const searchQuery = ref('');
   const pagesToShow = ref(1);
   const pageSize = 20;
 
@@ -53,6 +55,23 @@ export const useDetails = () => {
     }
   };
 
+  const getLanguages = async () => {
+    if (languages.value.length > 0) return;
+
+    try {
+      const response = await handleGetLanguages();
+
+      if (response.languages) {
+        languages.value = response.languages;
+      }
+      console.log('languages', languages);
+    } catch (error) {
+      console.error('failed to get skills', error);
+    }
+  };
+
+  const loadMore = () => pagesToShow.value++;
+
   const filteredSkills = computed(() => {
     const search = searchQuery.value.trim().toLowerCase();
     if (!search) {
@@ -63,22 +82,31 @@ export const useDetails = () => {
     );
   });
 
-  const loadMore = () => pagesToShow.value++;
-
   const skillsToShow = computed(() =>
     filteredSkills.value.slice(0, pagesToShow.value * pageSize)
   );
 
+  const filteredLanguages = computed(() => {
+    const search = searchQuery.value.trim().toLowerCase();
+    if (!search) {
+      return languages.value;
+    }
+    return languages.value.filter((language) =>
+      language.name?.toLowerCase().includes(search)
+    );
+  });
+
   return {
     positions,
     departments,
-    // skills,
     filteredSkills,
     skillsToShow,
     searchQuery,
+    filteredLanguages,
     loadMore,
     getPositions,
     getDepartments,
     getSkills,
+    getLanguages,
   };
 };

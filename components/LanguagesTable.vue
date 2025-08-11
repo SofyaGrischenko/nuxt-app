@@ -9,20 +9,11 @@
         type="text"
         :placeholder="t('search')"
         class="bg-transparent outline-none text-white placeholder-zinc-400 w-full"
-      >
-    </div>
-
-    <dynamic-table :data="filteredSkills" :columns />
-    <div
-      v-if="skillsToShow.length < filteredSkills.length"
-      class="flex justify-center mt-4 mb-15"
-    >
-      <Button
-        :label="t('table.button')"
-        icon="pi pi-arrow-down"
-        @click="loadMore"
       />
     </div>
+
+    <dynamic-table :data="filteredLanguages" :columns />
+
     <user-dialog v-model:visible="isDialogVisible" :user="null" />
   </div>
 </template>
@@ -32,21 +23,21 @@ import { useI18n } from 'vue-i18n';
 import DynamicTable from '~/components/UI/DynamicTable.vue';
 
 const { t } = useI18n();
-const { getSkills, searchQuery, skillsToShow, filteredSkills, loadMore } =
-  useDetails();
+const { getLanguages, searchQuery, filteredLanguages } = useDetails();
 
 const isDialogVisible = ref(false);
 
 const columns = [
   { field: 'name', header: t('table.name'), sortable: true },
   {
-    field: 'category_name',
-    header: t('table.skills_category'),
-    sortable: true,
-  }
+    field: 'native_name',
+    header: t('table.native_name'),
+    sortable: false,
+  },
+  { field: 'iso2', header: t('table.iso2'), sortable: false },
 ];
 
 onMounted(async () => {
-  await getSkills();
+  await getLanguages();
 });
 </script>

@@ -1,5 +1,6 @@
 import {
   GET_DEPARTMENTS,
+  GET_LANGUAGES,
   GET_POSITIONS,
   GET_SKILLS,
 } from '~/graphql/details/query';
@@ -34,5 +35,16 @@ export const handleGetSkills = async () => {
     return data?.value;
   } catch (error) {
     console.error('failed to get skills', error);
+  }
+};
+
+export const handleGetLanguages = async () => {
+  try {
+    const { data, fetch } = useApolloQuery(GET_LANGUAGES);
+    await fetch();
+
+    return data?.value;
+  } catch (error) {
+    console.error('failed to get languages', error);
   }
 };

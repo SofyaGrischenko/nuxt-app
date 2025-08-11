@@ -42,8 +42,10 @@
     "email": "Email",
     "department": "Department",
     "position": "Position",
-    "skills_name": "Name",
-    "skills_category": "Category"
+    "name": "Name",
+    "skills_category": "Category",
+    "iso2": "ISO2",
+    "native_name": "Native name"
   },
 
   "profile": {
