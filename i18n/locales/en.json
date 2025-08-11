@@ -41,7 +41,9 @@
     "lastName": "Last Name",
     "email": "Email",
     "department": "Department",
-    "position": "Position"
+    "position": "Position",
+    "skills_name": "Name",
+    "skills_category": "Category"
   },
 
   "profile": {

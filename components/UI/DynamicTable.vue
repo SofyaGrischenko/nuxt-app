@@ -1,7 +1,7 @@
 <template>
   <div>
     <DataTable
-      :value="employees"
+      :value="data"
       table-style="min-width: 50rem"
     >
       <Column
@@ -26,8 +26,8 @@ import DataTable from 'primevue/datatable';
 import type { FlatUser } from '~/types/user.types';
 import type { ColumnType } from '~/types/table.types';
 
-const { employees, columns } = defineProps<{
-  employees: FlatUser[] | null;
+const { data, columns } = defineProps<{
+  data: FlatUser[] | null;
   columns: ColumnType[];
 }>();
 </script>

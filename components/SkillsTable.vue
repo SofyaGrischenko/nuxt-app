@@ -1,6 +1,6 @@
 <template>
   <div class="ml-6">
-    <div
+    <!-- <div
       class="flex items-center border border-zinc-600 rounded-full px-4 py-2 w-full max-w-sm gap-3 mb-5"
     >
       <i class="pi pi-search" />
@@ -10,10 +10,10 @@
         placeholder="Search"
         class="bg-transparent outline-none text-white placeholder-zinc-400 w-full"
       />
-    </div>
+    </div> -->
 
-    <dynamic-table :data="employees" :columns>
-      <template #icon="{ data }">
+    <dynamic-table :data="skills" :columns>
+      <!-- <template #icon="{ data }">
         <img
           v-if="data.icon"
           :src="data.icon"
@@ -26,18 +26,14 @@
         >
           {{ data.firstName?.[0] }}
         </div>
-      </template>
+      </template> -->
 
       <template #details="{ data }">
-        <Button
-          icon="pi pi-arrow-right"
-          text
-          rounded
-          @click="showDetails(data)"
-        />
+        <Button icon="pi pi-arrow-right" text rounded />
+        <!-- @click="showDetails(data)" -->
       </template>
     </dynamic-table>
-    <div
+    <!-- <div
       v-if="employees.length < filteredUsers.length"
       class="flex justify-center mt-4 mb-15"
     >
@@ -46,42 +42,29 @@
         icon="pi pi-arrow-down"
         @click="loadMore"
       />
-    </div>
-    <user-dialog v-model:visible="isDialogVisible" :user="selectedUser" />
+    </div> -->
+    <!-- <user-dialog v-model:visible="isDialogVisible" :user="selectedUser" /> -->
   </div>
 </template>
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
-import UserDialog from './UserDialog.vue';
 import DynamicTable from '~/components/UI/DynamicTable.vue';
-import { useUsers } from '~/composables/useUsers';
-import type { FlatUser } from '~/types/user.types';
 
 const { t } = useI18n();
-const { getDepartments, getPositions } = useDetails();
-const { employees, searchQuery, filteredUsers, loadMore, fetchUsers } =
-  useUsers();
-
-const selectedUser = ref<FlatUser | null>(null);
-const isDialogVisible = ref(false);
+const { skills, getSkills } = useDetails();
 
 const columns = [
-  { field: 'icon', header: '', sortable: false },
-  { field: 'firstName', header: t('table.firstName'), sortable: true },
-  { field: 'lastName', header: t('table.lastName'), sortable: true },
-  { field: 'email', header: t('table.email'), sortable: true },
-  { field: 'department_name', header: t('table.department'), sortable: true },
-  { field: 'position_name', header: t('table.position'), sortable: true },
+  { field: 'name', header: t('table.skills_name'), sortable: true },
+  {
+    field: 'category_name',
+    header: t('table.skills_category'),
+    sortable: true,
+  },
   { field: 'details', header: '', sortable: false },
 ];
 
-const showDetails = (data: FlatUser) => {
-  selectedUser.value = data;
-  isDialogVisible.value = true;
-};
-
 onMounted(async () => {
-  await Promise.all([fetchUsers(), getPositions(), getDepartments()]);
+  await Promise.all([getSkills()]);
 });
 </script>

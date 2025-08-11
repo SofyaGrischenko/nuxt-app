@@ -17,3 +17,14 @@ export const GET_DEPARTMENTS = gql`
     }
   }
 `;
+
+export const GET_SKILLS = gql`
+  query GET_SKILLS {
+    skills {
+      id
+      created_at
+      name
+      category_name
+    }
+  }
+`;

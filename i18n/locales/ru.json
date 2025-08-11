@@ -34,7 +34,9 @@
     "lastName": "Фамилия",
     "email": "Электронная почта",
     "department": "Отдел",
-    "position": "Должность"
+    "position": "Должность",
+    "skills_name": "Название",
+    "skills_category": "Категория"
   },
 
   "profile": {
