@@ -60,6 +60,7 @@ import type { FlatUser } from '~/types/user.types';
 
 const { t } = useI18n();
 const { getDepartments, getPositions } = useDetails();
+const { currentUser } = useCurrentUser();
 const { employees, searchQuery, filteredUsers, loadMore, fetchUsers } =
   useUsers();
 
@@ -77,8 +78,12 @@ const columns = [
 ];
 
 const showDetails = (data: FlatUser) => {
-  selectedUser.value = data;
-  isDialogVisible.value = true;
+  if (currentUser.value?.id === data.id) {
+    isDialogVisible.value = true;
+    selectedUser.value = data;
+  } else {
+    navigateTo(`/users/${data.id}/profile`);
+  }
 };
 
 onMounted(async () => {

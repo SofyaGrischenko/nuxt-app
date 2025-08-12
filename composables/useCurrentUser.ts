@@ -1,15 +1,14 @@
 import { jwtDecode } from 'jwt-decode';
 import {
-  handleAvatarUpload,
+  // handleAvatarUpload,
   handleGetUserById,
-  handleProfileUpdate,
-  handleUserUpdate,
+  // handleProfileUpdate,
+  // handleUserUpdate,
 } from '~/service/users';
-import type { FlatUser, User } from '~/types/user.types';
+import type { User } from '~/types/user.types';
 
 export const useCurrentUser = () => {
   const user = useState<User | null>('user', () => null);
-  const { positions, departments } = useDetails();
 
   const currentUser = computed(() => user.value);
 
@@ -44,6 +43,14 @@ export const useCurrentUser = () => {
     }
   };
 
+  return {
+    currentUser,
+    fetchCurrentUser,
+    clearUser,
+  };
+};
+
+/*
   const updateUser = async (
     originalData: FlatUser,
     updatedData: FlatUser,
@@ -128,11 +135,4 @@ export const useCurrentUser = () => {
       console.error('Failed to update user', error);
     }
   };
-
-  return {
-    currentUser,
-    fetchCurrentUser,
-    updateUser,
-    clearUser,
-  };
-};
+*/
