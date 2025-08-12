@@ -15,7 +15,6 @@ export const useCurrentUser = () => {
 
   const clearUser = () => {
     user.value = null;
-
     useAuth().logout();
   };
 
@@ -35,10 +34,12 @@ export const useCurrentUser = () => {
 
       if (userId) {
         const response = await handleGetUserById(userId);
-        user.value = response.user;
+        if (response) {
+          user.value = response;
+        }
       }
     } catch (error) {
-      console.error('Failed to fetch current user', error);
+      console.error('Failed to fetch current user:', error);
       clearUser();
     }
   };
@@ -48,54 +49,54 @@ export const useCurrentUser = () => {
     updatedData: FlatUser,
     avatarFile: File | null
   ) => {
-    const mutationPromises: Promise<any>[] = [];
+    const mutationPromises: Promise<unknown>[] = [];
     const userId = originalData.id;
 
     if (!userId) {
-      console.error('user`s id is missing');
+      console.error('User ID is missing, cannot update.');
       return;
     }
 
-    if (
-      updatedData.first_name &&
-      updatedData.last_name &&
-      (updatedData.first_name !== originalData.first_name ||
-        updatedData.last_name !== originalData.last_name)
-    ) {
+    const profileHasChanged =
+      originalData.firstName !== updatedData.firstName ||
+      originalData.lastName !== updatedData.lastName;
+
+    if (profileHasChanged) {
       mutationPromises.push(
         handleProfileUpdate({
           userId,
-          first_name: updatedData.first_name,
-          last_name: updatedData.last_name,
+          firstName: updatedData.firstName ?? '',
+          lastName: updatedData.lastName ?? '',
         })
       );
     }
-    if (
-      userId &&
-      updatedData?.role &&
-      (updatedData.department_name !== originalData.department_name ||
-        updatedData.position_name !== originalData.position_name)
-    ) {
-      console.log('DEP ARR', departments.value);
 
+    const userDetailsHaveChanged =
+      originalData.departmentName !== updatedData.departmentName ||
+      originalData.positionName !== updatedData.positionName;
+
+    if (userDetailsHaveChanged) {
       const departmentId = departments.value.find(
-        (d) => d.name === updatedData.department_name
+        (d) => d.name === updatedData.departmentName
       )?.id;
       const positionId = positions.value.find(
-        (p) => p.name === updatedData.position_name
+        (p) => p.name === updatedData.positionName
       )?.id;
 
-      console.log('ID', departmentId, positionId);
-      
-      if (departmentId && positionId) {
+      if (departmentId && positionId && updatedData.role) {
+
         mutationPromises.push(
           handleUserUpdate({
             userId,
             departmentId,
             positionId,
-            cvsIds: [''],
-            role: updatedData?.role,
+            cvsIds: [],
+            role: updatedData.role,
           })
+        );
+      } else {
+        console.error(
+          'Could not find ID for new department/position or role is missing.'
         );
       }
     }
@@ -113,16 +114,18 @@ export const useCurrentUser = () => {
     }
 
     if (mutationPromises.length === 0) {
-      console.log('no info to update');
+      console.log('No information to update.');
       return;
     }
 
     try {
       await Promise.all(mutationPromises);
-      console.log('updated successfully');
+      console.log('User data updated');
+
+      user.value = null;
       await fetchCurrentUser();
-    } catch (e) {
-      console.error('failed to update user info', e);
+    } catch (error) {
+      console.error('Failed to update user', error);
     }
   };
 
@@ -130,5 +133,6 @@ export const useCurrentUser = () => {
     currentUser,
     fetchCurrentUser,
     updateUser,
+    clearUser,
   };
 };

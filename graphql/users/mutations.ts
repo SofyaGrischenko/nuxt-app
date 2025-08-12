@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client/core';
 
 export const UPDATE_USER = gql`
-  mutation UpdateUser($input: UpdateUserInput!) {
+  mutation UPDATE_USER($input: UpdateUserInput!) {
     updateUser(user: $input) {
       id
       email
@@ -18,7 +18,7 @@ export const UPDATE_USER = gql`
 `;
 
 export const UPDATE_PROFILE = gql`
-  mutation UpdateProfileInput($input: UpdateProfileInput!) {
+  mutation UPDATE_PROFILE($input: UpdateProfileInput!) {
     updateProfile(profile: $input) {
       first_name
       last_name
@@ -28,7 +28,7 @@ export const UPDATE_PROFILE = gql`
 `;
 
 export const UPDATE_AVATAR = gql`
-  mutation UploadAvatar($input: UploadAvatarInput!) {
+  mutation UPDATE_AVATAR($input: UploadAvatarInput!) {
     uploadAvatar(avatar: $input)
   }
 `;
