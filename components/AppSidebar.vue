@@ -15,21 +15,24 @@
       </NuxtLink>
     </div>
     <div class="p-3 mb-4">
-      <NuxtLink :to="localePath('/users/profile')" class="flex items-center justify-start gap-3">
+      <NuxtLink
+        :to="localePath('/users/profile')"
+        class="flex items-center justify-start gap-3"
+      >
         <img
           v-if="currentUser?.profile?.avatar"
           :src="currentUser.profile.avatar"
           :alt="currentUser.id"
           class="w-10 h-10 rounded-full object-cover"
-        >
+        />
         <div
           v-else
           class="w-10 h-10 rounded-full bg-neutral-500 flex items-center justify-center text-lg text-neutral-700"
         >
-          {{ currentUser?.profile?.first_name?.[0] }}
+          {{ currentUser?.profile?.firstName?.[0] }}
         </div>
-        {{ currentUser?.profile?.first_name }}
-        {{ currentUser?.profile?.last_name }}
+        {{ currentUser?.profile?.firstName }}
+        {{ currentUser?.profile?.lastName }}
       </NuxtLink>
       <i class="pi pi-sign-out text-2xl cursor-pointer mt-6" @click="logout" />
     </div>
@@ -60,12 +63,7 @@ const menuItems = computed(() => [
     label: t('sidebar.languages'),
     path: localePath('/languages'),
     icon: 'pi-language',
-  },
-  {
-    label: t('sidebar.cvs'),
-    path: localePath('/cvs'),
-    icon: 'pi-file',
-  },
+  }
 ]);
 
 onMounted(async () => {

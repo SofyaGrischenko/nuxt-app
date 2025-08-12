@@ -71,8 +71,8 @@ const columns = [
   { field: 'firstName', header: t('table.firstName'), sortable: true },
   { field: 'lastName', header: t('table.lastName'), sortable: true },
   { field: 'email', header: t('table.email'), sortable: true },
-  { field: 'department_name', header: t('table.department'), sortable: true },
-  { field: 'position_name', header: t('table.position'), sortable: true },
+  { field: 'departmentName', header: t('table.department'), sortable: true },
+  { field: 'positionName', header: t('table.position'), sortable: true },
   { field: 'details', header: '', sortable: false },
 ];
 

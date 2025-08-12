@@ -1,8 +1,8 @@
 <template>
   <div v-if="init" class="flex flex-col items-center justify-center">
-    <avatar-upload v-model="newAvatar" :name="init.first_name ?? ''" />
+    <avatar-upload v-model="newAvatar" :name="init.firstName ?? ''" />
 
-    <h3 class="text-3xl mb-4">{{ init?.first_name }} {{ init?.last_name }}</h3>
+    <h3 class="text-3xl mb-4">{{ init?.firstName }} {{ init?.lastName }}</h3>
     <h2 class="text-neutral-400 mb-2">{{ init?.email }}</h2>
     <h2 class="mb-16">
       {{ t('profile.user.member_since') }} {{ formattedDate }}
@@ -55,24 +55,24 @@ const handleUpdateProfile = async () => {
 };
 
 const formattedDate = computed(() => {
-  if (!currentUser.value?.created_at) return '';
-  const timestamp = Number(currentUser.value?.created_at);
+  if (!currentUser.value?.createdAt) return '';
+  const timestamp = Number(currentUser.value?.createdAt);
   return new Date(timestamp).toLocaleDateString();
 });
 
 const formInputs = computed<Input[]>(() => [
   {
-    field: 'first_name',
+    field: 'firstName',
     label: t('labels.first_name'),
     component: 'InputText',
   },
   {
-    field: 'last_name',
+    field: 'lastName',
     label: t('labels.last_name'),
     component: 'InputText',
   },
   {
-    field: 'department_name',
+    field: 'departmentName',
     label: t('labels.department'),
     component: 'Select',
     props: {
@@ -82,7 +82,7 @@ const formInputs = computed<Input[]>(() => [
     },
   },
   {
-    field: 'position_name',
+    field: 'positionName',
     label: t('labels.position'),
     component: 'Select',
     props: {
@@ -100,8 +100,8 @@ onMounted(async () => {
     const { profile, ...rest } = currentUser.value;
     const flatUser = { ...profile, ...rest };
 
-    init.value = JSON.parse(JSON.stringify(flatUser));
-    originalUser.value = JSON.parse(JSON.stringify(flatUser));
+    init.value = flatUser;
+    originalUser.value = flatUser;
   }
 });
 </script>
