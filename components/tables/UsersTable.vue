@@ -53,7 +53,7 @@
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
-import UserDialog from './UserDialog.vue';
+import UserDialog from '@/components/UserDialog.vue';
 import DynamicTable from '~/components/UI/DynamicTable.vue';
 import { useUsers } from '~/composables/useUsers';
 import type { FlatUser } from '~/types/user.types';
@@ -71,8 +71,8 @@ const columns = [
   { field: 'firstName', header: t('table.firstName'), sortable: true },
   { field: 'lastName', header: t('table.lastName'), sortable: true },
   { field: 'email', header: t('table.email'), sortable: true },
-  { field: 'department_name', header: t('table.department'), sortable: true },
-  { field: 'position_name', header: t('table.position'), sortable: true },
+  { field: 'departmentName', header: t('table.department'), sortable: true },
+  { field: 'positionName', header: t('table.position'), sortable: true },
   { field: 'details', header: '', sortable: false },
 ];
 

@@ -2,7 +2,7 @@ import { ref, computed } from 'vue';
 import { handleGetUsers } from '~/service/users';
 import type { FlatUser, User } from '~/types/user.types';
 
-export function useUsers() {
+export const useUsers = () => {
   const rawUsers = ref<User[]>([]);
   const searchQuery = ref('');
   const pagesToShow = ref(1);
@@ -10,19 +10,19 @@ export function useUsers() {
 
   const flatUsers = computed<FlatUser[]>(() => {
     return rawUsers.value.map((user: User) => {
-      const firstName = user.profile?.first_name ?? '';
-      const lastName = user.profile?.last_name ?? '';
+      const firstName = user.profile?.firstName ?? '';
+      const lastName = user.profile?.lastName ?? '';
       const icon = user.profile?.avatar ?? '';
 
       return {
         id: user.id,
-        created_at: user.created_at,
+        createdAt: user.createdAt,
         firstName,
         lastName,
         icon,
         email: user.email,
-        department_name: user.department_name,
-        position_name: user.position_name,
+        departmentName: user.departmentName,
+        positionName: user.positionName,
       };
     });
   });
@@ -46,9 +46,10 @@ export function useUsers() {
   const loadMore = () => pagesToShow.value++;
 
   const fetchUsers = async () => {
-    const { users: fetchedUsers } = await handleGetUsers();
-    if (fetchedUsers) {
-      rawUsers.value = fetchedUsers;
+    const data = await handleGetUsers();
+    
+    if (data) {
+      rawUsers.value = data;
     }
   };
 
@@ -60,4 +61,4 @@ export function useUsers() {
     loadMore,
     fetchUsers,
   };
-}
+};

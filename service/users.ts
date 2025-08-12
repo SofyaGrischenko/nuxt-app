@@ -8,6 +8,7 @@ import type {
   UpdateProfileInput,
   UpdateUserInput,
   UploadAvatarInput,
+  UserApi,
 } from '~/types/user.types';
 
 export const handleGetUsers = async () => {
@@ -15,7 +16,7 @@ export const handleGetUsers = async () => {
     const { data, fetch } = useApolloQuery(GET_USERS);
     await fetch();
 
-    return data?.value;
+    return data.value.users.map((user: UserApi) => mapApiToUser(user));
   } catch (error) {
     console.error('failed to get users', error);
   }
@@ -26,7 +27,7 @@ export const handleGetUserById = async (userId: string) => {
     const { data, fetch } = useApolloQuery(GET_USER_BY_ID, { userId });
     await fetch();
 
-    return data?.value;
+    return mapApiToUser(data?.value.user);
   } catch (error) {
     console.error('failed to get user by id', error);
   }
@@ -35,19 +36,21 @@ export const handleGetUserById = async (userId: string) => {
 export const handleUserUpdate = async (userInfo: UpdateUserInput) => {
   try {
     const { data, mutate } = useApolloMutation(UPDATE_USER);
+    await mutate({ input: userInfo });
 
-    await mutate({ userInfo });
-
-    return data?.value;
+    return data;
   } catch (error) {
-    console.error('failed to update user', error);
+    console.error('failed to update user ', error);
   }
 };
 
-export const handleProfileUpdate = async (input: UpdateProfileInput) => {
+export const handleProfileUpdate = async (profileInfo: UpdateProfileInput) => {
+  const profile = mapProfile(profileInfo);
+
   try {
-    const { mutate } = useApolloMutation(UPDATE_PROFILE);
-    const { data } = await mutate({ input });
+    const { data, mutate } = useApolloMutation(UPDATE_PROFILE);
+    await mutate({ input: profile });
+
     return data;
   } catch (error) {
     console.error('Failed to update profile', error);

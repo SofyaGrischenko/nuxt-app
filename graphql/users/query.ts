@@ -1,11 +1,12 @@
 import { gql } from '@apollo/client/core';
 
 export const GET_USERS = gql`
-  query getUsers {
+  query GET_ALL_USERS {
     users {
       id
       email
       profile {
+        full_name
         first_name
         last_name
         avatar
@@ -24,6 +25,7 @@ export const GET_USER_BY_ID = gql`
       created_at
       email
       profile {
+        full_name
         first_name
         last_name
         avatar

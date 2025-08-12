@@ -117,8 +117,8 @@ const formInitialData = computed(() => ({
   firstName: user?.firstName || '',
   lastName: user?.lastName || '',
   email: user?.email || '',
-  department: user?.department_name || '',
-  position: user?.position_name || '',
+  department: user?.departmentName || '',
+  position: user?.positionName || '',
 }));
 
 const handleFormSubmit = (formData: Record<string, string>) => {

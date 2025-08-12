@@ -9,7 +9,7 @@
         type="text"
         :placeholder="t('search')"
         class="bg-transparent outline-none text-white placeholder-zinc-400 w-full"
-      />
+      >
     </div>
 
     <dynamic-table :data="filteredLanguages" :columns />
