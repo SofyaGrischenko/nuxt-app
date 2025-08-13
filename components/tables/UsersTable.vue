@@ -9,7 +9,7 @@
         type="text"
         :placeholder="t('search')"
         class="bg-transparent outline-none text-white placeholder-zinc-400 w-full"
-      >
+      />
     </div>
 
     <dynamic-table :data="employees" :columns>
@@ -19,7 +19,7 @@
           :src="data.icon"
           :alt="data.firstName"
           class="w-10 h-10 rounded-full object-cover"
-        >
+        />
         <div
           v-else
           class="w-10 h-10 rounded-full bg-neutral-500 flex items-center justify-center text-lg text-neutral-700"
@@ -47,21 +47,37 @@
         @click="loadMore"
       />
     </div>
-    <user-dialog v-model:visible="isDialogVisible" :user="selectedUser" />
+    <dynamic-dialog
+      v-if="selectedUser"
+      v-model:visible="isDialogVisible"
+      :title="t('edit.profile')"
+      :inputs="dialogFormInputs"
+      :initial-data="selectedUser"
+      :wrapper-class="'grid grid-cols-1 md:grid-cols-2 gap-6'"
+      @submit="handleProfileUpdate"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
-import UserDialog from '@/components/UserDialog.vue';
+import DynamicDialog from '../UI/DynamicDialog.vue';
 import DynamicTable from '~/components/UI/DynamicTable.vue';
 import { useUsers } from '~/composables/useUsers';
 import type { FlatUser } from '~/types/user.types';
+import type { Input } from '~/types/form.types';
 
 const { t } = useI18n();
-const { getDepartments, getPositions } = useDetails();
-const { employees, searchQuery, filteredUsers, loadMore, fetchUsers } =
-  useUsers();
+const { getDepartments, getPositions, positions, departments } = useDetails();
+const { currentUser } = useCurrentUser();
+const {
+  employees,
+  searchQuery,
+  filteredUsers,
+  loadMore,
+  fetchUsers,
+  updateUser,
+} = useUsers();
 
 const selectedUser = ref<FlatUser | null>(null);
 const isDialogVisible = ref(false);
@@ -76,9 +92,81 @@ const columns = [
   { field: 'details', header: '', sortable: false },
 ];
 
+const dialogFormInputs = computed<Input[]>(() => [
+  {
+    field: 'email',
+    label: t('labels.email'),
+    component: 'InputText',
+    props: {
+      disabled: true,
+    },
+  },
+  {
+    field: 'password',
+    label: t('labels.password'),
+    component: 'Password',
+    props: {
+      placeholder: '**********',
+      disabled: true,
+    },
+  },
+  {
+    field: 'firstName',
+    label: t('labels.first_name'),
+    component: 'InputText',
+  },
+  {
+    field: 'lastName',
+    label: t('labels.last_name'),
+    component: 'InputText',
+  },
+  {
+    field: 'departmentName',
+    label: t('labels.department'),
+    component: 'Select',
+    props: {
+      options: departments.value,
+      optionLabel: 'name',
+      optionValue: 'name',
+    },
+  },
+  {
+    field: 'positionName',
+    label: t('labels.position'),
+    component: 'Select',
+    props: {
+      options: positions.value,
+      optionLabel: 'name',
+      optionValue: 'name',
+    },
+  },
+  {
+    field: 'role',
+    label: t('labels.role'),
+    component: 'InputText',
+    props: {
+      disabled: true,
+    },
+  },
+]);
+
+const handleProfileUpdate = async (formData: Record<string, any>) => {
+  const updatedData = formData as FlatUser;
+
+  if (!selectedUser.value) return;
+  await updateUser(selectedUser.value, updatedData, null);
+
+  isDialogVisible.value = false;
+  selectedUser.value = null;
+};
+
 const showDetails = (data: FlatUser) => {
-  selectedUser.value = data;
-  isDialogVisible.value = true;
+  if (currentUser.value?.id === data.id) {
+    isDialogVisible.value = true;
+    selectedUser.value = data;
+  } else {
+    navigateTo(`/users/${data.id}/profile`);
+  }
 };
 
 onMounted(async () => {

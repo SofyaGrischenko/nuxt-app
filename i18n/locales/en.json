@@ -60,5 +60,10 @@
 
   "updateButton": "Update",
   "loading": "Loading...",
-  "search": "Search"
+  "search": "Search",
+  "edit": {
+    "language": "Edit language",
+    "skill": "Edit skill",
+    "profile": "Edit profile"
+  }
 }

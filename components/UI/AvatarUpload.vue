@@ -1,14 +1,23 @@
 <template>
-  <div class="flex items-center space-x-4 p-6 rounded-lg w-max">
+  <div
+    class="flex items-center space-x-4 p-6 rounded-lg w-max"
+    :class="{ 'pointer-events-none': !isEditable }"
+  >
     <label for="avatarUpload" class="cursor-pointer">
       <Avatar
         :image="previewUrl ?? ''"
-        :label="previewUrl ? '': name?.[0]"
+        :label="previewUrl ? '' : name?.[0]"
         shape="circle"
         class="w-28 h-28 text-5xl bg-neutral-500 text-neutral-700"
       />
     </label>
-    <button v-if="previewUrl" class="self-start" @click="removeImage">✕</button>
+    <button
+      v-if="previewUrl && isEditable"
+      class="self-start"
+      @click="removeImage"
+    >
+      ✕
+    </button>
     <div
       class="flex flex-col items-center justify-center p-6 transition-colors duration-200"
       :class="{
@@ -20,6 +29,7 @@
       @drop.prevent="onDrop"
     >
       <div
+        v-if="isEditable"
         class="flex flex-col items-center text-center"
         :class="{ 'pointer-events-none': isDragging }"
       >
@@ -36,7 +46,7 @@
           accept="image/png, image/jpeg, image/gif"
           class="hidden"
           @change="handleFileChange"
-        >
+        />
       </div>
     </div>
   </div>
@@ -48,9 +58,18 @@ import Avatar from 'primevue/avatar';
 const { t } = useI18n();
 
 const modelValue = defineModel<File | null>();
-const { name } = defineProps<{ name: string }>();
+const props = withDefaults(
+  defineProps<{
+    name: string;
+    initialPreviewUrl?: string | null;
+    isEditable: boolean;
+  }>(),
+  { initialPreviewUrl: null }
+);
 
-const previewUrl = ref<string | null>(null);
+const { name, initialPreviewUrl, isEditable } = props;
+
+const previewUrl = ref<string | null>(initialPreviewUrl ?? null);
 const isDragging = ref(false);
 
 const processFile = (selectedFile: File | undefined | null) => {
@@ -94,16 +113,17 @@ const removeImage = () => {
   modelValue.value = null;
 };
 
-watch(modelValue, (newFile) => {
-  if (previewUrl.value) {
-    URL.revokeObjectURL(previewUrl.value);
+watch(
+  () => initialPreviewUrl,
+  (newFile) => {
+    if (previewUrl.value) {
+      URL.revokeObjectURL(previewUrl.value);
+    }
+    if (!modelValue.value && newFile) {
+      previewUrl.value = newFile;
+    }
   }
-  if (newFile) {
-    previewUrl.value = URL.createObjectURL(newFile);
-  } else {
-    previewUrl.value = null;
-  }
-});
+);
 
 onBeforeUnmount(() => {
   if (previewUrl.value) {

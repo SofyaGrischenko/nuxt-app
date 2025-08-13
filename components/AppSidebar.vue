@@ -16,7 +16,7 @@
     </div>
     <div class="p-3 mb-4">
       <NuxtLink
-        :to="localePath('/users/profile')"
+        :to="localePath(`/users/${currentUser?.id}/profile`)"
         class="flex items-center justify-start gap-3"
       >
         <img
@@ -24,7 +24,7 @@
           :src="currentUser.profile.avatar"
           :alt="currentUser.id"
           class="w-10 h-10 rounded-full object-cover"
-        />
+        >
         <div
           v-else
           class="w-10 h-10 rounded-full bg-neutral-500 flex items-center justify-center text-lg text-neutral-700"
@@ -63,7 +63,7 @@ const menuItems = computed(() => [
     label: t('sidebar.languages'),
     path: localePath('/languages'),
     icon: 'pi-language',
-  }
+  },
 ]);
 
 onMounted(async () => {
