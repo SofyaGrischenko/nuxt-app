@@ -25,9 +25,10 @@
 
     <dynamic-dialog
       v-model:visible="isDialogVisible"
-      :title="'Edit language'"
+      :title="t('edit.language')"
       :inputs
       :initial-data="selectedSkill"
+      disabled-button
     />
   </div>
 </template>
@@ -64,16 +65,19 @@ const inputs = ref<Input[]>([
     label: 'Name',
     field: 'name',
     component: 'InputText',
+    props: { disabled: true },
   },
   {
     label: 'Native name',
     field: 'native_name',
     component: 'InputText',
+    props: { disabled: true },
   },
   {
     label: 'ISO2',
     field: 'iso2',
     component: 'InputText',
+    props: { disabled: true },
   },
 ]);
 

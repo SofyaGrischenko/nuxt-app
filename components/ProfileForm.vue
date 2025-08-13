@@ -4,6 +4,7 @@
       v-model="newAvatar"
       :name="userToDisplay.firstName ?? ''"
       :initial-preview-url="userToDisplay.avatar"
+      :is-editable
     />
 
     <h3 class="text-3xl mb-4">
@@ -85,38 +86,48 @@ const formattedDate = computed(() => {
   return new Date(timestamp).toLocaleDateString();
 });
 
-const formInputs = computed<Input[]>(() => [
-  {
-    field: 'firstName',
-    label: t('labels.first_name'),
-    component: 'InputText',
-  },
-  {
-    field: 'lastName',
-    label: t('labels.last_name'),
-    component: 'InputText',
-  },
-  {
-    field: 'departmentName',
-    label: t('labels.department'),
-    component: 'Select',
-    props: {
-      options: departments.value,
-      optionLabel: 'name',
-      optionValue: 'name',
+const formInputs = computed<Input[]>(() => {
+  const inputs: Input[] = [
+    {
+      field: 'firstName',
+      label: t('labels.first_name'),
+      component: 'InputText',
     },
-  },
-  {
-    field: 'positionName',
-    label: t('labels.position'),
-    component: 'Select',
-    props: {
-      options: positions.value,
-      optionLabel: 'name',
-      optionValue: 'name',
+    {
+      field: 'lastName',
+      label: t('labels.last_name'),
+      component: 'InputText',
     },
-  },
-]);
+    {
+      field: 'departmentName',
+      label: t('labels.department'),
+      component: 'Select',
+      props: {
+        options: departments.value,
+        optionLabel: 'name',
+        optionValue: 'name',
+      },
+    },
+    {
+      field: 'positionName',
+      label: t('labels.position'),
+      component: 'Select',
+      props: {
+        options: positions.value,
+        optionLabel: 'name',
+        optionValue: 'name',
+      },
+    },
+  ];
+
+  return inputs.map((input) => ({
+    ...input,
+    props: {
+      ...input?.props,
+      disabled: !isEditable.value,
+    },
+  }));
+});
 
 onMounted(async () => {
   await Promise.all([

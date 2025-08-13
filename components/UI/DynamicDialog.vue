@@ -6,7 +6,7 @@
     class="md:w-[600px]"
     :style="{ width: '50vw' }"
   >
-    <dynamic-form v-model="data" :inputs />
+    <dynamic-form v-model="data" :inputs :wrapper-class />
     <template #footer>
       <div class="flex w-[50%] min-w-[250px] gap-5">
         <Button
@@ -14,20 +14,15 @@
           severity="secondary"
           variant="outlined"
           class="w-full"
-          @click="closeForm()"
+          @click="closeForm"
         />
+
         <Button
-          label="Delete"
-          severity="secondary"
-          variant="outlined"
-          class="w-full"
-          @click="closeForm()"
-        />
-        <Button
+          :disabled="disabledButton"
           label="update"
           severity="primary"
           class="w-full"
-          @click="closeForm()"
+          @click="submitForm"
         />
       </div>
     </template>
@@ -39,12 +34,15 @@ import Dialog from 'primevue/dialog';
 import DynamicForm from './DynamicForm.vue';
 import type { Input } from '~/types/form.types';
 
-const { inputs, visible, initialData, title } = defineProps<{
-  title: string;
-  visible: boolean;
-  inputs: Input[];
-  initialData: object | null;
-}>();
+const { inputs, visible, initialData, title, wrapperClass, disabledButton } =
+  defineProps<{
+    title: string;
+    visible: boolean;
+    inputs: Input[];
+    initialData: object | null;
+    wrapperClass?: string;
+    disabledButton?: boolean;
+  }>();
 
 const data = ref({});
 
@@ -55,10 +53,15 @@ const dialogVisible = computed({
 
 const emit = defineEmits<{
   (e: 'update:visible', value: boolean): void;
+  (e: 'submit', data: Record<string, any>): void;
 }>();
 
 const closeForm = () => {
   emit('update:visible', false);
+};
+
+const submitForm = () => {
+  emit('submit', data.value);
 };
 
 watch(

@@ -32,6 +32,7 @@ export const useUsers = () => {
         email: user.email,
         departmentName: user.departmentName,
         positionName: user.positionName,
+        role: user.role,
       };
     });
   });

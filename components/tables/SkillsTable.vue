@@ -34,9 +34,10 @@
     </div>
     <dynamic-dialog
       v-model:visible="isDialogVisible"
-      :title="'Edit skill'"
+      :title="t('edit.skill')"
       :inputs
       :initial-data="selectedSkill"
+      disabled-button
     />
   </div>
 </template>
@@ -73,11 +74,13 @@ const inputs = ref<Input[]>([
     label: 'name',
     field: 'name',
     component: 'InputText',
+    props: { disabled: true },
   },
   {
     label: 'category',
     field: 'category_name',
     component: 'InputText',
+    props: { disabled: true },
   },
 ]);
 
