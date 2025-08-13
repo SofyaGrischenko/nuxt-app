@@ -19,7 +19,7 @@
 
         <Button
           :disabled="disabledButton"
-          label="update"
+          :label="$t('updateButton')"
           severity="primary"
           class="w-full"
           @click="submitForm"
