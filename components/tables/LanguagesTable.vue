@@ -22,13 +22,24 @@
         />
       </template>
     </dynamic-table>
+    <div
+      v-if="languages.length < filteredLanguages.length"
+      class="flex justify-center mt-4 mb-15"
+    >
+      <Button
+        :label="t('table.button')"
+        icon="pi pi-arrow-down"
+        @click="loadMore"
+      />
+    </div>
 
     <dynamic-dialog
       v-model:visible="isDialogVisible"
       :title="t('edit.language')"
-      :inputs
-      :initial-data="selectedSkill"
-      disabled-button
+      :inputs="dialogInputs"
+      :initial-data="selectedLang"
+      :update-button="isAdmin"
+      @submit="handleLangUpdate"
     />
   </div>
 </template>
@@ -37,13 +48,21 @@
 import DynamicDialog from '../UI/DynamicDialog.vue';
 import DynamicTable from '~/components/UI/DynamicTable.vue';
 import { useI18n } from 'vue-i18n';
-import type { Input, Language } from '~/types/form.types';
+import type { Input, LanguageInput, LanguageOtput } from '~/types/form.types';
 
 const { t } = useI18n();
-const { getLanguages, searchQuery, filteredLanguages } = useDetails();
+const { isAdmin } = useCurrentUser();
+const {
+  searchQuery,
+  languages,
+  filteredLanguages,
+  getLanguages,
+  loadMore,
+  updateLanguage,
+} = useLanguages();
 
 const isDialogVisible = ref(false);
-const selectedSkill = ref<Language | null>(null);
+const selectedLang = ref<LanguageOtput | null>(null);
 
 const columns = [
   { field: 'name', header: t('table.name'), sortable: true },
@@ -60,30 +79,44 @@ const columns = [
   },
 ];
 
-const inputs = ref<Input[]>([
+const dialogInputs = computed<Input[]>(() => [
   {
     label: 'Name',
     field: 'name',
     component: 'InputText',
-    props: { disabled: true },
+    props: { disabled: !isAdmin },
   },
   {
     label: 'Native name',
     field: 'native_name',
     component: 'InputText',
-    props: { disabled: true },
+    props: { disabled: !isAdmin },
   },
   {
     label: 'ISO2',
     field: 'iso2',
     component: 'InputText',
-    props: { disabled: true },
+    props: { disabled: !isAdmin },
   },
 ]);
 
-const showDetails = (data: Language) => {
-  selectedSkill.value = data;
+const showDetails = (data: LanguageOtput) => {
+  selectedLang.value = data;
   isDialogVisible.value = true;
+};
+
+const handleLangUpdate = async (formData: Record<string, any>) => {
+  if (!selectedLang.value) return;
+
+  const langToUpdate: LanguageInput = {
+    languageId: selectedLang.value.id,
+    name: formData.name,
+    iso2: formData.iso2,
+    native_name: formData.native_name,
+  };
+
+  await updateLanguage(langToUpdate);
+  isDialogVisible.value = false;
 };
 
 onMounted(async () => {

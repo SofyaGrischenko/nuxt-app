@@ -18,7 +18,7 @@
         />
 
         <Button
-          :disabled="disabledButton"
+          :disabled="updateButton"
           :label="$t('updateButton')"
           severity="primary"
           class="w-full"
@@ -34,14 +34,14 @@ import Dialog from 'primevue/dialog';
 import DynamicForm from './DynamicForm.vue';
 import type { Input } from '~/types/form.types';
 
-const { inputs, visible, initialData, title, wrapperClass, disabledButton } =
+const { inputs, visible, initialData, title, wrapperClass, updateButton } =
   defineProps<{
     title: string;
     visible: boolean;
     inputs: Input[];
     initialData: object | null;
     wrapperClass?: string;
-    disabledButton?: boolean;
+    updateButton?: boolean;
   }>();
 
 const data = ref({});

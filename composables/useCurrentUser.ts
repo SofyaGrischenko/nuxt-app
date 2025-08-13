@@ -11,6 +11,7 @@ export const useCurrentUser = () => {
   const user = useState<User | null>('user', () => null);
 
   const currentUser = computed(() => user.value);
+  const isAdmin = computed(() => user.value?.role === 'admin');
 
   const clearUser = () => {
     user.value = null;
@@ -45,6 +46,7 @@ export const useCurrentUser = () => {
 
   return {
     currentUser,
+    isAdmin,
     fetchCurrentUser,
     clearUser,
   };

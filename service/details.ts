@@ -1,9 +1,12 @@
+import { UPDATE_LANGUAGE, UPDATE_SKILL } from '~/graphql/details/mutations';
 import {
   GET_DEPARTMENTS,
   GET_LANGUAGES,
   GET_POSITIONS,
   GET_SKILLS,
+  GET_SKILLS_CATEGORIES,
 } from '~/graphql/details/query';
+import type { LanguageInput, UpdateSkillInput } from '~/types/form.types';
 
 export const handleGetPositions = async () => {
   try {
@@ -38,6 +41,24 @@ export const handleGetSkills = async () => {
   }
 };
 
+export const handleUpdateSkill = async (input: UpdateSkillInput) => {
+  try {
+    const { data, mutate } = useApolloMutation(UPDATE_SKILL);
+    await mutate({ input });
+
+    return data.value;
+  } catch (error) {
+    console.error('failed to update skill', error);
+  }
+};
+
+export const handleGetSkillsCategories = async () => {
+  const { data, fetch } = useApolloQuery(GET_SKILLS_CATEGORIES);
+  await fetch();
+
+  return data.value;
+};
+
 export const handleGetLanguages = async () => {
   try {
     const { data, fetch } = useApolloQuery(GET_LANGUAGES);
@@ -46,5 +67,16 @@ export const handleGetLanguages = async () => {
     return data?.value;
   } catch (error) {
     console.error('failed to get languages', error);
+  }
+};
+
+export const handleUpdateLanguage = async (input: LanguageInput) => {
+  try {
+    const { data, mutate } = useApolloMutation(UPDATE_LANGUAGE);
+    await mutate({ input });
+
+    return data.value;
+  } catch (error) {
+    console.error('failed to update language', error);
   }
 };

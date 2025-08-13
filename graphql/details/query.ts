@@ -25,6 +25,18 @@ export const GET_SKILLS = gql`
       created_at
       name
       category_name
+      category{
+        id
+      }
+    }
+  }
+`;
+
+export const GET_SKILLS_CATEGORIES = gql`
+  query GET_SKILLS_CATEGORIES {
+    skillCategories {
+      id
+      name
     }
   }
 `;
