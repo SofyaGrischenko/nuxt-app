@@ -16,6 +16,7 @@ export const useUsers = () => {
   const selectedUser = ref<User | null>(null);
 
   const { positions, departments } = useDetails();
+  const { error, warning, success } = useToastNotification();
 
   const flatUsers = computed<FlatUser[]>(() => {
     return rawUsers.value.map((user: User) => {
@@ -141,17 +142,18 @@ export const useUsers = () => {
     }
 
     if (mutationPromises.length === 0) {
-      console.log('No information to update.');
+      warning('No information to update');
       return;
     }
 
     try {
       await Promise.all(mutationPromises);
-      console.log('User data updated');
+      success('Profile updated');
 
       await fetchOneUser(userId);
-    } catch (error) {
-      console.error('Failed to update user', error);
+    } catch (e) {
+      console.error('Failed to update user', e);
+      error('Failed to update profile');
     }
   };
 
