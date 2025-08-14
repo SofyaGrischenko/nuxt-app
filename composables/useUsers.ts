@@ -148,8 +148,9 @@ export const useUsers = () => {
 
     try {
       await Promise.all(mutationPromises);
+
       await fetchOneUser(userId);
-      
+
       success('Profile updated');
     } catch (e) {
       console.error('Failed to update user', e);

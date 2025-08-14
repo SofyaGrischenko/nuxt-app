@@ -1,15 +1,27 @@
 <template>
   <div class="ml-6">
-    <div
-      class="flex items-center border border-zinc-600 rounded-full px-4 py-2 w-full max-w-sm gap-3 mb-5"
-    >
-      <i class="pi pi-search" />
-      <input
-        v-model="searchQuery"
-        type="text"
-        :placeholder="t('search')"
-        class="bg-transparent outline-none text-white placeholder-zinc-400 w-full"
+    <div class="flex justify-between">
+      <div
+        class="flex items-center border border-zinc-600 rounded-full px-4 py-2 w-full max-w-sm gap-3 mb-5"
       >
+        <i class="pi pi-search" />
+        <input
+          v-model="searchQuery"
+          type="text"
+          :placeholder="t('search')"
+          class="bg-transparent outline-none text-white placeholder-zinc-400 w-full"
+        />
+      </div>
+      <Button
+        v-if="isAdmin"
+        severity="contrast"
+        variant="text"
+        class="w-50 h-15 uppercase hover:bg-transparent"
+        @click="showCreateForm"
+      >
+        <i class="pi pi-plus" />
+        Create Skill
+      </Button>
     </div>
 
     <dynamic-table :data="filteredSkills" :columns>
@@ -18,7 +30,7 @@
           icon="pi pi-arrow-right"
           text
           rounded
-          @click="showDetails(data)"
+          @click="showEditForm(data)"
         />
       </template>
     </dynamic-table>
@@ -34,11 +46,12 @@
     </div>
     <dynamic-dialog
       v-model:visible="isDialogVisible"
-      :title="t('edit.skill')"
+      :title="dialogTitle"
       :inputs="dialogInputs"
       :initial-data="selectedSkill"
       :update-button="isAdmin"
-      @submit="handleSkillUpdate"
+      :button-text
+      @submit="handleSubmit"
     />
   </div>
 </template>
@@ -47,7 +60,12 @@
 import DynamicDialog from '../UI/DynamicDialog.vue';
 import DynamicTable from '~/components/UI/DynamicTable.vue';
 import { useI18n } from 'vue-i18n';
-import type { Input, Skill, UpdateSkillInput } from '~/types/form.types';
+import type {
+  CreateSkillInput,
+  Input,
+  Skill,
+  UpdateSkillInput,
+} from '~/types/form.types';
 
 const { t } = useI18n();
 const { isAdmin } = useCurrentUser();
@@ -60,24 +78,35 @@ const {
   getSkills,
   getSkillCategories,
   updateSkill,
+  createSkill,
 } = useSkills();
 
 const isDialogVisible = ref(false);
 const selectedSkill = ref<Skill | null>(null);
 
-const columns = [
-  { field: 'name', header: t('table.name'), sortable: true },
-  {
-    field: 'category_name',
-    header: t('table.skills_category'),
-    sortable: true,
-  },
-  {
-    field: 'details',
-    header: '',
-    sortable: false,
-  },
-];
+const dialogTitle = ref<string>('');
+const buttonText = ref<string>('');
+
+const columns = computed(() => {
+  const baseColumns = [
+    { field: 'name', header: t('table.name'), sortable: true },
+    {
+      field: 'category_name',
+      header: t('table.skills_category'),
+      sortable: true,
+    },
+  ];
+
+  if (isAdmin.value) {
+    baseColumns.push({
+      field: 'details',
+      header: '',
+      sortable: false,
+    });
+  }
+
+  return baseColumns;
+});
 
 const dialogInputs = computed<Input[]>(() => [
   {
@@ -99,9 +128,40 @@ const dialogInputs = computed<Input[]>(() => [
   },
 ]);
 
-const showDetails = (data: Skill) => {
+const showEditForm = (data: Skill) => {
+  dialogTitle.value = t('edit.skill');
+  buttonText.value = t('updateButton');
   selectedSkill.value = data;
   isDialogVisible.value = true;
+};
+
+const showCreateForm = () => {
+  selectedSkill.value = null;
+  dialogTitle.value = 'Create new skill';
+  buttonText.value = 'Create';
+  isDialogVisible.value = true;
+};
+
+const handleSubmit = (formData: Record<string, any>) => {
+  if (selectedSkill.value) {
+    handleSkillUpdate(formData);
+  } else {
+    handkeCreateNewSkill(formData);
+  }
+};
+
+const handkeCreateNewSkill = async (formData: Record<string, any>) => {
+  const category = skillCategories.value.find(
+    (c) => c.name === formData.category_name
+  );
+  if (!category) return;
+
+  const newSkill: CreateSkillInput = {
+    name: formData.name,
+    categoryId: category.id,
+  };
+
+  await createSkill(newSkill);
 };
 
 const handleSkillUpdate = async (formData: Record<string, any>) => {

@@ -17,8 +17,13 @@
   --p-button-primary-active-color: #fff;
 
   /* secondary button */
-  /* --p-button-secondary-background: #00000000;*/
   --p-button-secondary-background: #636363;
+
+  /* contrast button */
+  --p-button-text-contrast-color: #ba2525;
+  --p-button-text-contrast-hover-background: #00000000;
+  --p-button-text-contrast-active-color: #971d1d;
+  --p-button-text-contrast-active-background: #00000000;
 
   /* form input */
   --p-inputtext-background: #00000000;

@@ -19,6 +19,11 @@ export interface Skill {
   category_name?: string;
 }
 
+export interface CreateSkillInput {
+  name: string;
+  categoryId: string;
+}
+
 export interface UpdateSkillInput {
   skillId: string;
   name: string;
@@ -33,6 +38,12 @@ export interface BaseLanguage {
 
 export type LanguageOtput = BaseLanguage & { id: string };
 export type LanguageInput = BaseLanguage & { languageId: string };
+
+export interface CreateLanguageInput {
+  iso2: string;
+  name: string;
+  native_name: string;
+}
 
 type InputProps =
   | boolean

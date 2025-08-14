@@ -1,5 +1,13 @@
-import { handleGetLanguages, handleUpdateLanguage } from '~/service/details';
-import type { LanguageInput, LanguageOtput } from '~/types/form.types';
+import {
+  handleCreateLanguage,
+  handleGetLanguages,
+  handleUpdateLanguage,
+} from '~/service/details';
+import type {
+  CreateLanguageInput,
+  LanguageInput,
+  LanguageOtput,
+} from '~/types/form.types';
 
 export const useLanguages = () => {
   const languages = useState<LanguageOtput[]>('languages', () => []);
@@ -69,6 +77,16 @@ export const useLanguages = () => {
     }
   };
 
+  const createLang = async (input: CreateLanguageInput) => {
+    try {
+      await handleCreateLanguage(input);
+
+      success('New language has been created');
+    } catch (error) {
+      console.error('failed to create language', error);
+    }
+  };
+
   return {
     searchQuery,
     languages: languagesToShow,
@@ -76,5 +94,6 @@ export const useLanguages = () => {
     loadMore,
     getLanguages,
     updateLanguage,
+    createLang,
   };
 };

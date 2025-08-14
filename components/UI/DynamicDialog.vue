@@ -19,7 +19,7 @@
 
         <Button
           :disabled="updateButton"
-          :label="$t('updateButton')"
+          :label="buttonText"
           severity="primary"
           class="w-full"
           @click="submitForm"
@@ -34,15 +34,23 @@ import Dialog from 'primevue/dialog';
 import DynamicForm from './DynamicForm.vue';
 import type { Input } from '~/types/form.types';
 
-const { inputs, visible, initialData, title, wrapperClass, updateButton } =
-  defineProps<{
-    title: string;
-    visible: boolean;
-    inputs: Input[];
-    initialData: object | null;
-    wrapperClass?: string;
-    updateButton?: boolean;
-  }>();
+const {
+  inputs,
+  visible,
+  initialData,
+  title,
+  wrapperClass,
+  updateButton,
+  buttonText,
+} = defineProps<{
+  title: string;
+  visible: boolean;
+  inputs: Input[];
+  initialData: object | null;
+  wrapperClass?: string;
+  updateButton?: boolean;
+  buttonText: string;
+}>();
 
 const data = ref({});
 

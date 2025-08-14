@@ -1,9 +1,11 @@
 import {
+  handleCreateSkill,
   handleGetSkills,
   handleGetSkillsCategories,
   handleUpdateSkill,
 } from '~/service/details';
 import type {
+  CreateSkillInput,
   Skill,
   SkillCategory,
   UpdateSkillInput,
@@ -45,7 +47,7 @@ export const useSkills = () => {
       const response = await handleGetSkills();
 
       if (response.skills) {
-        skills.value = response.skills;
+        skills.value = [...response.skills];
       }
     } catch (error) {
       console.error('failed to get skills', error);
@@ -78,14 +80,22 @@ export const useSkills = () => {
     }
 
     try {
-      const response = await handleUpdateSkill(input);
-
-      console.log('response', response);
+      await handleUpdateSkill(input);
 
       success('Skill has been updated');
     } catch (e) {
       console.error('failed to update skill', e);
       error('Failed to update skill');
+    }
+  };
+
+  const createSkill = async (input: CreateSkillInput) => {
+    try {
+      await handleCreateSkill(input);
+
+      success('New skill has been created');
+    } catch (error) {
+      console.error('failed to create skill', error);
     }
   };
 
@@ -99,5 +109,6 @@ export const useSkills = () => {
     getSkills,
     getSkillCategories,
     updateSkill,
+    createSkill,
   };
 };

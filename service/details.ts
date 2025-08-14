@@ -1,4 +1,9 @@
-import { UPDATE_LANGUAGE, UPDATE_SKILL } from '~/graphql/details/mutations';
+import {
+  CREATE_LANGUAGE,
+  CREATE_SKILL,
+  UPDATE_LANGUAGE,
+  UPDATE_SKILL,
+} from '~/graphql/details/mutations';
 import {
   GET_DEPARTMENTS,
   GET_LANGUAGES,
@@ -6,7 +11,12 @@ import {
   GET_SKILLS,
   GET_SKILLS_CATEGORIES,
 } from '~/graphql/details/query';
-import type { LanguageInput, UpdateSkillInput } from '~/types/form.types';
+import type {
+  CreateLanguageInput,
+  CreateSkillInput,
+  LanguageInput,
+  UpdateSkillInput,
+} from '~/types/form.types';
 
 export const handleGetPositions = async () => {
   try {
@@ -59,6 +69,17 @@ export const handleGetSkillsCategories = async () => {
   return data.value;
 };
 
+export const handleCreateSkill = async (input: CreateSkillInput) => {
+  try {
+    const { data, mutate } = useApolloMutation(CREATE_SKILL);
+    await mutate({ input });
+
+    return data.value;
+  } catch (error) {
+    console.error('failed to create skill', error);
+  }
+};
+
 export const handleGetLanguages = async () => {
   try {
     const { data, fetch } = useApolloQuery(GET_LANGUAGES);
@@ -78,5 +99,16 @@ export const handleUpdateLanguage = async (input: LanguageInput) => {
     return data.value;
   } catch (error) {
     console.error('failed to update language', error);
+  }
+};
+
+export const handleCreateLanguage = async (input: CreateLanguageInput) => {
+  try {
+    const { data, mutate } = useApolloMutation(CREATE_LANGUAGE);
+    await mutate({ input });
+
+    return data.value;
+  } catch (error) {
+    console.error('failed to create language', error);
   }
 };
