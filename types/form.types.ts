@@ -7,7 +7,7 @@ export interface Details {
   native_name?: string;
 }
 
-interface SkillCategory {
+export interface SkillCategory {
   id: string;
   name: string;
 }
@@ -16,17 +16,42 @@ export interface Skill {
   id: string;
   name: string;
   category: SkillCategory;
-  category_name: string;
+  category_name?: string;
 }
 
-export interface Language {
-  id: string;
+export interface CreateSkillInput {
+  name: string;
+  categoryId: string;
+}
+
+export interface UpdateSkillInput {
+  skillId: string;
+  name: string;
+  categoryId: string;
+}
+
+export interface BaseLanguage {
   iso2: string;
   name: string;
   native_name: string;
 }
 
-type InputProps = boolean | string | undefined | null | Details[];
+export type LanguageOtput = BaseLanguage & { id: string };
+export type LanguageInput = BaseLanguage & { languageId: string };
+
+export interface CreateLanguageInput {
+  iso2: string;
+  name: string;
+  native_name: string;
+}
+
+type InputProps =
+  | boolean
+  | string
+  | undefined
+  | null
+  | Details[]
+  | SkillCategory[];
 
 export interface Input {
   label: string;

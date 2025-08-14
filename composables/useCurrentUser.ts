@@ -1,16 +1,12 @@
 import { jwtDecode } from 'jwt-decode';
-import {
-  // handleAvatarUpload,
-  handleGetUserById,
-  // handleProfileUpdate,
-  // handleUserUpdate,
-} from '~/service/users';
+import { handleGetUserById } from '~/service/users';
 import type { User } from '~/types/user.types';
 
 export const useCurrentUser = () => {
   const user = useState<User | null>('user', () => null);
 
   const currentUser = computed(() => user.value);
+  const isAdmin = computed(() => user.value?.role === 'Admin');
 
   const clearUser = () => {
     user.value = null;
@@ -40,11 +36,13 @@ export const useCurrentUser = () => {
     } catch (error) {
       console.error('Failed to fetch current user:', error);
       clearUser();
+      
     }
   };
 
   return {
     currentUser,
+    isAdmin,
     fetchCurrentUser,
     clearUser,
   };

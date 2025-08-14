@@ -38,7 +38,7 @@
     "name": "Название",
     "skills_category": "Категория",
     "iso2": "ISO2",
-    "native_name": "Оригинальное название"
+    "nativeName": "Оригинальное название"
   },
 
   "profile": {
@@ -58,14 +58,19 @@
     "position": "Должность",
     "first_name": "Имя",
     "last_name": "Фамилия",
-    "role": "Роль"
+    "role": "Роль",
+    "category": "Категория"
   },
   "updateButton": "Сохранить",
-  "loading": "Загрузка...",
+  "loading": "Загрузка",
   "search": "Поиск",
   "edit": {
     "language": "Редактировать язык",
     "skill": "Редактировать навык",
     "profile": "Редактировать профиль"
-  }
+  },
+  "createLanguage": "Добавить Язык",
+  "createSkill": "Добавить навык",
+  "createButton": "Добавить",
+  "cancelButton": "Отмена"
 }

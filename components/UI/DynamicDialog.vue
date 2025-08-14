@@ -10,7 +10,7 @@
     <template #footer>
       <div class="flex w-[50%] min-w-[250px] gap-5">
         <Button
-          label="Cancel"
+          :label="$t('cancelButton')"
           severity="secondary"
           variant="outlined"
           class="w-full"
@@ -18,8 +18,7 @@
         />
 
         <Button
-          :disabled="disabledButton"
-          :label="$t('updateButton')"
+          :label="buttonText"
           severity="primary"
           class="w-full"
           @click="submitForm"
@@ -34,14 +33,15 @@ import Dialog from 'primevue/dialog';
 import DynamicForm from './DynamicForm.vue';
 import type { Input } from '~/types/form.types';
 
-const { inputs, visible, initialData, title, wrapperClass, disabledButton } =
+const { inputs, visible, initialData, title, wrapperClass, buttonText } =
   defineProps<{
     title: string;
     visible: boolean;
     inputs: Input[];
     initialData: object | null;
     wrapperClass?: string;
-    disabledButton?: boolean;
+    updateButton?: boolean;
+    buttonText: string;
   }>();
 
 const data = ref({});

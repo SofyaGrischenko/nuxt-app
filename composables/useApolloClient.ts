@@ -86,7 +86,7 @@ export const useApolloClient = () => {
 
     apolloClient = new ApolloClient({
       link: from([errorLink, authLink, httpLink]),
-      cache: new InMemoryCache(),
+      cache: new InMemoryCache({resultCaching: false}),
       defaultOptions: {
         watchQuery: {
           errorPolicy: 'all',
