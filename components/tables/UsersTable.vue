@@ -53,6 +53,7 @@
       :title="t('edit.profile')"
       :inputs="dialogFormInputs"
       :initial-data="selectedUser"
+      :button-text="t('updateButton')"
       :wrapper-class="'grid grid-cols-1 md:grid-cols-2 gap-6'"
       @submit="handleProfileUpdate"
     />

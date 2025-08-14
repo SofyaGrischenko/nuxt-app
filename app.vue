@@ -5,7 +5,7 @@
       class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-100"
     >
       <div class="text-white text-xl flex gap-1">
-        Loading
+        {{ $t('loading') }}
         <span class="dot">.</span>
         <span class="dot">.</span>
         <span class="dot">.</span>

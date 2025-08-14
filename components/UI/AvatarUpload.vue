@@ -8,7 +8,7 @@
         :image="previewUrl ?? ''"
         :label="previewUrl ? '' : name?.[0]"
         shape="circle"
-        class="w-28 h-28 text-5xl bg-neutral-500 text-neutral-700"
+        class="w-28 h-28 text-5xl bg-neutral-500 text-neutral-700 justify-center"
       />
     </label>
     <button
@@ -19,6 +19,7 @@
       ✕
     </button>
     <div
+      v-if="isEditable"
       class="flex flex-col items-center justify-center p-6 transition-colors duration-200"
       :class="{
         'border-2 rounded-lg border-dashed': isDragging,
@@ -29,7 +30,6 @@
       @drop.prevent="onDrop"
     >
       <div
-        v-if="isEditable"
         class="flex flex-col items-center text-center"
         :class="{ 'pointer-events-none': isDragging }"
       >
@@ -56,6 +56,7 @@
 import Avatar from 'primevue/avatar';
 
 const { t } = useI18n();
+const { success, error, warning } = useToastNotification();
 
 const modelValue = defineModel<File | null>();
 const props = withDefaults(
@@ -67,29 +68,32 @@ const props = withDefaults(
   { initialPreviewUrl: null }
 );
 
-const { name, initialPreviewUrl, isEditable } = props;
-
-const previewUrl = ref<string | null>(initialPreviewUrl ?? null);
+const previewUrl = ref<string | null>(props.initialPreviewUrl ?? null);
 const isDragging = ref(false);
 
 const processFile = (selectedFile: File | undefined | null) => {
   modelValue.value = null;
 
+  if (previewUrl.value && previewUrl.value.startsWith('blob:')) {
+    URL.revokeObjectURL(previewUrl.value);
+  }
+
   if (!selectedFile) {
+    previewUrl.value = props.initialPreviewUrl ?? null;
     return;
   }
 
   const allowedTypes = ['image/png', 'image/jpeg', 'image/gif'];
   if (!allowedTypes.includes(selectedFile.type)) {
-    alert('wrong file format');
+    error('Wrong file format');
     return;
   }
 
   if (selectedFile.size > 512 * 1024) {
-    alert('file is too big, max size 0.5Mb');
+    error('File is too big, max size 0.5Mb');
     return;
   }
-
+  previewUrl.value = URL.createObjectURL(selectedFile);
   modelValue.value = selectedFile;
 };
 
@@ -106,7 +110,7 @@ const onDrop = (event: DragEvent) => {
 };
 
 const removeImage = () => {
-  if (previewUrl.value) {
+  if (previewUrl.value && previewUrl.value.startsWith('blob:')) {
     URL.revokeObjectURL(previewUrl.value);
   }
   previewUrl.value = null;
@@ -114,9 +118,9 @@ const removeImage = () => {
 };
 
 watch(
-  () => initialPreviewUrl,
+  () => props.initialPreviewUrl,
   (newFile) => {
-    if (previewUrl.value) {
+    if (previewUrl.value && previewUrl.value.startsWith('blob:')) {
       URL.revokeObjectURL(previewUrl.value);
     }
     if (!modelValue.value && newFile) {
@@ -126,7 +130,7 @@ watch(
 );
 
 onBeforeUnmount(() => {
-  if (previewUrl.value) {
+  if (previewUrl.value && previewUrl.value.startsWith('blob:')) {
     URL.revokeObjectURL(previewUrl.value);
   }
 });

@@ -20,7 +20,7 @@
         @click="showCreateForm"
       >
         <i class="pi pi-plus" />
-        Create Skill
+        {{ t('createSkill') }}
       </Button>
     </div>
 
@@ -110,13 +110,13 @@ const columns = computed(() => {
 
 const dialogInputs = computed<Input[]>(() => [
   {
-    label: 'name',
+    label: t('table.name'),
     field: 'name',
     component: 'InputText',
     props: { disabled: !isAdmin },
   },
   {
-    label: 'category',
+    label: t('labels.category'),
     field: 'category_name',
     component: 'Select',
     props: {
@@ -137,8 +137,8 @@ const showEditForm = (data: Skill) => {
 
 const showCreateForm = () => {
   selectedSkill.value = null;
-  dialogTitle.value = 'Create new skill';
-  buttonText.value = 'Create';
+  dialogTitle.value = t('createSkill');
+  buttonText.value = t('createButton');
   isDialogVisible.value = true;
 };
 

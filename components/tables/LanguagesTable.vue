@@ -10,7 +10,7 @@
           type="text"
           :placeholder="t('search')"
           class="bg-transparent outline-none text-white placeholder-zinc-400 w-full"
-        >
+        />
       </div>
       <Button
         v-if="isAdmin"
@@ -20,7 +20,7 @@
         @click="showCreateForm"
       >
         <i class="pi pi-plus" />
-        Create Language
+        {{ t('createLanguage') }}
       </Button>
     </div>
 
@@ -92,7 +92,7 @@ const columns = computed(() => {
     { field: 'name', header: t('table.name'), sortable: true },
     {
       field: 'native_name',
-      header: t('table.native_name'),
+      header: t('table.nativeName'),
       sortable: false,
     },
     { field: 'iso2', header: t('table.iso2'), sortable: false },
@@ -109,19 +109,19 @@ const columns = computed(() => {
 
 const dialogInputs = computed<Input[]>(() => [
   {
-    label: 'Name',
+    label: t('table.name'),
     field: 'name',
     component: 'InputText',
     props: { disabled: !isAdmin },
   },
   {
-    label: 'Native name',
+    label: t('table.nativeName'),
     field: 'native_name',
     component: 'InputText',
     props: { disabled: !isAdmin },
   },
   {
-    label: 'ISO2',
+    label: t('table.iso2'),
     field: 'iso2',
     component: 'InputText',
     props: { disabled: !isAdmin },
@@ -130,15 +130,15 @@ const dialogInputs = computed<Input[]>(() => [
 
 const showEditForm = (data: LanguageOtput) => {
   selectedLang.value = data;
-  dialogTitle.value = t('edit.skill');
+  dialogTitle.value = t('edit.language');
   buttonText.value = t('updateButton');
   isDialogVisible.value = true;
 };
 
 const showCreateForm = () => {
   selectedLang.value = null;
-  dialogTitle.value = 'Create new skill';
-  buttonText.value = 'Create';
+  dialogTitle.value = t('table.name');
+  buttonText.value = t('createButton');
   isDialogVisible.value = true;
 };
 

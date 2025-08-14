@@ -52,6 +52,7 @@ const { updateUser, selectedUser, fetchOneUser } = useUsers();
 const { positions, departments, getPositions, getDepartments } = useDetails();
 
 const route = useRoute();
+const { isAdmin } = useCurrentUser();
 
 const formData = ref<FlatUser>();
 const originalUser = ref<FlatUser | null>(null);
@@ -60,7 +61,7 @@ const newAvatar = ref<File | null>(null);
 const profileUserId = computed(() => route.params.id as string);
 const loggedInUserId = computed(() => currentUser.value?.id);
 const isEditable = computed(() => {
-  return profileUserId.value === loggedInUserId.value;
+  return profileUserId.value === loggedInUserId.value || isAdmin.value;
 });
 
 const userToDisplay = computed(() => {

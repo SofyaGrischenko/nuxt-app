@@ -25,7 +25,8 @@
     "position": "Position",
     "first_name": "First name",
     "last_name": "Last name",
-    "role": "Role"
+    "role": "Role",
+    "category": "Category"
   },
 
   "sidebar": {
@@ -45,7 +46,7 @@
     "name": "Name",
     "skills_category": "Category",
     "iso2": "ISO2",
-    "native_name": "Native name"
+    "nativeName": "Native name"
   },
 
   "profile": {
@@ -59,11 +60,15 @@
   },
 
   "updateButton": "Update",
-  "loading": "Loading...",
+  "loading": "Loading",
   "search": "Search",
   "edit": {
     "language": "Edit language",
     "skill": "Edit skill",
     "profile": "Edit profile"
-  }
+  },
+  "createLanguage": "Create language",
+  "createSkill": "Create skill",
+  "createButton": "Create",
+  "cancelButton": "Cancel"
 }
