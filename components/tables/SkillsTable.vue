@@ -183,6 +183,10 @@ const handleSkillUpdate = async (formData: Record<string, any>) => {
 };
 
 onMounted(async () => {
-  await Promise.all([getSkills(), getSkillCategories()]);
+  try {
+    await Promise.all([getSkills(), getSkillCategories()]);
+  } finally {
+    isLoading.value = false;
+  }
 });
 </script>

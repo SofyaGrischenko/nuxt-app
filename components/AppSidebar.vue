@@ -24,7 +24,7 @@
           :src="currentUser.profile.avatar"
           :alt="currentUser.id"
           class="w-10 h-10 rounded-full object-cover"
-        >
+        />
         <div
           v-else
           class="w-10 h-10 rounded-full bg-neutral-500 flex items-center justify-center text-lg text-neutral-700"
@@ -67,6 +67,10 @@ const menuItems = computed(() => [
 ]);
 
 onMounted(async () => {
-  await fetchCurrentUser();
+  try {
+    await fetchCurrentUser();
+  } finally {
+    isLoading.value = false;
+  }
 });
 </script>

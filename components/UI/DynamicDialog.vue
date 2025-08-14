@@ -18,7 +18,7 @@
         />
 
         <Button
-          :disabled="updateButton"
+
           :label="buttonText"
           severity="primary"
           class="w-full"
@@ -40,7 +40,6 @@ const {
   initialData,
   title,
   wrapperClass,
-  updateButton,
   buttonText,
 } = defineProps<{
   title: string;

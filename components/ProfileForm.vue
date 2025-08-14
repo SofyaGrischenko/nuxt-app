@@ -130,12 +130,16 @@ const formInputs = computed<Input[]>(() => {
 });
 
 onMounted(async () => {
-  await Promise.all([
-    fetchOneUser(profileUserId.value),
-    fetchCurrentUser(),
-    getPositions(),
-    getDepartments(),
-  ]);
+  try {
+    await Promise.all([
+      fetchOneUser(profileUserId.value),
+      fetchCurrentUser(),
+      getPositions(),
+      getDepartments(),
+    ]);
+  } finally {
+    isLoading.value = false;
+  }
 });
 
 watch(

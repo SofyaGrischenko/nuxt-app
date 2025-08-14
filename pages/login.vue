@@ -40,4 +40,7 @@ const inputs = ref([
     },
   },
 ]);
+
+onMounted(() => (isLoading.value = false));
+
 </script>

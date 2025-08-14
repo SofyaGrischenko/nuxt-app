@@ -9,7 +9,7 @@
         type="text"
         :placeholder="t('search')"
         class="bg-transparent outline-none text-white placeholder-zinc-400 w-full"
-      >
+      />
     </div>
 
     <dynamic-table :data="employees" :columns>
@@ -19,7 +19,7 @@
           :src="data.icon"
           :alt="data.firstName"
           class="w-10 h-10 rounded-full object-cover"
-        >
+        />
         <div
           v-else
           class="w-10 h-10 rounded-full bg-neutral-500 flex items-center justify-center text-lg text-neutral-700"
@@ -170,6 +170,10 @@ const showDetails = (data: FlatUser) => {
 };
 
 onMounted(async () => {
-  await Promise.all([fetchUsers(), getPositions(), getDepartments()]);
+  try {
+    await Promise.all([fetchUsers(), getPositions(), getDepartments()]);
+  } finally {
+    isLoading.value = false;
+  }
 });
 </script>

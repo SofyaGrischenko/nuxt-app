@@ -10,7 +10,7 @@
           type="text"
           :placeholder="t('search')"
           class="bg-transparent outline-none text-white placeholder-zinc-400 w-full"
-        />
+        >
       </div>
       <Button
         v-if="isAdmin"
@@ -70,6 +70,7 @@ import type {
 
 const { t } = useI18n();
 const { isAdmin } = useCurrentUser();
+
 const {
   searchQuery,
   languages,
@@ -174,6 +175,10 @@ const handleLangUpdate = async (formData: Record<string, any>) => {
 };
 
 onMounted(async () => {
-  await getLanguages();
+  try {
+    await getLanguages();
+  } finally {
+    isLoading.value = false;
+  }
 });
 </script>

@@ -11,7 +11,7 @@ export const useCurrentUser = () => {
   const user = useState<User | null>('user', () => null);
 
   const currentUser = computed(() => user.value);
-  const isAdmin = computed(() => currentUser.value?.role === 'admin');
+  const isAdmin = computed(() => user.value?.role === 'Admin');
 
   const clearUser = () => {
     user.value = null;
