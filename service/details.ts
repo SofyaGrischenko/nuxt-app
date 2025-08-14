@@ -1,6 +1,8 @@
 import {
   CREATE_LANGUAGE,
   CREATE_SKILL,
+  DELETE_LANGUAGE,
+  DELETE_SKILL,
   UPDATE_LANGUAGE,
   UPDATE_SKILL,
 } from '~/graphql/details/mutations';
@@ -110,5 +112,27 @@ export const handleCreateLanguage = async (input: CreateLanguageInput) => {
     return data.value;
   } catch (error) {
     console.error('failed to create language', error);
+  }
+};
+
+export const handleDeleteSkill = async (id: string) => {
+  try {
+    const { data, mutate } = useApolloMutation(DELETE_SKILL);
+    await mutate({ input: { skillId: id } }, {});
+
+    return data.value;
+  } catch (error) {
+    console.error('failed to delete skill', error);
+  }
+};
+
+export const handleDeleteLang = async (id: string) => {
+  try {
+    const { data, mutate } = useApolloMutation(DELETE_LANGUAGE);
+    await mutate({ input: { languageId: id } }, {});
+
+    return data.value;
+  } catch (error) {
+    console.error('failed to delete language', error);
   }
 };

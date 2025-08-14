@@ -20,7 +20,6 @@
 
 <script setup lang="ts">
 import DataTable from 'primevue/datatable';
-// import type { FlatUser } from '~/types/user.types';
 import type { ColumnType } from '~/types/table.types';
 
 const { data, columns } = defineProps<{

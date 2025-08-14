@@ -27,10 +27,10 @@
     <dynamic-table :data="filteredLanguages" :columns>
       <template #details="{ data }">
         <Button
-          icon="pi pi-arrow-right"
+          icon="pi pi-ellipsis-v"
           text
           rounded
-          @click="showEditForm(data)"
+          @click="toggleMenu($event, data)"
         />
       </template>
     </dynamic-table>
@@ -55,12 +55,14 @@
       @submit="handleSubmit"
     />
   </div>
+  <Menu id="overlay_menu" ref="menu" :model="menuOptions" :popup="true" />
 </template>
 
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n';
+import type { MenuItem } from 'primevue/menuitem';
 import DynamicDialog from '../UI/DynamicDialog.vue';
 import DynamicTable from '~/components/UI/DynamicTable.vue';
-import { useI18n } from 'vue-i18n';
 import type {
   CreateLanguageInput,
   Input,
@@ -79,13 +81,34 @@ const {
   loadMore,
   updateLanguage,
   createLang,
+  deleteLanguage,
 } = useLanguages();
 
+const menu = ref();
 const isDialogVisible = ref(false);
 const selectedLang = ref<LanguageOtput | null>(null);
 
 const dialogTitle = ref<string>('');
 const buttonText = ref<string>('');
+
+const menuOptions: MenuItem[] = [
+  {
+    label: 'edit',
+    command: () => {
+      if (selectedLang.value) {
+        showEditForm(selectedLang.value);
+      }
+    },
+  },
+  {
+    label: 'delete',
+    command: () => {
+      if (selectedLang.value) {
+        deleteLanguage(selectedLang.value.id);
+      }
+    },
+  },
+];
 
 const columns = computed(() => {
   const baseColumns = [
@@ -142,15 +165,20 @@ const showCreateForm = () => {
   isDialogVisible.value = true;
 };
 
+const toggleMenu = (event: Event, data) => {
+  selectedLang.value = data;
+  menu.value.toggle(event);
+};
+
 const handleSubmit = (formData: Record<string, any>) => {
   if (selectedLang.value) {
     handleLangUpdate(formData);
   } else {
-    handkeCreateNewLang(formData);
+    handleCreateNewLang(formData);
   }
 };
 
-const handkeCreateNewLang = async (formData: Record<string, any>) => {
+const handleCreateNewLang = async (formData: Record<string, any>) => {
   const newSkill: CreateLanguageInput = {
     name: formData.name,
     iso2: formData.iso2,

@@ -46,7 +46,7 @@
           accept="image/png, image/jpeg, image/gif"
           class="hidden"
           @change="handleFileChange"
-        />
+        >
       </div>
     </div>
   </div>
@@ -56,7 +56,7 @@
 import Avatar from 'primevue/avatar';
 
 const { t } = useI18n();
-const { success, error, warning } = useToastNotification();
+const { error } = useToastNotification();
 
 const modelValue = defineModel<File | null>();
 const props = withDefaults(

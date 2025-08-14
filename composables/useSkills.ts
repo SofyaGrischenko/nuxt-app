@@ -1,5 +1,6 @@
 import {
   handleCreateSkill,
+  handleDeleteSkill,
   handleGetSkills,
   handleGetSkillsCategories,
   handleUpdateSkill,
@@ -26,6 +27,7 @@ export const useSkills = () => {
 
   const filteredSkills = computed(() => {
     const search = searchQuery.value.trim().toLowerCase();
+    console.log(4);
     if (!search) {
       return skills.value;
     }
@@ -41,8 +43,6 @@ export const useSkills = () => {
   const loadMore = () => pagesToShow.value++;
 
   const getSkills = async () => {
-    if (skills.value.length > 0) return;
-
     try {
       const response = await handleGetSkills();
 
@@ -99,6 +99,16 @@ export const useSkills = () => {
     }
   };
 
+  const deleteSkill = async (input: string) => {
+    try {
+      await handleDeleteSkill(input);
+      await getSkills();
+      success('Skill has been deleted');
+    } catch (error) {
+      console.error('failed to delete skill', error);
+    }
+  };
+
   return {
     searchQuery,
     skills: skillsToShow,
@@ -110,5 +120,6 @@ export const useSkills = () => {
     getSkillCategories,
     updateSkill,
     createSkill,
+    deleteSkill,
   };
 };

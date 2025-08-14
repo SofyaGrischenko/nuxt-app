@@ -29,6 +29,16 @@
       </template>
 
       <template #details="{ data }">
+        <!-- <Button
+          v-if="isAdmin"
+          type="button"
+          icon="pi pi-ellipsis-v"
+          aria-haspopup="true"
+          aria-controls="overlay_menu"
+          @click="toggleMenu($event, data)"
+        /> -->
+
+        
         <Button
           icon="pi pi-arrow-right"
           text
@@ -37,6 +47,9 @@
         />
       </template>
     </dynamic-table>
+
+    <!-- <Menu ref="menu" id="overlay_menu" :model="items" :popup="true" /> -->
+
     <div
       v-if="employees.length < filteredUsers.length"
       class="flex justify-center mt-4 mb-15"
@@ -69,8 +82,8 @@ import type { FlatUser } from '~/types/user.types';
 import type { Input } from '~/types/form.types';
 
 const { t } = useI18n();
+const { isAdmin, currentUser } = useCurrentUser();
 const { getDepartments, getPositions, positions, departments } = useDetails();
-const { currentUser } = useCurrentUser();
 const {
   employees,
   searchQuery,
@@ -80,6 +93,7 @@ const {
   updateUser,
 } = useUsers();
 
+const menu = ref();
 const selectedUser = ref<FlatUser | null>(null);
 const isDialogVisible = ref(false);
 
@@ -168,6 +182,10 @@ const showDetails = (data: FlatUser) => {
   } else {
     navigateTo(`/users/${data.id}/profile`);
   }
+};
+
+const toggleMenu = (event: Event) => {
+  menu.value.toggle(event);
 };
 
 onMounted(async () => {

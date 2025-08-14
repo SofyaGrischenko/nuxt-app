@@ -27,10 +27,10 @@
     <dynamic-table :data="filteredSkills" :columns>
       <template #details="{ data }">
         <Button
-          icon="pi pi-arrow-right"
+          icon="pi pi-ellipsis-v"
           text
           rounded
-          @click="showEditForm(data)"
+          @click="toggleMenu($event, data)"
         />
       </template>
     </dynamic-table>
@@ -53,6 +53,8 @@
       :button-text
       @submit="handleSubmit"
     />
+
+    <Menu id="overlay_menu" ref="menu" :model="menuOptions" :popup="true" />
   </div>
 </template>
 
@@ -66,6 +68,7 @@ import type {
   Skill,
   UpdateSkillInput,
 } from '~/types/form.types';
+import type { MenuItem } from 'primevue/menuitem';
 
 const { t } = useI18n();
 const { isAdmin } = useCurrentUser();
@@ -79,13 +82,34 @@ const {
   getSkillCategories,
   updateSkill,
   createSkill,
+  deleteSkill,
 } = useSkills();
 
+const menu = ref();
 const isDialogVisible = ref(false);
 const selectedSkill = ref<Skill | null>(null);
 
 const dialogTitle = ref<string>('');
 const buttonText = ref<string>('');
+
+const menuOptions: MenuItem[] = [
+  {
+    label: 'edit',
+    command: () => {
+      if (selectedSkill.value) {
+        showEditForm(selectedSkill.value);
+      }
+    },
+  },
+  {
+    label: 'delete',
+    command: () => {
+      if (selectedSkill.value) {
+        deleteSkill(selectedSkill.value.id);
+      }
+    },
+  },
+];
 
 const columns = computed(() => {
   const baseColumns = [
@@ -180,6 +204,11 @@ const handleSkillUpdate = async (formData: Record<string, any>) => {
 
   await updateSkill(skillToUpdate);
   isDialogVisible.value = false;
+};
+
+const toggleMenu = (event: Event, data) => {
+  selectedSkill.value = data;
+  menu.value.toggle(event);
 };
 
 onMounted(async () => {

@@ -44,3 +44,19 @@ export const CREATE_LANGUAGE = gql`
     }
   }
 `;
+
+export const DELETE_SKILL = gql`
+  mutation DELETE_SKILL($input: DeleteSkillInput!) {
+    deleteSkill(skill: $input) {
+      affected
+    }
+  }
+`;
+
+export const DELETE_LANGUAGE = gql`
+  mutation deleteLanguage($input: DeleteLanguageInput!) {
+    deleteLanguage(language: $input) {
+      affected
+    }
+  }
+`;

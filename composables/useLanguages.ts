@@ -1,5 +1,6 @@
 import {
   handleCreateLanguage,
+  handleDeleteLang,
   handleGetLanguages,
   handleUpdateLanguage,
 } from '~/service/details';
@@ -35,8 +36,6 @@ export const useLanguages = () => {
   const loadMore = () => pagesToShow.value++;
 
   const getLanguages = async () => {
-    if (languages.value.length > 0) return;
-
     try {
       const response = await handleGetLanguages();
 
@@ -82,8 +81,20 @@ export const useLanguages = () => {
       await handleCreateLanguage(input);
 
       success('New language has been created');
-    } catch (error) {
-      console.error('failed to create language', error);
+    } catch (e) {
+      console.error('failed to create language', e);
+      error('Failed to create language');
+    }
+  };
+
+  const deleteLanguage = async (input: string) => {
+    try {
+      await handleDeleteLang(input);
+
+      success('Language has been deleted');
+    } catch (e) {
+      console.error('failed to delete language', e);
+      error('Failed to delete language');
     }
   };
 
@@ -95,5 +106,6 @@ export const useLanguages = () => {
     getLanguages,
     updateLanguage,
     createLang,
+    deleteLanguage,
   };
 };
