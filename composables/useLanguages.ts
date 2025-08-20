@@ -5,7 +5,7 @@ import {
   handleUpdateLanguage,
 } from '~/service/details';
 import type {
-  CreateLanguageInput,
+  BaseLanguage,
   LanguageInput,
   LanguageOtput,
 } from '~/types/form.types';
@@ -36,19 +36,25 @@ export const useLanguages = () => {
   const loadMore = () => pagesToShow.value++;
 
   const getLanguages = async () => {
+    if (languages.value.length !== 0) return;
     try {
       const response = await handleGetLanguages();
 
       if (response.languages) {
-        languages.value = response.languages;
+        languages.value = [...response.languages];
       }
-    } catch (error) {
-      console.error('failed to get languages', error);
+    } catch (e) {
+      console.error('failed to get languages', e);
+      error('Failed to load languages');
     }
   };
 
   const updateLanguage = async (input: LanguageInput) => {
-    const originalLang = languages.value.find((l) => l.id === input.languageId);
+    const originalLangIndex = languages.value.findIndex(
+      (s) => s.id === input.languageId
+    );
+    if (originalLangIndex === -1) return;
+    const originalLang = languages.value[originalLangIndex];
 
     if (!originalLang) {
       return;
@@ -65,9 +71,14 @@ export const useLanguages = () => {
     }
 
     try {
-      const response = await handleUpdateLanguage(input);
+      await handleUpdateLanguage(input);
 
-      console.log('response', response);
+      languages.value.splice(originalLangIndex, 1, {
+        ...originalLang,
+        name: input.name,
+        iso2: input.iso2,
+        native_name: input.native_name,
+      });
 
       success('Language has been updated');
     } catch (e) {
@@ -76,11 +87,14 @@ export const useLanguages = () => {
     }
   };
 
-  const createLang = async (input: CreateLanguageInput) => {
+  const createLang = async (input: BaseLanguage) => {
     try {
-      await handleCreateLanguage(input);
+      const newLang = await handleCreateLanguage(input);
 
-      success('New language has been created');
+      if (newLang.createLanguage) {
+        languages.value.push(newLang.createLanguage);
+        success('New language has been created');
+      }
     } catch (e) {
       console.error('failed to create language', e);
       error('Failed to create language');
@@ -90,6 +104,11 @@ export const useLanguages = () => {
   const deleteLanguage = async (input: string) => {
     try {
       await handleDeleteLang(input);
+
+      const index = languages.value.findIndex((s) => s.id === input);
+      if (index !== -1) {
+        languages.value.splice(index, 1);
+      }
 
       success('Language has been deleted');
     } catch (e) {

@@ -64,7 +64,7 @@ import type { MenuItem } from 'primevue/menuitem';
 import DynamicDialog from '../UI/DynamicDialog.vue';
 import DynamicTable from '~/components/UI/DynamicTable.vue';
 import type {
-  CreateLanguageInput,
+  BaseLanguage,
   Input,
   LanguageInput,
   LanguageOtput,
@@ -165,12 +165,12 @@ const showCreateForm = () => {
   isDialogVisible.value = true;
 };
 
-const toggleMenu = (event: Event, data) => {
+const toggleMenu = (event: Event, data: LanguageOtput) => {
   selectedLang.value = data;
   menu.value.toggle(event);
 };
 
-const handleSubmit = (formData: Record<string, any>) => {
+const handleSubmit = (formData: Record<string, string>) => {
   if (selectedLang.value) {
     handleLangUpdate(formData);
   } else {
@@ -178,17 +178,18 @@ const handleSubmit = (formData: Record<string, any>) => {
   }
 };
 
-const handleCreateNewLang = async (formData: Record<string, any>) => {
-  const newSkill: CreateLanguageInput = {
+const handleCreateNewLang = async (formData: Record<string, string>) => {
+  const newSkill: BaseLanguage = {
     name: formData.name,
     iso2: formData.iso2,
     native_name: formData.native_name,
   };
 
   await createLang(newSkill);
+  isDialogVisible.value = false;
 };
 
-const handleLangUpdate = async (formData: Record<string, any>) => {
+const handleLangUpdate = async (formData: Record<string, string>) => {
   if (!selectedLang.value) return;
 
   const langToUpdate: LanguageInput = {
