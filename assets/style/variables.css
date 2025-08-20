@@ -69,6 +69,7 @@
 
   /* menu */
   --p-menu-background: #484848;
+  --p-menu-item-focus-background: #ba2525e0;
 }
 
 /* .dark {
