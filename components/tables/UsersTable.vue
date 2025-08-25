@@ -31,6 +31,7 @@
       <template #details="{ data }">
         <Button
           icon="pi pi-arrow-right"
+          severity="secondary"
           text
           rounded
           @click="showDetails(data)"

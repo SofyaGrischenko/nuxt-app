@@ -35,9 +35,6 @@
       </div>
     </div>
   </div>
-  <div v-else class="flex justify-center text-xl mt-[20vh]">
-    {{ t('loading') }}
-  </div>
 </template>
 
 <script setup lang="ts">

@@ -14,7 +14,7 @@
       </div>
       <Button
         v-if="isAdmin"
-        severity="contrast"
+        severity="primary"
         variant="text"
         class="w-50 h-15 uppercase hover:bg-transparent"
         @click="showCreateForm"
@@ -28,6 +28,7 @@
       <template #details="{ data }">
         <Button
           icon="pi pi-ellipsis-v"
+          style="color: #d0d0d0"
           text
           rounded
           @click="toggleMenu($event, data)"

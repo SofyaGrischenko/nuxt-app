@@ -10,11 +10,11 @@
           type="text"
           :placeholder="t('search')"
           class="bg-transparent outline-none text-white placeholder-zinc-400 w-full"
-        >
+        />
       </div>
       <Button
         v-if="isAdmin"
-        severity="contrast"
+        severity="primary"
         variant="text"
         class="w-50 h-15 uppercase hover:bg-transparent"
         @click="showForm(null)"
@@ -159,8 +159,6 @@ const showForm = (skill: Skill | null) => {
     dialogTitle.value = t('edit.skill');
     buttonText.value = t('updateButton');
   } else {
-   
-
     selectedSkill.value = null;
     dialogTitle.value = t('createSkill');
     buttonText.value = t('createButton');
@@ -169,7 +167,6 @@ const showForm = (skill: Skill | null) => {
 };
 
 const handleSubmit = (formData: Record<string, string>) => {
-
   if (selectedSkill.value) {
     handleSkillUpdate(formData);
   } else {

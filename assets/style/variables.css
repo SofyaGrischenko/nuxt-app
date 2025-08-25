@@ -3,7 +3,7 @@
   --p-button-primary-background: #ba2525;
   --p-button-primary-border-color: #ba2525;
   --p-button-primary-color: #ffff;
-  --p-button-border-radius: 50px;
+  /* --p-button-border-radius: 50px; */
 
   /*primary button hover */
   --p-button-primary-hover-border-color: #ba2525;
@@ -33,7 +33,7 @@
   --p-inputtext-focus-border-color: #ba2525;
 
   /* form input active */
-  --p-floatlabel-on-active-background: #353535;
+  --p-floatlabel-on-active-background: #454545;
 
   /* form input disabled */
   --p-inputtext-disabled-background: #00000000;

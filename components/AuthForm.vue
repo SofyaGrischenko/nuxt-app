@@ -14,7 +14,7 @@
 
     <Button
       type="submit"
-      variant="primary"
+      severity="primary"
       :label="submitButton"
       class="w-[10rem] tracking-wider"
       @click="handleSubmit"
@@ -27,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-import Button from 'primevue/button';
+// import Button from 'primevue/button';
 import DynamicForm from '@/components/UI/DynamicForm.vue';
 import { NuxtLink } from '#components';
 import type { Input } from '~/types/form.types';
@@ -49,7 +49,6 @@ const formData = ref<AuthInput>({
 });
 
 const handleSubmit = async () => {
-
   try {
     await submitHandler(formData.value);
     console.log(formData.value);
