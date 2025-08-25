@@ -10,7 +10,7 @@
           type="text"
           :placeholder="t('search')"
           class="bg-transparent outline-none text-white placeholder-zinc-400 w-full"
-        />
+        >
       </div>
       <Button
         v-if="isAdmin"
@@ -20,7 +20,7 @@
         @click="showForm(null)"
       >
         <i class="pi pi-plus" />
-        {{ t('createSkill') }}
+        {{ t('create.skill') }}
       </Button>
     </div>
 
@@ -95,7 +95,7 @@ const buttonText = ref<string>('');
 
 const menuOptions: MenuItem[] = [
   {
-    label: 'edit',
+    label: t('edit.edit'),
     command: () => {
       if (selectedSkill.value) {
         showForm(selectedSkill.value);
@@ -103,7 +103,7 @@ const menuOptions: MenuItem[] = [
     },
   },
   {
-    label: 'delete',
+    label: t('delete'),
     command: async () => {
       if (selectedSkill.value) {
         await deleteSkill(selectedSkill.value.id);
@@ -160,8 +160,8 @@ const showForm = (skill: Skill | null) => {
     buttonText.value = t('updateButton');
   } else {
     selectedSkill.value = null;
-    dialogTitle.value = t('createSkill');
-    buttonText.value = t('createButton');
+    dialogTitle.value = t('create.skill');
+    buttonText.value = t('create.button');
   }
   isDialogVisible.value = true;
 };

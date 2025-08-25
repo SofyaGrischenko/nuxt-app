@@ -53,7 +53,7 @@ const dialogVisible = computed({
 
 const emit = defineEmits<{
   (e: 'update:visible', value: boolean): void;
-  (e: 'submit', data: Record<string, any>): void;
+  (e: 'submit', data: Record<string, string>): void;
 }>();
 
 const closeForm = () => {

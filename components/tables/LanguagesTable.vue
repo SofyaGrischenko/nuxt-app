@@ -10,7 +10,7 @@
           type="text"
           :placeholder="t('search')"
           class="bg-transparent outline-none text-white placeholder-zinc-400 w-full"
-        />
+        >
       </div>
       <Button
         v-if="isAdmin"
@@ -20,7 +20,7 @@
         @click="showCreateForm"
       >
         <i class="pi pi-plus" />
-        {{ t('createLanguage') }}
+        {{ t('create.language') }}
       </Button>
     </div>
 
@@ -94,7 +94,7 @@ const buttonText = ref<string>('');
 
 const menuOptions: MenuItem[] = [
   {
-    label: 'edit',
+    label: t('edit.edit'),
     command: () => {
       if (selectedLang.value) {
         showEditForm(selectedLang.value);
@@ -102,7 +102,7 @@ const menuOptions: MenuItem[] = [
     },
   },
   {
-    label: 'delete',
+    label: t('delete'),
     command: () => {
       if (selectedLang.value) {
         deleteLanguage(selectedLang.value.id);
@@ -161,8 +161,8 @@ const showEditForm = (data: LanguageOtput) => {
 
 const showCreateForm = () => {
   selectedLang.value = null;
-  dialogTitle.value = t('table.name');
-  buttonText.value = t('createButton');
+  dialogTitle.value = t('create.language');
+  buttonText.value = t('create.button');
   isDialogVisible.value = true;
 };
 

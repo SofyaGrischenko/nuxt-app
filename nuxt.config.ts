@@ -1,4 +1,3 @@
-// import Aura_light from '@primeuix/themes/aura';
 import mainTheme from './presets/mainTheme';
 
 export default defineNuxtConfig({
@@ -11,7 +10,6 @@ export default defineNuxtConfig({
   ],
 
   primevue: {
-    // autoImport: false,
     components: {
       include: [
         'Select',

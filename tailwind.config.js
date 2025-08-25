@@ -7,11 +7,6 @@ export default {
     './app.vue',
     './presets/mainTheme.ts',
   ],
-  // theme: {
-  //   extend: {
-  // посмотреть можно ли через здесь переписать использование пресета
-  //   }
-  // },
   plugins: [],
   safelist: [
     {

@@ -3,19 +3,6 @@ import { definePreset } from '@primeuix/themes';
 
 const mainTheme = definePreset(Aura, {
   semantic: {
-    // surface: {
-    //   0: '#363636',
-    //   50: '#e9e9e9',
-    //   100: '#d3d3d3',
-    //   200: '#bdbdbd',
-    //   300: '#a8a8a8',
-    //   400: '#949494',
-    //   500: '#808080',
-    //   600: '#6d6d6d',
-    //   700: '#5a5a5a',
-    //   800: '#474747',
-    //   900: '#ffffff',
-    // },
     primary: {
       0: '#ffffff',
       50: '#ff6565',
@@ -28,20 +15,6 @@ const mainTheme = definePreset(Aura, {
       700: '#7f1d1d',
       800: '#651d1d',
       900: '#550606',
-    },
-    secondary: {
-      // 0: '#363636',
-      // 50: '#e9e9e9',
-      // 100: '#d3d3d3',
-      // 200: '#bdbdbd',
-      // 300: '#a8a8a8',
-      // 400: '#949494',
-      // 500: '#808080',
-      // 600: '#6d6d6d',
-      // 700: '#5a5a5a',
-      // 800: '#474747',
-      // 900: '#ffffff',
-      // 950: '#000000',
     },
 
     colorScheme: {
@@ -58,7 +31,7 @@ const mainTheme = definePreset(Aura, {
           700: '#5a5a5a',
           800: '#474747',
           900: '#ffffff',
-          950: '#000000',
+          950: '#363636',
         },
       },
     },
@@ -69,16 +42,12 @@ const mainTheme = definePreset(Aura, {
       root: {
         borderRadius: '50px',
         primary: {
-          background: '{primary.400}',
-          hoverBackground: '{primary.300}',
-          activeBackground: '{primary.200}',
-          borderColor: '{primary.400}',
-          hoverBorderColor: '{primary.300}',
-          activeBorderColor: '{primary.200}',
-
-          color: '{secondary.900}',
-          hoverColor: '{secondary.900}',
-          activeColor: '{secondary.900}',
+          // background: '{primary.400}',
+          // hoverBackground: '{primary.300}',
+          // activeBackground: '{primary.200}',
+          // borderColor: '{primary.400}',
+          // hoverBorderColor: '{primary.300}',
+          // activeBorderColor: '{primary.200}',
 
           focusRing: {
             color: '#ff6565',
@@ -98,7 +67,7 @@ const mainTheme = definePreset(Aura, {
 
     menu: {
       root: {
-        background: '#363636',
+        background: '{surface.950}',
       },
 
       item: {
