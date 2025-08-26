@@ -79,8 +79,7 @@ const handleUpdateProfile = async () => {
 };
 
 const formattedDate = computed(() => {
-  if (!currentUser.value?.createdAt) return '';
-  const timestamp = Number(currentUser.value?.createdAt);
+  const timestamp = Number(userToDisplay.value?.createdAt);
   return new Date(timestamp).toLocaleDateString();
 });
 
@@ -128,16 +127,12 @@ const formInputs = computed<Input[]>(() => {
 });
 
 onMounted(async () => {
-  try {
-    await Promise.all([
-      fetchOneUser(profileUserId.value),
-      fetchCurrentUser(),
-      getPositions(),
-      getDepartments(),
-    ]);
-  } finally {
-    isLoading.value = false;
-  }
+  await Promise.all([
+    fetchOneUser(profileUserId.value),
+    fetchCurrentUser(),
+    getPositions(),
+    getDepartments(),
+  ]);
 });
 
 watch(
