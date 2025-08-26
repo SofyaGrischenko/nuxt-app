@@ -1,5 +1,5 @@
 <template>
-  <users-table />
+  <UsersTable />
 </template>
 
 <script setup lang="ts">

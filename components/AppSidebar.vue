@@ -64,6 +64,11 @@ const menuItems = computed(() => [
     path: localePath('/languages'),
     icon: 'pi-language',
   },
+  {
+    label: t('sidebar.cvs'),
+    path: localePath('/cvs'),
+    icon: 'pi-file',
+  },
 ]);
 
 onMounted(async () => {

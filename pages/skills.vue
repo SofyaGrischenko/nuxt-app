@@ -1,5 +1,5 @@
 <template>
-  <skills-table />
+  <SkillsTable />
 </template>
 
 <script setup lang="ts">

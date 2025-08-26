@@ -5,7 +5,7 @@
     <h1 class="text-3xl tracking-wider">{{ title }}</h1>
     <h3>{{ caption }}</h3>
 
-    <dynamic-form
+    <DynamicForm
       v-model="formData"
       :inputs
       :submit-button
@@ -27,7 +27,6 @@
 </template>
 
 <script setup lang="ts">
-// import Button from 'primevue/button';
 import DynamicForm from '@/components/UI/DynamicForm.vue';
 import { NuxtLink } from '#components';
 import type { Input } from '~/types/form.types';

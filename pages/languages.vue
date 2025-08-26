@@ -1,5 +1,5 @@
 <template>
-  <languages-table />
+  <LanguagesTable />
 </template>
 
 <script setup lang="ts">

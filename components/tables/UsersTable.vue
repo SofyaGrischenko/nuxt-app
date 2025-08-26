@@ -9,17 +9,17 @@
         type="text"
         :placeholder="t('search')"
         class="bg-transparent outline-none text-white placeholder-zinc-400 w-full"
-      />
+      >
     </div>
 
-    <dynamic-table :data="employees" :columns>
+    <DynamicTable :data="employees" :columns>
       <template #icon="{ data }">
         <img
           v-if="data.icon"
           :src="data.icon"
           :alt="data.firstName"
           class="w-10 h-10 rounded-full object-cover"
-        />
+        >
         <div
           v-else
           class="w-10 h-10 rounded-full bg-neutral-500 flex items-center justify-center text-lg text-neutral-700"
@@ -37,7 +37,7 @@
           @click="showDetails(data)"
         />
       </template>
-    </dynamic-table>
+    </DynamicTable>
 
     <div
       v-if="employees.length < filteredUsers.length"
@@ -49,7 +49,7 @@
         @click="loadMore"
       />
     </div>
-    <dynamic-dialog
+    <DynamicDialog
       v-if="selectedUser"
       v-model:visible="isDialogVisible"
       :title="t('edit.profile')"
@@ -173,9 +173,9 @@ const showDetails = (data: FlatUser) => {
   }
 };
 
-const toggleMenu = (event: Event) => {
-  menu.value.toggle(event);
-};
+// const toggleMenu = (event: Event) => {
+//   menu.value.toggle(event);
+// };
 
 onMounted(async () => {
   try {

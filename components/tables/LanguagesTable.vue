@@ -24,7 +24,7 @@
       </Button>
     </div>
 
-    <dynamic-table :data="filteredLanguages" :columns>
+    <DynamicTable :data="filteredLanguages" :columns>
       <template #details="{ data }">
         <Button
           icon="pi pi-ellipsis-v"
@@ -34,7 +34,7 @@
           @click="toggleMenu($event, data)"
         />
       </template>
-    </dynamic-table>
+    </DynamicTable>
     <div
       v-if="languages.length < filteredLanguages.length"
       class="flex justify-center mt-4 mb-15"
@@ -46,7 +46,7 @@
       />
     </div>
 
-    <dynamic-dialog
+    <DynamicDialog
       v-model:visible="isDialogVisible"
       :title="dialogTitle"
       :inputs="dialogInputs"
