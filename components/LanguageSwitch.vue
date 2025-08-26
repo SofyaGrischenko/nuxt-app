@@ -2,7 +2,7 @@
   <div>
     <Select
       v-model="locale"
-      class="bg-transparent outline-none"
+      class="outline-none"
       :options="locales"
       option-label="name"
       option-value="code"

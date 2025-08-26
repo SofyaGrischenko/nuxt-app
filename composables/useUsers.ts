@@ -126,6 +126,8 @@ export const useUsers = () => {
         console.error(
           'Could not find ID for new department/position or role is missing.'
         );
+        error('Department or position not selected');
+        return;
       }
     }
 
@@ -148,8 +150,6 @@ export const useUsers = () => {
 
     try {
       await Promise.all(mutationPromises);
-
-      await fetchOneUser(userId);
 
       success('Profile updated');
     } catch (e) {

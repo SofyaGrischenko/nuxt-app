@@ -27,7 +27,6 @@ export const useSkills = () => {
 
   const filteredSkills = computed(() => {
     const search = searchQuery.value.trim().toLowerCase();
-    console.log(4);
     if (!search) {
       return skills.value;
     }
@@ -43,14 +42,16 @@ export const useSkills = () => {
   const loadMore = () => pagesToShow.value++;
 
   const getSkills = async () => {
+    if (skills.value.length !== 0) return;
     try {
       const response = await handleGetSkills();
 
       if (response.skills) {
         skills.value = [...response.skills];
       }
-    } catch (error) {
-      console.error('failed to get skills', error);
+    } catch (e) {
+      console.error('failed to get skills', e);
+      error('Failed to load skills');
     }
   };
 
@@ -63,7 +64,12 @@ export const useSkills = () => {
   };
 
   const updateSkill = async (input: UpdateSkillInput) => {
-    const originalSkill = skills.value.find((s) => s.id === input.skillId);
+    const originalSkillIndex = skills.value.findIndex(
+      (s) => s.id === input.skillId
+    );
+    if (originalSkillIndex === -1) return;
+
+    const originalSkill = skills.value[originalSkillIndex];
 
     if (!originalSkill) {
       return;
@@ -72,7 +78,6 @@ export const useSkills = () => {
     const hasChanges =
       originalSkill.name !== input.name ||
       originalSkill.category.id !== input.categoryId;
-    console.log(originalSkill);
 
     if (!hasChanges) {
       warning('No information to update');
@@ -81,6 +86,18 @@ export const useSkills = () => {
 
     try {
       await handleUpdateSkill(input);
+
+      const category = skillCategories.value.find(
+        (c) => c.id == input.categoryId
+      );
+
+      if (category) {
+        skills.value.splice(originalSkillIndex, 1, {
+          ...originalSkill,
+          name: input.name,
+          category: category,
+        });
+      }
 
       success('Skill has been updated');
     } catch (e) {
@@ -91,21 +108,31 @@ export const useSkills = () => {
 
   const createSkill = async (input: CreateSkillInput) => {
     try {
-      await handleCreateSkill(input);
+      const newSkill = await handleCreateSkill(input);
 
-      success('New skill has been created');
-    } catch (error) {
-      console.error('failed to create skill', error);
+      if (newSkill) {
+        skills.value.push(newSkill.createSkill);
+        success('New skill has been created');
+      }
+    } catch (e) {
+      console.error('failed to create skill', e);
+      error('Failed to create skill');
     }
   };
 
   const deleteSkill = async (input: string) => {
     try {
       await handleDeleteSkill(input);
-      await getSkills();
+
+      const index = skills.value.findIndex((s) => s.id === input);
+      if (index !== -1) {
+        skills.value.splice(index, 1);
+      }
+
       success('Skill has been deleted');
-    } catch (error) {
-      console.error('failed to delete skill', error);
+    } catch (e) {
+      console.error('failed to delete skill', e);
+      error('Failed to delete skill');
     }
   };
 
@@ -113,7 +140,6 @@ export const useSkills = () => {
     searchQuery,
     skills: skillsToShow,
     filteredSkills,
-    skillsToShow,
     skillCategories,
     loadMore,
     getSkills,

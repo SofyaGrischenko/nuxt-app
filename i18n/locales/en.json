@@ -58,17 +58,20 @@
       "member_since": "A member since"
     }
   },
-
   "updateButton": "Update",
   "loading": "Loading",
   "search": "Search",
   "edit": {
     "language": "Edit language",
     "skill": "Edit skill",
-    "profile": "Edit profile"
+    "profile": "Edit profile",
+    "edit": "Edit"
   },
-  "createLanguage": "Create language",
-  "createSkill": "Create skill",
-  "createButton": "Create",
+  "delete": "Delete",
+  "create": {
+    "language": "Create language",
+    "skill": "Create skill",
+    "button": "Create"
+  },
   "cancelButton": "Cancel"
 }

@@ -5,13 +5,10 @@ import type { User } from '~/types/user.types';
 export const useCurrentUser = () => {
   const user = useState<User | null>('user', () => null);
 
+  const { logout } = useAuth();
+
   const currentUser = computed(() => user.value);
   const isAdmin = computed(() => user.value?.role === 'Admin');
-
-  const clearUser = () => {
-    user.value = null;
-    useAuth().logout();
-  };
 
   const fetchCurrentUser = async () => {
     if (user.value) {
@@ -35,8 +32,7 @@ export const useCurrentUser = () => {
       }
     } catch (error) {
       console.error('Failed to fetch current user:', error);
-      clearUser();
-      
+      logout();
     }
   };
 
@@ -44,6 +40,5 @@ export const useCurrentUser = () => {
     currentUser,
     isAdmin,
     fetchCurrentUser,
-    clearUser,
   };
 };

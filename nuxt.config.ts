@@ -1,8 +1,7 @@
-import Aura_light from '@primeuix/themes/aura';
+import mainTheme from './presets/mainTheme';
 
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
-  devtools: { enabled: true },
   modules: [
     '@nuxt/eslint',
     '@primevue/nuxt-module',
@@ -11,15 +10,32 @@ export default defineNuxtConfig({
   ],
 
   primevue: {
+    components: {
+      include: [
+        'Select',
+        'Menu',
+        'Password',
+        'Button',
+        'Toast',
+        'DataTable',
+        'Column',
+        'FloatLabel',
+        'Avatar',
+      ],
+    },
     options: {
-      theme: {
-        preset: Aura_light,
-      },
       ripple: true,
+      theme: {
+        preset: mainTheme,
+      },
     },
   },
 
   css: ['primeicons/primeicons.css', '@/assets/style/main.css'],
+
+  tailwindcss: {
+    configPath: 'tailwind.config.ts',
+  },
 
   i18n: {
     locales: [

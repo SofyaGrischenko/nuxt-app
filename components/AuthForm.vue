@@ -14,7 +14,7 @@
 
     <Button
       type="submit"
-      variant="primary"
+      severity="primary"
       :label="submitButton"
       class="w-[10rem] tracking-wider"
       @click="handleSubmit"
@@ -27,13 +27,11 @@
 </template>
 
 <script setup lang="ts">
-import Button from 'primevue/button';
+// import Button from 'primevue/button';
 import DynamicForm from '@/components/UI/DynamicForm.vue';
 import { NuxtLink } from '#components';
 import type { Input } from '~/types/form.types';
 import type { AuthInput } from '~/types/user.types';
-
-const { error } = useToastNotification();
 
 const { submitHandler } = defineProps<{
   title: string;
@@ -50,17 +48,10 @@ const formData = ref<AuthInput>({
   password: '',
 });
 
-const { v } = useAuthValidation(formData.value);
-
 const handleSubmit = async () => {
-  const isFormValid = await v.value.$validate();
-  // if (!isFormValid) {
-  //   error(v.value.$errors[0].$message as string);
-  //   return;
-  // }
-
   try {
     await submitHandler(formData.value);
+    console.log(formData.value);
   } catch (error) {
     console.error('auth failed', error);
   }

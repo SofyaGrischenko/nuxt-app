@@ -39,12 +39,6 @@ export interface BaseLanguage {
 export type LanguageOtput = BaseLanguage & { id: string };
 export type LanguageInput = BaseLanguage & { languageId: string };
 
-export interface CreateLanguageInput {
-  iso2: string;
-  name: string;
-  native_name: string;
-}
-
 type InputProps =
   | boolean
   | string

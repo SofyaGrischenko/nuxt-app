@@ -10,17 +10,17 @@
           type="text"
           :placeholder="t('search')"
           class="bg-transparent outline-none text-white placeholder-zinc-400 w-full"
-        />
+        >
       </div>
       <Button
         v-if="isAdmin"
-        severity="contrast"
+        severity="primary"
         variant="text"
         class="w-50 h-15 uppercase hover:bg-transparent"
-        @click="showCreateForm"
+        @click="showForm(null)"
       >
         <i class="pi pi-plus" />
-        {{ t('createSkill') }}
+        {{ t('create.skill') }}
       </Button>
     </div>
 
@@ -28,6 +28,7 @@
       <template #details="{ data }">
         <Button
           icon="pi pi-ellipsis-v"
+          style="color: #d0d0d0"
           text
           rounded
           @click="toggleMenu($event, data)"
@@ -94,18 +95,18 @@ const buttonText = ref<string>('');
 
 const menuOptions: MenuItem[] = [
   {
-    label: 'edit',
+    label: t('edit.edit'),
     command: () => {
       if (selectedSkill.value) {
-        showEditForm(selectedSkill.value);
+        showForm(selectedSkill.value);
       }
     },
   },
   {
-    label: 'delete',
-    command: () => {
+    label: t('delete'),
+    command: async () => {
       if (selectedSkill.value) {
-        deleteSkill(selectedSkill.value.id);
+        await deleteSkill(selectedSkill.value.id);
       }
     },
   },
@@ -152,29 +153,28 @@ const dialogInputs = computed<Input[]>(() => [
   },
 ]);
 
-const showEditForm = (data: Skill) => {
-  dialogTitle.value = t('edit.skill');
-  buttonText.value = t('updateButton');
-  selectedSkill.value = data;
+const showForm = (skill: Skill | null) => {
+  if (skill) {
+    selectedSkill.value = skill;
+    dialogTitle.value = t('edit.skill');
+    buttonText.value = t('updateButton');
+  } else {
+    selectedSkill.value = null;
+    dialogTitle.value = t('create.skill');
+    buttonText.value = t('create.button');
+  }
   isDialogVisible.value = true;
 };
 
-const showCreateForm = () => {
-  selectedSkill.value = null;
-  dialogTitle.value = t('createSkill');
-  buttonText.value = t('createButton');
-  isDialogVisible.value = true;
-};
-
-const handleSubmit = (formData: Record<string, any>) => {
+const handleSubmit = (formData: Record<string, string>) => {
   if (selectedSkill.value) {
     handleSkillUpdate(formData);
   } else {
-    handkeCreateNewSkill(formData);
+    handleCreateNewSkill(formData);
   }
 };
 
-const handkeCreateNewSkill = async (formData: Record<string, any>) => {
+const handleCreateNewSkill = async (formData: Record<string, string>) => {
   const category = skillCategories.value.find(
     (c) => c.name === formData.category_name
   );
@@ -186,9 +186,11 @@ const handkeCreateNewSkill = async (formData: Record<string, any>) => {
   };
 
   await createSkill(newSkill);
+  isDialogVisible.value = false;
+  selectedSkill.value = null;
 };
 
-const handleSkillUpdate = async (formData: Record<string, any>) => {
+const handleSkillUpdate = async (formData: Record<string, string>) => {
   if (!selectedSkill.value) return;
 
   const category = skillCategories.value.find(
@@ -206,16 +208,12 @@ const handleSkillUpdate = async (formData: Record<string, any>) => {
   isDialogVisible.value = false;
 };
 
-const toggleMenu = (event: Event, data) => {
+const toggleMenu = (event: Event, data: Skill) => {
   selectedSkill.value = data;
   menu.value.toggle(event);
 };
 
 onMounted(async () => {
-  try {
-    await Promise.all([getSkills(), getSkillCategories()]);
-  } finally {
-    isLoading.value = false;
-  }
+  await Promise.all([getSkills(), getSkillCategories()]);
 });
 </script>

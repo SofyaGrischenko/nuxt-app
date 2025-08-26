@@ -29,26 +29,15 @@
       </template>
 
       <template #details="{ data }">
-        <!-- <Button
-          v-if="isAdmin"
-          type="button"
-          icon="pi pi-ellipsis-v"
-          aria-haspopup="true"
-          aria-controls="overlay_menu"
-          @click="toggleMenu($event, data)"
-        /> -->
-
-        
         <Button
           icon="pi pi-arrow-right"
+          severity="secondary"
           text
           rounded
           @click="showDetails(data)"
         />
       </template>
     </dynamic-table>
-
-    <!-- <Menu ref="menu" id="overlay_menu" :model="items" :popup="true" /> -->
 
     <div
       v-if="employees.length < filteredUsers.length"
@@ -82,7 +71,7 @@ import type { FlatUser } from '~/types/user.types';
 import type { Input } from '~/types/form.types';
 
 const { t } = useI18n();
-const { isAdmin, currentUser } = useCurrentUser();
+const { currentUser } = useCurrentUser();
 const { getDepartments, getPositions, positions, departments } = useDetails();
 const {
   employees,

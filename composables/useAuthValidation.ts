@@ -6,7 +6,7 @@ export const useAuthValidation = (data: AuthInput) => {
   const rules = computed(() => ({
     email: {
       required: helpers.withMessage('Email is required', required),
-      email: helpers.withMessage('not email', email),
+      email: helpers.withMessage('Not an email', email),
     },
     password: {
       required: helpers.withMessage('Password is required', required),

@@ -1,4 +1,6 @@
-@import './variables.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 *,
 *::before,
@@ -38,4 +40,3 @@ input:-webkit-autofill:active {
 .no-scrollbar::-webkit-scrollbar {
   visibility: hidden;
 }
-

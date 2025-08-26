@@ -10,17 +10,17 @@
           type="text"
           :placeholder="t('search')"
           class="bg-transparent outline-none text-white placeholder-zinc-400 w-full"
-        />
+        >
       </div>
       <Button
         v-if="isAdmin"
-        severity="contrast"
+        severity="primary"
         variant="text"
         class="w-50 h-15 uppercase hover:bg-transparent"
         @click="showCreateForm"
       >
         <i class="pi pi-plus" />
-        {{ t('createLanguage') }}
+        {{ t('create.language') }}
       </Button>
     </div>
 
@@ -28,6 +28,7 @@
       <template #details="{ data }">
         <Button
           icon="pi pi-ellipsis-v"
+          style="color: #d0d0d0"
           text
           rounded
           @click="toggleMenu($event, data)"
@@ -64,7 +65,7 @@ import type { MenuItem } from 'primevue/menuitem';
 import DynamicDialog from '../UI/DynamicDialog.vue';
 import DynamicTable from '~/components/UI/DynamicTable.vue';
 import type {
-  CreateLanguageInput,
+  BaseLanguage,
   Input,
   LanguageInput,
   LanguageOtput,
@@ -93,7 +94,7 @@ const buttonText = ref<string>('');
 
 const menuOptions: MenuItem[] = [
   {
-    label: 'edit',
+    label: t('edit.edit'),
     command: () => {
       if (selectedLang.value) {
         showEditForm(selectedLang.value);
@@ -101,7 +102,7 @@ const menuOptions: MenuItem[] = [
     },
   },
   {
-    label: 'delete',
+    label: t('delete'),
     command: () => {
       if (selectedLang.value) {
         deleteLanguage(selectedLang.value.id);
@@ -160,17 +161,17 @@ const showEditForm = (data: LanguageOtput) => {
 
 const showCreateForm = () => {
   selectedLang.value = null;
-  dialogTitle.value = t('table.name');
-  buttonText.value = t('createButton');
+  dialogTitle.value = t('create.language');
+  buttonText.value = t('create.button');
   isDialogVisible.value = true;
 };
 
-const toggleMenu = (event: Event, data) => {
+const toggleMenu = (event: Event, data: LanguageOtput) => {
   selectedLang.value = data;
   menu.value.toggle(event);
 };
 
-const handleSubmit = (formData: Record<string, any>) => {
+const handleSubmit = (formData: Record<string, string>) => {
   if (selectedLang.value) {
     handleLangUpdate(formData);
   } else {
@@ -178,17 +179,18 @@ const handleSubmit = (formData: Record<string, any>) => {
   }
 };
 
-const handleCreateNewLang = async (formData: Record<string, any>) => {
-  const newSkill: CreateLanguageInput = {
+const handleCreateNewLang = async (formData: Record<string, string>) => {
+  const newSkill: BaseLanguage = {
     name: formData.name,
     iso2: formData.iso2,
     native_name: formData.native_name,
   };
 
   await createLang(newSkill);
+  isDialogVisible.value = false;
 };
 
-const handleLangUpdate = async (formData: Record<string, any>) => {
+const handleLangUpdate = async (formData: Record<string, string>) => {
   if (!selectedLang.value) return;
 
   const langToUpdate: LanguageInput = {

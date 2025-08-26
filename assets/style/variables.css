@@ -3,7 +3,7 @@
   --p-button-primary-background: #ba2525;
   --p-button-primary-border-color: #ba2525;
   --p-button-primary-color: #ffff;
-  --p-button-border-radius: 50px;
+  /* --p-button-border-radius: 50px; */
 
   /*primary button hover */
   --p-button-primary-hover-border-color: #ba2525;
@@ -20,7 +20,7 @@
   --p-button-secondary-background: #636363;
 
   /* contrast button */
-  --p-button-text-contrast-color: #ba2525;
+  --p-button-text-contrast-color: #e52f2f;
   --p-button-text-contrast-hover-background: #00000000;
   --p-button-text-contrast-active-color: #971d1d;
   --p-button-text-contrast-active-background: #00000000;
@@ -33,7 +33,7 @@
   --p-inputtext-focus-border-color: #ba2525;
 
   /* form input active */
-  --p-floatlabel-on-active-background: #353535;
+  --p-floatlabel-on-active-background: #454545;
 
   /* form input disabled */
   --p-inputtext-disabled-background: #00000000;
@@ -69,6 +69,7 @@
 
   /* menu */
   --p-menu-background: #484848;
+  --p-menu-item-focus-background: #ba2525e0;
 }
 
 /* .dark {
