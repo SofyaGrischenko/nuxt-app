@@ -10,7 +10,7 @@
           type="text"
           :placeholder="t('search')"
           class="bg-transparent outline-none text-white placeholder-zinc-400 w-full"
-        >
+        />
       </div>
       <Button
         v-if="isAdmin"
@@ -66,10 +66,10 @@ import DynamicDialog from '../UI/DynamicDialog.vue';
 import DynamicTable from '~/components/UI/DynamicTable.vue';
 import type {
   BaseLanguage,
-  Input,
   LanguageInput,
   LanguageOtput,
-} from '~/types/form.types';
+} from '~/types/language.types';
+import type { Input } from '~/types/form.types';
 
 const { t } = useI18n();
 const { isAdmin } = useCurrentUser();

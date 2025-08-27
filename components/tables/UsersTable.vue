@@ -82,7 +82,6 @@ const {
   updateUser,
 } = useUsers();
 
-const menu = ref();
 const selectedUser = ref<FlatUser | null>(null);
 const isDialogVisible = ref(false);
 
@@ -173,9 +172,6 @@ const showDetails = (data: FlatUser) => {
   }
 };
 
-// const toggleMenu = (event: Event) => {
-//   menu.value.toggle(event);
-// };
 
 onMounted(async () => {
   try {

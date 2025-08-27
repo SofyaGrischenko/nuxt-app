@@ -10,7 +10,7 @@
           type="text"
           :placeholder="t('search')"
           class="bg-transparent outline-none text-white placeholder-zinc-400 w-full"
-        >
+        />
       </div>
       <Button
         v-if="isAdmin"
@@ -65,11 +65,11 @@ import DynamicTable from '~/components/UI/DynamicTable.vue';
 import { useI18n } from 'vue-i18n';
 import type {
   CreateSkillInput,
-  Input,
   Skill,
   UpdateSkillInput,
-} from '~/types/form.types';
+} from '~/types/skill.types';
 import type { MenuItem } from 'primevue/menuitem';
+import type { Input } from '~/types/form.types';
 
 const { t } = useI18n();
 const { isAdmin } = useCurrentUser();

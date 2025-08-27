@@ -6,6 +6,7 @@ export const GET_USERS = gql`
       id
       email
       profile {
+        id
         full_name
         first_name
         last_name
@@ -25,6 +26,7 @@ export const GET_USER_BY_ID = gql`
       created_at
       email
       profile {
+        id
         full_name
         first_name
         last_name

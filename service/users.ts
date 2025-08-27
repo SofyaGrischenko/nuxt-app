@@ -16,7 +16,9 @@ export const handleGetUsers = async () => {
     const { data, fetch } = useApolloQuery(GET_USERS);
     await fetch();
 
-    return data.value.users.map((user: UserApi) => mapApiToUser(user));
+    return data.value.users.map((user: UserApi) => {
+      return mapApiToUser(user);
+    });
   } catch (error) {
     console.error('failed to get users', error);
   }

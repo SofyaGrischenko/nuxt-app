@@ -10,7 +10,7 @@ import type {
   Skill,
   SkillCategory,
   UpdateSkillInput,
-} from '~/types/form.types';
+} from '~/types/skill.types';
 
 export const useSkills = () => {
   const skills = useState<Skill[]>('skills', () => []);

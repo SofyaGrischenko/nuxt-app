@@ -38,7 +38,9 @@
     "name": "Название",
     "skills_category": "Категория",
     "iso2": "ISO2",
-    "nativeName": "Оригинальное название"
+    "nativeName": "Оригинальное название",
+    "description": "Описание",
+    "employee": "Сотрудник"
   },
 
   "profile": {
