@@ -1,8 +1,6 @@
-import {
-  handleGetDepartments,
-  handleGetPositions,
-} from '~/service/details';
-import type { Details, SkillCategory } from '~/types/form.types';
+import { handleGetDepartments, handleGetPositions } from '~/service/details';
+import type { Details } from '~/types/form.types';
+import type { SkillCategory } from '~/types/skill.types';
 
 export const useDetails = () => {
   const positions = useState<Details[]>('positions', () => []);
@@ -23,7 +21,7 @@ export const useDetails = () => {
         positions.value = response.positions;
       }
     } catch (error) {
-      console.error('failed to det positions', error);
+      console.error('failed to get positions', error);
     }
   };
 

@@ -39,7 +39,6 @@ export interface User {
   role: string;
   profile?: UserProfile;
 }
-// export type FlatUser = Omit<User, 'profile'> & UserProfile;
 
 export type FlatUser = {
   id?: string;

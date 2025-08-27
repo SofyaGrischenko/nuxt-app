@@ -1,6 +1,6 @@
 <template>
   <div v-if="userToDisplay" class="flex flex-col items-center justify-center">
-    <avatar-upload
+    <AvatarUpload
       v-model="newAvatar"
       :name="userToDisplay.firstName ?? ''"
       :initial-preview-url="userToDisplay.avatar"
@@ -16,7 +16,7 @@
     </h2>
 
     <div class="flex flex-col">
-      <dynamic-form
+      <DynamicForm
         v-if="formData"
         v-model="formData"
         :inputs="formInputs"

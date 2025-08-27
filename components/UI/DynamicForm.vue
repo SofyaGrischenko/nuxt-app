@@ -1,6 +1,6 @@
 <template>
   <div :class="wrapperClass || 'w-full flex flex-col gap-6'">
-    <form-input
+    <FormInput
       v-for="input in inputs"
       :key="input.field"
       :model-value="modelValue[input.field]"

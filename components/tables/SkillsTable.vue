@@ -10,7 +10,7 @@
           type="text"
           :placeholder="t('search')"
           class="bg-transparent outline-none text-white placeholder-zinc-400 w-full"
-        >
+        />
       </div>
       <Button
         v-if="isAdmin"
@@ -24,7 +24,7 @@
       </Button>
     </div>
 
-    <dynamic-table :data="filteredSkills" :columns>
+    <DynamicTable :data="filteredSkills" :columns>
       <template #details="{ data }">
         <Button
           icon="pi pi-ellipsis-v"
@@ -34,7 +34,7 @@
           @click="toggleMenu($event, data)"
         />
       </template>
-    </dynamic-table>
+    </DynamicTable>
     <div
       v-if="skills.length < filteredSkills.length"
       class="flex justify-center mt-4 mb-15"
@@ -45,7 +45,7 @@
         @click="loadMore"
       />
     </div>
-    <dynamic-dialog
+    <DynamicDialog
       v-model:visible="isDialogVisible"
       :title="dialogTitle"
       :inputs="dialogInputs"
@@ -65,11 +65,11 @@ import DynamicTable from '~/components/UI/DynamicTable.vue';
 import { useI18n } from 'vue-i18n';
 import type {
   CreateSkillInput,
-  Input,
   Skill,
   UpdateSkillInput,
-} from '~/types/form.types';
+} from '~/types/skill.types';
 import type { MenuItem } from 'primevue/menuitem';
+import type { Input } from '~/types/form.types';
 
 const { t } = useI18n();
 const { isAdmin } = useCurrentUser();

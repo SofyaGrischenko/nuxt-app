@@ -6,7 +6,7 @@
     class="md:w-[600px]"
     :style="{ width: '50vw' }"
   >
-    <dynamic-form v-model="data" :inputs :wrapper-class />
+    <DynamicForm v-model="data" :inputs :wrapper-class />
     <template #footer>
       <div class="flex w-[50%] min-w-[250px] gap-5">
         <Button

@@ -46,7 +46,9 @@
     "name": "Name",
     "skills_category": "Category",
     "iso2": "ISO2",
-    "nativeName": "Native name"
+    "nativeName": "Native name",
+    "description": "Description",
+    "employee": "Employee"
   },
 
   "profile": {

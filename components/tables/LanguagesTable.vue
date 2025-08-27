@@ -10,7 +10,7 @@
           type="text"
           :placeholder="t('search')"
           class="bg-transparent outline-none text-white placeholder-zinc-400 w-full"
-        >
+        />
       </div>
       <Button
         v-if="isAdmin"
@@ -24,7 +24,7 @@
       </Button>
     </div>
 
-    <dynamic-table :data="filteredLanguages" :columns>
+    <DynamicTable :data="filteredLanguages" :columns>
       <template #details="{ data }">
         <Button
           icon="pi pi-ellipsis-v"
@@ -34,7 +34,7 @@
           @click="toggleMenu($event, data)"
         />
       </template>
-    </dynamic-table>
+    </DynamicTable>
     <div
       v-if="languages.length < filteredLanguages.length"
       class="flex justify-center mt-4 mb-15"
@@ -46,7 +46,7 @@
       />
     </div>
 
-    <dynamic-dialog
+    <DynamicDialog
       v-model:visible="isDialogVisible"
       :title="dialogTitle"
       :inputs="dialogInputs"
@@ -66,10 +66,10 @@ import DynamicDialog from '../UI/DynamicDialog.vue';
 import DynamicTable from '~/components/UI/DynamicTable.vue';
 import type {
   BaseLanguage,
-  Input,
   LanguageInput,
   LanguageOtput,
-} from '~/types/form.types';
+} from '~/types/language.types';
+import type { Input } from '~/types/form.types';
 
 const { t } = useI18n();
 const { isAdmin } = useCurrentUser();

@@ -8,7 +8,7 @@ import type {
   BaseLanguage,
   LanguageInput,
   LanguageOtput,
-} from '~/types/form.types';
+} from '~/types/language.types';
 
 export const useLanguages = () => {
   const languages = useState<LanguageOtput[]>('languages', () => []);

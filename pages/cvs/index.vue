@@ -1,9 +1,9 @@
 <template>
-  <SkillsTable />
+  <CvsTable />
 </template>
 
 <script setup lang="ts">
-import SkillsTable from '~/components/tables/SkillsTable.vue';
+import CvsTable from '~/components/tables/CvsTable.vue';
 definePageMeta({
   middleware: 'auth',
 });
